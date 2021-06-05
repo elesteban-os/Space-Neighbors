@@ -24,35 +24,36 @@ window.minsize(720, 480)
 window.resizable(False, False)
 window.config()
 
+# Importación de imágenes
+fondo = ImageTk.PhotoImage(Image.open("media/bgSpace.png"))
+imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
+imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
+flechas = ImageTk.PhotoImage(Image.open("media/teclas.png"))
+imgAtras = ImageTk.PhotoImage(Image.open("media/botonAtras.png"))
+
+
 # Intercambio entre canvas:
-def intInfo():
+def interInfo():
     cPrincipal.pack_forget()
     cInfo.pack(side = "right")
 
 # Creación de canvas
 
     # Canvas de la pantalla principal.
-cPrincipal = tk.Canvas(window, bg = "blue",  width = 730, height = 450)
-cInfo = tk.Canvas(window, bg = "blue",  width = 730, height = 450)
+cPrincipal = tk.Canvas(window,  width = 730, height = 450)
 
     # Widgets
         # Fondo de la pantalla principal
-fondo = ImageTk.PhotoImage(Image.open("media/bgSpace.png"))
 lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
 lFondo.place(x = 0, y = 0)
 
         # Botones
-imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
 bPlay.place(x = 290, y = 270)
 
-imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
-bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
+bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interInfo)
 bInfo.place(x = 120, y = 270)
 
 cPrincipal.pack(side = "right")
-
-
-
 
 window.mainloop()

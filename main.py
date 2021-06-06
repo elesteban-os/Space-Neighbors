@@ -37,6 +37,10 @@ def interInfo():
     cPrincipal.pack_forget()
     cInfo.pack(side = "right")
 
+def interPrin():
+    cInfo.pack_forget()
+    cPrincipal.pack(side = "right")
+
 # Creación de canvas
 
     # Canvas de la pantalla principal.
@@ -53,6 +57,49 @@ bPlay.place(x = 290, y = 270)
 
 bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interInfo)
 bInfo.place(x = 120, y = 270)
+
+#-----Configuracion canva About-----
+# Canvas
+cInfo = tk.Canvas(window,  width = 730, height = 450)
+
+# Widgets
+lFondoinf = tk.Label(cInfo, image = fondo, bg = "white")
+lFondoinf.place(x = 0, y = 0)
+
+lteclasinf = tk.Label(cInfo, image = flechas, bg = "white", borderwidth = 0)
+lteclasinf.place(x = 380, y = 80)
+
+credits_ = tk.Label(cInfo,text = """
+
+País:
+Costa Rica
+
+Universidad y carrera:
+Instituto Tecnológico de Costa Rica
+Computer Engineering
+
+Asignatura, año que cursa y grupo:
+Taller de programación
+2021
+Grupo 1
+
+Profesor:
+Jeff Schmidt
+
+Versión programa:
+1.0
+
+Desarrolladores:
+David Leiton
+Kevin Chinchilla
+
+Autores de módulos modificados:--------
+""", bg = "black", fg = "white", font = ("fixedsys", 10))
+credits_.place(x=25,y=10)
+
+bvolver = tk.Button(cInfo, image = imgAtras, width = 120, height = 60, borderwidth = 0, cursor = "hand2", command = interPrin)
+bvolver.place(x = 4, y = 4)
+
 
 cPrincipal.pack(side = "right")
 

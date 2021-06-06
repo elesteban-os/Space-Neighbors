@@ -105,4 +105,4 @@ cPrincipal.pack(side = "right")
 
 window.mainloop()
 
-print("Holaaaaa")
+print("listo")

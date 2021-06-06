@@ -57,3 +57,5 @@ bInfo.place(x = 120, y = 270)
 cPrincipal.pack(side = "right")
 
 window.mainloop()
+
+print("listo")

@@ -29,9 +29,16 @@ def interInfo():
     cPrincipal.pack_forget()
     cInfo.pack(side = "right")
 
+
 def interInfoAprin():
     cInfo.pack_forget()
+    cJuego.pack_forget()
     cPrincipal.pack(side = "right")
+
+def interJuego():
+    cPrincipal.pack_forget()
+    cJuego.pack(side = "right")
+
 
 # Creación de canvas
 
@@ -39,6 +46,7 @@ def interInfoAprin():
     
 cPrincipal = tk.Canvas(window,  width = 730, height = 450)
 
+cJuego = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
 cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
@@ -78,7 +86,7 @@ lFondo.place(x = 0, y = 0)
 
         # Botones
 imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
-bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
+bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
 bPlay.place(x = 290, y = 270)
 
 imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
@@ -92,9 +100,15 @@ bvolver.place(x = 4, y = 4)
 flechas = ImageTk.PhotoImage(Image.open("media/teclas.png"))
 fteclas=cInfo.create_image(400, 30, image=flechas, anchor="nw")
 
+#botones canva juego modo historia y niveles
+
+#bjugar = tk.Button(cInfo ,text="Jugar", borderwidth = 0,font=("Rockwell", 15), command = interInfoAprin)
+#bjugar.place(x = 4, y = 4)
+
+bvolver1 = tk.Button(cJuego ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = interInfoAprin)
+bvolver1.place(x = 4, y = 4)
+
+
 cPrincipal.pack(side = "right")
-
-
-
 
 window.mainloop()

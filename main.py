@@ -104,5 +104,3 @@ bvolver.place(x = 4, y = 4)
 cPrincipal.pack(side = "right")
 
 window.mainloop()
-
-print("listo")

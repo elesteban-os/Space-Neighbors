@@ -28,9 +28,12 @@ window.config()
 fondo = ImageTk.PhotoImage(Image.open("media/bgSpace.png"))
 imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
 imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
+imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
 flechas = ImageTk.PhotoImage(Image.open("media/teclas.png"))
 imgAtras = ImageTk.PhotoImage(Image.open("media/botonAtras.png"))
-
+imgNivel1 = ImageTk.PhotoImage(Image.open("media/botonNivel1.png"))
+imgNivel2 = ImageTk.PhotoImage(Image.open("media/botonNivel2.png"))
+imgNivel3 = ImageTk.PhotoImage(Image.open("media/botonNivel3.png"))
 
 # Intercambio entre canvas:
 def interInfo():
@@ -57,6 +60,10 @@ bPlay.place(x = 290, y = 270)
 
 bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interInfo)
 bInfo.place(x = 120, y = 270)
+
+bPuntajes = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interInfo)
+bPuntajes.place(x = 460, y = 270)
+
 
 #-----Configuracion canva About-----
 # Canvas

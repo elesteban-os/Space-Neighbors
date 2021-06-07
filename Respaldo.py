@@ -17,12 +17,19 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 
+
+
 # Creación de la ventana de trabajo.
 window = tk.Tk()
 window.title("Space Neighbors")
 window.minsize(720, 480)
 window.resizable(False, False)
 window.config()
+
+# imagenes:
+imgNivel1 = ImageTk.PhotoImage(Image.open("media/botonNivel1.png"))
+imgNivel2 = ImageTk.PhotoImage(Image.open("media/botonNivel2.png"))
+imgNivel3 = ImageTk.PhotoImage(Image.open("media/botonNivel3.png"))
 
 # Intercambio entre canvas:
 def interInfo():
@@ -148,11 +155,11 @@ bhistoria.place(x = 100, y = 270)
 bNiveles = tk.Button(cJuego ,text="Niveles", borderwidth = 0,font=("Rockwell", 15), command = interNiveles)
 bNiveles.place(x = 300, y = 270)
 
-bLevel1 = tk.Button(cniveles ,text="Nivel 1", borderwidth = 0,font=("Rockwell", 15), command = interNivel1)
-bLevel1.place(x = 400, y = 270)
+bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0, command = interNivel1)
+bLevel1.place(x = 100, y = 270)
 
-bLevel2 = tk.Button(cniveles ,text="Nivel 2", borderwidth = 0,font=("Rockwell", 15),command = interNivel2)
-bLevel2.place(x = 500, y = 270)
+bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0,command = interNivel2)
+bLevel2.place(x = 290, y = 270)
 
 bLevel3 = tk.Button(cniveles ,text="Nivel 3", borderwidth = 0,font=("Rockwell", 15), command = interNivel3)
 bLevel3.place(x = 600, y = 270)

@@ -49,6 +49,7 @@ def interJuego():
 def interHistoria():
     cJuego.pack_forget()
     cHistoria.pack(side = "right")
+
 def interNiveles():
     cJuego.pack_forget()
     cniveles.pack(side="right")

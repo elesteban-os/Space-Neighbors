@@ -237,3 +237,4 @@ name.place(x=100,y=250)
 cPrincipal.pack(side = "right")
 
 window.mainloop()
+print("Hola")

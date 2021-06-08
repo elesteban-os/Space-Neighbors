@@ -105,9 +105,9 @@ bInfo.place(x = 120, y = 270)
 bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
 bPuntajes.place(x = 460, y = 270)
 
+###
 imgNaveuwu = cPrincipal.create_image(150, 100, image = imgNave2)
-
-
+###
 
 
 

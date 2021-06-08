@@ -20,7 +20,7 @@ from PIL import ImageTk, Image
 # Creación de la ventana de trabajo.
 window = tk.Tk()
 window.title("Space Neighbors")
-window.minsize(720, 480)
+window.minsize(720, 450)
 window.resizable(False, False)
 window.config()
 
@@ -30,6 +30,9 @@ imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
 imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
 imgPuntajes = ImageTk.PhotoImage(Image.open("media/botonPuntajes.png"))
 flechas = ImageTk.PhotoImage(Image.open("media/teclas.png"))
+imgNave1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
+imgNave2 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
+imgNave3 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
 imgAtras = ImageTk.PhotoImage(Image.open("media/botonAtras.png"))
 imgHistoria = ImageTk.PhotoImage(Image.open("media/botonHistoria.png"))
 imgNiveles = ImageTk.PhotoImage(Image.open("media/botonNiveles.png"))
@@ -82,12 +85,15 @@ def volverNiveles():
 # Creación de canvas
 
     # Canvas de la pantalla principal.
-cPrincipal = tk.Canvas(window,  width = 730, height = 450)
+cPrincipal = tk.Canvas(window,  width = 730, height = 450, bg = "black")
 
     # Widgets
         # Fondo de la pantalla principal
-lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
-lFondo.place(x = 0, y = 0)
+
+
+
+#lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
+#lFondo.place(x = 0, y = 0)
 
         # Botones
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
@@ -98,6 +104,12 @@ bInfo.place(x = 120, y = 270)
 
 bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
 bPuntajes.place(x = 460, y = 270)
+
+imgNaveuwu = cPrincipal.create_image(150, 100, image = imgNave2)
+
+
+
+
 
 
 #-----Configuracion canva About-----

@@ -36,7 +36,7 @@ class Nave:
         print(self.ejeY)
 
 navePrueba = Nave(100, cGameplay.coords(imgNave23)[0], cGameplay.coords(imgNave23)[1], imgNave23, cGameplay)
-navePrueba.moverD()
+#navePrueba.moverD()
 
 
 window.mainloop()

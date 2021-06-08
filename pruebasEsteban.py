@@ -130,5 +130,5 @@ window.bind("<KeyRelease-Up>", navePrueba.cancMoveAr)
 window.bind("<KeyPress-Down>", navePrueba.moverAbT)
 window.bind("<KeyRelease-Down>", navePrueba.cancMoveAb)
 
-print("oI")
+print("ooI")
 window.mainloop()

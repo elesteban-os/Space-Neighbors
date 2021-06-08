@@ -97,7 +97,7 @@ cNivel2 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 cNivel3 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
 cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-
+#contenido de canvas de acerca de
 credits_ = tk.Label(cInfo,text = """
 
 País:
@@ -148,6 +148,26 @@ bvolver.place(x = 4, y = 4)
 flechas = ImageTk.PhotoImage(Image.open("media/teclas.png"))
 fteclas=cInfo.create_image(400, 30, image=flechas, anchor="nw")
 
+#naves a escoger
+N1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
+nave1=cHistoria.create_image(330, 100, image=N1, anchor="nw")
+
+N2 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
+nave2=cHistoria.create_image(450, 100, image=N2, anchor="nw")
+
+N3 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
+nave3= cHistoria.create_image(550, 100, image=N3, anchor="nw")
+#------------------------------------------------------
+N11 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
+nave11=cniveles.create_image(130, 10, image=N11, anchor="nw")
+
+N22 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
+nave22=cniveles.create_image(270, 10, image=N22, anchor="nw")
+
+N33 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
+nave33= cniveles.create_image(400, 10, image=N33, anchor="nw")
+
+
 #botones canva juego modo historia y niveles
 
 bhistoria = tk.Button(cJuego ,text="Modo Historia", borderwidth = 0,font=("Rockwell", 15), command = interHistoria)
@@ -184,7 +204,35 @@ bvolverN2.place(x = 4, y = 4)
 #boton Volver del juego a menu
 bvolver1 = tk.Button(cJuego ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = interInfoAprin)
 bvolver1.place(x = 4, y = 4)
+#radioboton para seleccionar carros
 
+#varMap = IntVar()
+
+#varVel = IntVar()
+
+B1 = tk.Radiobutton(cHistoria, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))
+B1.place(x=400,y=300)
+
+B2 = tk.Radiobutton(cHistoria, text="2", value=2, bg="black", fg="blue", font=("fixedsys"))
+B2.place(x=500,y=300)
+
+B3 = tk.Radiobutton(cHistoria, text="3",value=3, bg="black", fg="blue", font=("fixedsys"))
+B3.place(x=600,y=300)
+
+Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))
+Escoge1.place(x=210,y=200)
+
+Escoge2 = tk.Radiobutton(cniveles, text="2", value=2, bg="black", fg="blue", font=("fixedsys"))
+Escoge2.place(x=350,y=200)
+
+Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, bg="black", fg="blue", font=("fixedsys"))
+Escoge3.place(x=500,y=200)
+
+
+#Entry para Modo historia
+
+name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
+name.place(x=100,y=250)
 
 cPrincipal.pack(side = "right")
 

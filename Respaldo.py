@@ -16,6 +16,7 @@
 # Librerias a utilizar en este proyecto
 import tkinter as tk
 from PIL import ImageTk, Image
+import random
 
 
 

@@ -2,6 +2,7 @@
 import time
 import tkinter as tk
 from PIL import ImageTk, Image
+import random
 from threading import Thread
 
 window = tk.Tk()
@@ -34,7 +35,6 @@ class Nave:
         self.enMoveD = False
         self.NaveImg = imgNave
         self.canvas = canvas
-
     #---------------
 
     def moverDT(self, bind):
@@ -129,6 +129,20 @@ window.bind("<KeyPress-Up>", navePrueba.moverArT)
 window.bind("<KeyRelease-Up>", navePrueba.cancMoveAr)
 window.bind("<KeyPress-Down>", navePrueba.moverAbT)
 window.bind("<KeyRelease-Down>", navePrueba.cancMoveAb)
+
+#Clase de los asteroides
+class Asteroides:
+    def __init__(self, coordsX, coordsY, canvas ):
+        self.vida = 3
+        self.ejeX = coordsX
+        self.ejeY = coordsY
+        self.enMove = False
+        self.contarRebote=0
+        self.daño= False#definir
+        self.velocidadX = random.randint(0, 10) #definir
+        self.velocidadY = random.randint(0, 10)
+       #self.NaveImg = imgNave
+        self.canvas = canvas
 
 print("ooI")
 window.mainloop()

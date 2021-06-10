@@ -133,7 +133,6 @@ window.bind("<KeyRelease-Down>", navePrueba.cancMoveAb)
 #Clase de los asteroides
 class Asteroides:
     def __init__(self, coordsX, coordsY, canvas ):
-        self.vida = 3
         self.ejeX = coordsX
         self.ejeY = coordsY
         self.enMove = False
@@ -143,6 +142,10 @@ class Asteroides:
         self.velocidadY = random.randint(0, 10)
        #self.NaveImg = imgNave
         self.canvas = canvas
+
+    #def move(self):
+
+    #def Rebote(self):
 
 print("ooI")
 window.mainloop()

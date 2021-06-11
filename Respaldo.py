@@ -17,6 +17,7 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import random
+from tkinter import messagebox
 
 
 
@@ -77,6 +78,17 @@ def volverNiveles():
     cNivel2.pack_forget()
     cNivel3.pack_forget()
     cniveles.pack(side = "right")
+#----------------------Para jugar en modo historia---------------------
+def InterJugar():
+    if name.get() != "":
+        cHistoria.pack_forget()
+        cModHis.pack(side = "right")
+    else:
+        messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
+
+def InterAHistoria():
+    cModHis.pack_forget()
+    cHistoria.pack(side = "right")
 
 
 # Creación de canvas
@@ -88,6 +100,8 @@ cPrincipal = tk.Canvas(window,  width = 730, height = 450)
 cJuego = tk.Canvas(window,  width = 730, height = 450, bg= "black")
     #canvas en jugar
 cHistoria = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+cModHis = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
 cniveles  = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
@@ -173,6 +187,14 @@ nave33= cniveles.create_image(400, 10, image=N33, anchor="nw")
 
 bhistoria = tk.Button(cJuego ,text="Modo Historia", borderwidth = 0,font=("Rockwell", 15), command = interHistoria)
 bhistoria.place(x = 100, y = 270)
+
+bJugar = tk.Button(cHistoria ,text="Jugar", borderwidth = 0,font=("Rockwell", 15), command = InterJugar)
+bJugar.place(x = 100, y = 290)
+
+bvol = tk.Button(cModHis ,text="volver", borderwidth = 0,font=("Rockwell", 15), command = InterAHistoria)
+bvol.place(x = 5, y = 5)
+
+
 
 bNiveles = tk.Button(cJuego ,text="Niveles", borderwidth = 0,font=("Rockwell", 15), command = interNiveles)
 bNiveles.place(x = 300, y = 270)

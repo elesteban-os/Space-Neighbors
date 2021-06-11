@@ -8,7 +8,7 @@
 
  Estudiantes:
  David A. Leitón Flores - 2021103803
- Kevin E. Chinchilla Rodríguez - 2021101242+
+ Kevin E. Chinchilla Rodríguez - 2021101242
 
 #########################################
 """

@@ -4,7 +4,7 @@ import time
 import tkinter as tk
 from PIL import ImageTk, Image
 from threading import Thread
-import enemies
+#import enemies
 
 window = tk.Tk()
 window.title("Space Neighbors")
@@ -46,6 +46,7 @@ class Nave:
         self.enMoveD = False
         self.NaveImg = imgNave
         self.canvas = canvas
+        self.bbox = [0, 0, 0, 0]
     #---------------
 
     def moverDT(self, bind):
@@ -59,6 +60,8 @@ class Nave:
             if self.ejeX != 730:
                 self.canvas.move(self.NaveImg, 10, 0)
                 self.ejeX = self.canvas.coords(self.NaveImg)[0]
+                self.bbox[0] = self.canvas.bbox(self.NaveImg)[0]
+                self.bbox[1] = self.canvas.bbox(self.NaveImg)[1]
                 time.sleep(0.02)
             else:
                 break
@@ -126,6 +129,10 @@ class Nave:
     def cancMoveAb(self, bind):
         self.enMoveD = False
 
+    def returnimg(self, i):
+        return self.canvas.bbox(self.NaveImg)[i]
+
+
 def generar():
     t = Thread(target= generar_aux)
     t.start()
@@ -133,9 +140,52 @@ def generar():
 def generar_aux():
     while True:
         aver = cGameplay.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
-        asteroidePrueba = enemies.Asteroides(cGameplay.coords(aver)[0], aver, cGameplay)
+        asteroidePrueba = Asteroides(cGameplay.coords(aver)[0], cGameplay.coords(aver)[1], aver, cGameplay)
         asteroidePrueba.moveT()
-        time.sleep(5)
+        time.sleep(1.5)
+
+#Clase de los asteroides
+class Asteroides:
+    def __init__(self, coordsX, coordsY, imagen, canvas):
+        self.ejeX = coordsX
+        self.ejeY = coordsY
+        self.enMove = False
+        self.contarRebote= 0
+        self.daño = False   #definir
+        self.velocidadX = -1 * (random.randint(1, 10)) #definir
+        self.imagen = imagen
+        self.canvas = canvas
+
+    def moveT(self):
+        self.enMove = True
+        thread = Thread(target = self.move)
+        thread.start()
+
+    def move(self):
+        direccionY = self.ejeY // random.randint(5, 150)
+        while self.ejeX != -30:
+            print(navePrueba.returnimg(2))
+            self.canvas.move(self.imagen, self.velocidadX, direccionY)
+            time.sleep(0.05)
+            self.ejeX = self.canvas.coords(self.imagen)[0]
+            self.ejeY = self.canvas.coords(self.imagen)[1]
+            if self.ejeY <= 0 and self.contarRebote != 2:
+                self.contarRebote += 1
+                direccionY *= -1
+            elif self.ejeY >= 450 and self.contarRebote != 2:
+                self.contarRebote += 1
+                direccionY *= -1
+            elif self.ejeX <= 0 and self.contarRebote != 2:
+                self.contarRebote += 1
+                self.velocidadX *= -1
+            elif self.ejeX >= 730 and self.contarRebote != 2:
+                self.contarRebote += 1
+                self.velocidadX *= -1
+            elif self.ejeX > 750:
+                break
+
+    def __del__(self):
+        self.canvas.delete(self.imagen)
 
 generar()
 

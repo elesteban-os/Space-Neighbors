@@ -1,4 +1,5 @@
 # Librerias a utilizar en este proyecto
+import random
 import time
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -125,7 +126,18 @@ class Nave:
     def cancMoveAb(self, bind):
         self.enMoveD = False
 
+def generar():
+    t = Thread(target= generar_aux)
+    t.start()
 
+def generar_aux():
+    while True:
+        aver = cGameplay.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
+        asteroidePrueba = enemies.Asteroides(cGameplay.coords(aver)[0], aver, cGameplay)
+        asteroidePrueba.moveT()
+        time.sleep(1)
+
+generar()
 
 navePrueba = Nave(cGameplay.coords(imgNave23)[0], cGameplay.coords(imgNave23)[1], imgNave23, cGameplay)
 naveenJuego = 0
@@ -139,6 +151,7 @@ window.bind("<KeyPress-Up>", navePrueba.moverArT)
 window.bind("<KeyRelease-Up>", navePrueba.cancMoveAr)
 window.bind("<KeyPress-Down>", navePrueba.moverAbT)
 window.bind("<KeyRelease-Down>", navePrueba.cancMoveAb)
+
 
 
 

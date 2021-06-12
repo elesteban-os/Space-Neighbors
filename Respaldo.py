@@ -15,7 +15,6 @@
 
 # Librerias a utilizar en este proyecto
 from typing import Any
-
 import tkinter as tk
 from PIL import ImageTk, Image
 import random
@@ -24,28 +23,22 @@ import pygame, sys
 from pygame.locals import *
 
 
-
-
 #globales
 nav=0
 nav1=0
 nav2=0
 
-
 #sonido--------------------
+
 pygame.mixer.init()
 sonido_fondo = pygame.mixer.Sound("Geom.mp3")
 pygame.mixer.Sound.play(sonido_fondo, -1)
-
 
 def stop():
     if pygame.mixer.Sound.play(sonido_fondo, -1) :
         pygame.mixer.pause()
     else:
         pygame.mixer.unpause()
-
-
-
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -63,7 +56,6 @@ imgNivel3 = ImageTk.PhotoImage(Image.open("media/botonNivel3.png"))
 def interInfo():
     cPrincipal.pack_forget()
     cInfo.pack(side = "right")
-
 
 def interInfoAprin():#Se devuelve a principal, este en jugar o en acerca de
     cInfo.pack_forget()

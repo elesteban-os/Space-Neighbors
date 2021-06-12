@@ -20,10 +20,32 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import random
 from tkinter import messagebox
+import pygame, sys
+from pygame.locals import *
+
+
+
+
 #globales
 nav=0
 nav1=0
 nav2=0
+
+
+#sonido--------------------
+pygame.mixer.init()
+sonido_fondo = pygame.mixer.Sound("Geom.mp3")
+pygame.mixer.Sound.play(sonido_fondo, -1)
+
+
+def stop():
+    if pygame.mixer.Sound.play(sonido_fondo, -1) :
+        pygame.mixer.pause()
+    else:
+        pygame.mixer.unpause()
+
+
+
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -225,6 +247,11 @@ lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
 lFondo.place(x = 0, y = 0)
 
         # Botones
+#boton parar sonido
+
+bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
+bstop.place(x = 600, y = 290)
+
 imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
 bPlay.place(x = 290, y = 270)

@@ -21,6 +21,8 @@ class Asteroides:
 
     def move(self):
         while self.ejeX != -30:
+            #
+            #
             self.canvas.move(self.imagen, self.velocidadX, 0)
             time.sleep(0.05)
             self.ejeX = self.canvas.coords(self.imagen)[0]
@@ -30,6 +32,7 @@ class Asteroides:
             elif self.ejeX > 731 and self.contarRebote != 2:
                 self.contarRebote += 1
                 self.velocidadX *= -1
+
 
 
 

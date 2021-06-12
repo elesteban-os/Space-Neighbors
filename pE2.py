@@ -116,6 +116,7 @@ class Nave:
 
     def moverAb(self):
         while self.enMoveD == True:
+
             if self.ejeY != 450:
                 self.canvas.move(self.NaveImg, 0, 10)
                 self.ejeY = self.canvas.coords(self.NaveImg)[1]

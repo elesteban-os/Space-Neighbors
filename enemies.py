@@ -36,3 +36,5 @@ class Asteroides:
 
 
     #def Rebote(self):
+
+print("N")

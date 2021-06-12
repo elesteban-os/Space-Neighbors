@@ -14,6 +14,8 @@
 """
 
 # Librerias a utilizar en este proyecto
+from typing import Any
+
 import tkinter as tk
 from PIL import ImageTk, Image
 import random
@@ -80,16 +82,18 @@ def volverNiveles():
     cniveles.pack(side = "right")
 #----------------------Para jugar en modo historia---------------------
 def InterJugar():
-    if name.get() != "":
-        cHistoria.pack_forget()
-        cModHis.pack(side = "right")
+    if varMap.get()==1 or varMap.get()==2  or varMap.get()==3:
+        if name.get() != "":
+            cHistoria.pack_forget()
+            cModHis.pack(side = "right")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
-        messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
+        messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
 def InterAHistoria():
     cModHis.pack_forget()
     cHistoria.pack(side = "right")
-
 
 # Creación de canvas
 
@@ -229,17 +233,15 @@ bvolver1 = tk.Button(cJuego ,text="Volver", borderwidth = 0,font=("Rockwell", 15
 bvolver1.place(x = 4, y = 4)
 #radioboton para seleccionar carros
 
-#varMap = IntVar()
+varMap = tk.IntVar()
 
-#varVel = IntVar()
-
-B1 = tk.Radiobutton(cHistoria, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))
+B1 = tk.Radiobutton(cHistoria, text="1", variable = varMap, value=1, bg="black", fg="blue", font=("fixedsys"))
 B1.place(x=400,y=300)
 
-B2 = tk.Radiobutton(cHistoria, text="2", value=2, bg="black", fg="blue", font=("fixedsys"))
+B2 = tk.Radiobutton(cHistoria, text="2", value=2 , variable = varMap, bg="black", fg="blue", font=("fixedsys"))
 B2.place(x=500,y=300)
 
-B3 = tk.Radiobutton(cHistoria, text="3",value=3, bg="black", fg="blue", font=("fixedsys"))
+B3 = tk.Radiobutton(cHistoria, text="3",value=3,variable = varMap, bg="black", fg="blue", font=("fixedsys"))
 B3.place(x=600,y=300)
 
 Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))

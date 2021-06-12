@@ -28,6 +28,8 @@ nav=0
 nav1=0
 nav2=0
 
+pausa=False
+
 #sonido--------------------
 
 pygame.mixer.init()
@@ -35,10 +37,13 @@ sonido_fondo = pygame.mixer.Sound("Geom.mp3")
 pygame.mixer.Sound.play(sonido_fondo, -1)
 
 def stop():
-    if pygame.mixer.Sound.play(sonido_fondo, -1) :
+    global pausa
+    if pausa==False :
         pygame.mixer.pause()
+        pausa=True
     else:
         pygame.mixer.unpause()
+        pausa=False
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()

@@ -20,6 +20,30 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import random
 from tkinter import messagebox
+import pygame, sys
+from pygame.locals import *
+
+
+
+
+#globales
+nav=0
+nav1=0
+nav2=0
+
+
+#sonido--------------------
+pygame.mixer.init()
+sonido_fondo = pygame.mixer.Sound("Geom.mp3")
+pygame.mixer.Sound.play(sonido_fondo, -1)
+
+
+def stop():
+    if pygame.mixer.Sound.play(sonido_fondo, -1) :
+        pygame.mixer.pause()
+    else:
+        pygame.mixer.unpause()
+
 
 
 
@@ -59,41 +83,112 @@ def interNiveles():
     cniveles.pack(side="right")
 
 def interNivel1():
-    cniveles.pack_forget()
-    cNivel1.pack(side = "right")
+    global nav, nav1, nav2
+    if varMap.get() == 1:
+        cniveles.pack_forget()
+        cNivel1.pack(side="right")
+        nav1 = cNivel1.create_image(400, 10, image=N11, anchor="nw")
+    elif varMap.get() == 2:
+        cniveles.pack_forget()
+        cNivel1.pack(side="right")
+        nav2 = cNivel1.create_image(400, 10, image=N22, anchor="nw")
+    elif varMap.get() == 3:
+        cniveles.pack_forget()
+        cNivel1.pack(side="right")
+        nav = cNivel1.create_image(400, 10, image=N33, anchor="nw")
+    else:
+        messagebox.showinfo("No puede Jugar", "Seleccione avatar")
+
 
 def interNivel2():
-    cniveles.pack_forget()
-    cNivel2.pack(side = "right")
+    global nav, nav1, nav2
+    if varMap.get() == 1:
+        cniveles.pack_forget()
+        cNivel2.pack(side="right")
+        nav1 = cNivel2.create_image(400, 10, image=N11, anchor="nw")
+    elif varMap.get() == 2:
+        cniveles.pack_forget()
+        cNivel2.pack(side="right")
+        nav2 = cNivel2.create_image(400, 10, image=N22, anchor="nw")
+    elif varMap.get() == 3:
+        cniveles.pack_forget()
+        cNivel2.pack(side="right")
+        nav = cNivel2.create_image(400, 10, image=N33, anchor="nw")
+    else:
+        messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
 def interNivel3():
-    cniveles.pack_forget()
-    cNivel3.pack(side = "right")
+    global nav, nav1, nav2
+    if varMap.get() == 1:
+        cniveles.pack_forget()
+        cNivel3.pack(side="right")
+        nav1 = cNivel3.create_image(400, 10, image=N11, anchor="nw")
+    elif varMap.get() == 2:
+        cniveles.pack_forget()
+        cNivel3.pack(side="right")
+        nav2 = cNivel3.create_image(400, 10, image=N22, anchor="nw")
+    elif varMap.get() == 3:
+        cniveles.pack_forget()
+        cNivel3.pack(side="right")
+        nav = cNivel3.create_image(400, 10, image=N33, anchor="nw")
+    else:
+        messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
 def volverJuego():
     cHistoria.pack_forget()
     cniveles.pack_forget()
     cJuego.pack(side = "right")
 
+
 def volverNiveles():
     cNivel1.pack_forget()
     cNivel2.pack_forget()
     cNivel3.pack_forget()
+    cNivel1.delete(nav)
+    cNivel1.delete(nav1)
+    cNivel1.delete(nav2)
+    cNivel2.delete(nav)
+    cNivel2.delete(nav1)
+    cNivel2.delete(nav2)
+    cNivel3.delete(nav)
+    cNivel3.delete(nav1)
+    cNivel3.delete(nav2)
     cniveles.pack(side = "right")
 #----------------------Para jugar en modo historia---------------------
 def InterJugar():
-    if varMap.get()==1 or varMap.get()==2  or varMap.get()==3:
+    global nav, nav1, nav2
+    if varMap.get()==1:
         if name.get() != "":
             cHistoria.pack_forget()
             cModHis.pack(side = "right")
+            nav1 = cModHis.create_image(400, 10, image=N11, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
+    elif varMap.get()==2:
+
+        if name.get() != "":
+            cHistoria.pack_forget()
+            cModHis.pack(side = "right")
+            nav2 = cModHis.create_image(400, 10, image=N22, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
+    elif varMap.get() == 3:
+        if name.get() != "":
+            cHistoria.pack_forget()
+            cModHis.pack(side = "right")
+            nav=cModHis.create_image(400, 10, image=N33, anchor="nw")
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
 def InterAHistoria():
+    global nav, nav1, nav2
     cModHis.pack_forget()
     cHistoria.pack(side = "right")
+    cModHis.delete(nav)
+    cModHis.delete(nav1)
+    cModHis.delete(nav2)
 
 # Creación de canvas
 
@@ -152,6 +247,11 @@ lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
 lFondo.place(x = 0, y = 0)
 
         # Botones
+#boton parar sonido
+
+bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
+bstop.place(x = 600, y = 290)
+
 imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
 bPlay.place(x = 290, y = 270)
@@ -235,6 +335,8 @@ bvolver1.place(x = 4, y = 4)
 
 varMap = tk.IntVar()
 
+#varVel = IntVar()
+
 B1 = tk.Radiobutton(cHistoria, text="1", variable = varMap, value=1, bg="black", fg="blue", font=("fixedsys"))
 B1.place(x=400,y=300)
 
@@ -244,13 +346,13 @@ B2.place(x=500,y=300)
 B3 = tk.Radiobutton(cHistoria, text="3",value=3,variable = varMap, bg="black", fg="blue", font=("fixedsys"))
 B3.place(x=600,y=300)
 
-Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))
+Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
 Escoge1.place(x=210,y=200)
 
-Escoge2 = tk.Radiobutton(cniveles, text="2", value=2, bg="black", fg="blue", font=("fixedsys"))
+Escoge2 = tk.Radiobutton(cniveles, text="2", value=2, variable = varMap, bg="black", fg="blue", font=("fixedsys"))
 Escoge2.place(x=350,y=200)
 
-Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, bg="black", fg="blue", font=("fixedsys"))
+Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
 Escoge3.place(x=500,y=200)
 
 

@@ -2,8 +2,8 @@
 import time
 import tkinter as tk
 from PIL import ImageTk, Image
-import random
 from threading import Thread
+import enemies
 
 window = tk.Tk()
 window.title("Space Neighbors")
@@ -11,15 +11,25 @@ window.minsize(720, 450)
 window.resizable(False, False)
 window.config()
 
-# Imagen Nave
+# Imagenes
 imgNave1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
-
+listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide2.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide3.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide4.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide5.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide6.png"))]
 
 # Canvas del juego
-cGameplay = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+cGameplay = tk.Canvas(window,  width = 730, height = 450, bg = "black")
 cGameplay.pack(side= "right")
 
-imgNave23 = cGameplay.create_image(150, 100, image = imgNave1)
+# Creación de Imágenes
+imgNave23 = cGameplay.create_image(150, 250, image = imgNave1)
+
+
+cGameplay.create_image(200, 100, image = listaAsteroides[0]),
+
 
 
 #Clase del movimiento de la nave
@@ -118,7 +128,7 @@ class Nave:
 
 
 navePrueba = Nave(cGameplay.coords(imgNave23)[0], cGameplay.coords(imgNave23)[1], imgNave23, cGameplay)
-
+naveenJuego = 0
 
 
 window.bind("<KeyPress-Right>", navePrueba.moverDT)
@@ -130,22 +140,6 @@ window.bind("<KeyRelease-Up>", navePrueba.cancMoveAr)
 window.bind("<KeyPress-Down>", navePrueba.moverAbT)
 window.bind("<KeyRelease-Down>", navePrueba.cancMoveAb)
 
-#Clase de los asteroides
-class Asteroides:
-    def __init__(self, coordsX, coordsY, canvas ):
-        self.ejeX = coordsX
-        self.ejeY = coordsY
-        self.enMove = False
-        self.contarRebote=0
-        self.daño= False#definir
-        self.velocidadX = random.randint(0, 10) #definir
-        self.velocidadY = random.randint(0, 10)
-       #self.NaveImg = imgNave
-        self.canvas = canvas
 
-    #def move(self):
 
-    #def Rebote(self):
-
-print("ooI")
 window.mainloop()

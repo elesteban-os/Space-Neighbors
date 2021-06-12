@@ -135,7 +135,7 @@ def generar_aux():
         aver = cGameplay.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
         asteroidePrueba = enemies.Asteroides(cGameplay.coords(aver)[0], aver, cGameplay)
         asteroidePrueba.moveT()
-        time.sleep(1)
+        time.sleep(5)
 
 generar()
 

@@ -39,6 +39,9 @@ imgNiveles = ImageTk.PhotoImage(Image.open("media/botonNiveles.png"))
 imgNivel1 = ImageTk.PhotoImage(Image.open("media/botonNivel1.png"))
 imgNivel2 = ImageTk.PhotoImage(Image.open("media/botonNivel2.png"))
 imgNivel3 = ImageTk.PhotoImage(Image.open("media/botonNivel3.png"))
+N1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
+N2 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
+N3 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
 
 # Intercambio entre canvas:
 def interInfo():
@@ -104,11 +107,6 @@ bInfo.place(x = 120, y = 270)
 
 bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
 bPuntajes.place(x = 460, y = 270)
-
-###
-imgNaveuwu = cPrincipal.create_image(150, 100, image = imgNave2)
-###
-
 
 
 
@@ -179,12 +177,43 @@ bLevel2.place(x = 290, y = 270)
 bLevel3 = tk.Button(cniveles ,image = imgNivel3, width = 150, height = 76, borderwidth = 0, command = interNivel3)
 bLevel3.place(x = 480, y = 270)
 
+bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0, command = volverJuego)
+bvolverN.place(x = 4, y = 4)
+
+Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))
+Escoge1.place(x=210,y=200)
+
+Escoge2 = tk.Radiobutton(cniveles, text="2", value=2, bg="black", fg="blue", font=("fixedsys"))
+Escoge2.place(x=350,y=200)
+
+Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, bg="black", fg="blue", font=("fixedsys"))
+Escoge3.place(x=500,y=200)
+
+nave1=cniveles.create_image(130, 10, image=N1, anchor="nw")
+nave2=cniveles.create_image(270, 10, image=N2, anchor="nw")
+nave3= cniveles.create_image(400, 10, image=N3, anchor="nw")
+
 #Botenes de atras
 bvolverHis = tk.Button(cHistoria ,image = imgAtras , width = 120, height = 60, borderwidth = 0, command = volverJuego)
 bvolverHis.place(x = 4, y = 4)
 
-bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0, command = volverJuego)
-bvolverN.place(x = 4, y = 4)
+B1 = tk.Radiobutton(cHistoria, text="1", value=1, bg="black", fg="blue", font=("fixedsys"))
+B1.place(x=400,y=300)
+
+B2 = tk.Radiobutton(cHistoria, text="2", value=2, bg="black", fg="blue", font=("fixedsys"))
+B2.place(x=500,y=300)
+
+B3 = tk.Radiobutton(cHistoria, text="3",value=3, bg="black", fg="blue", font=("fixedsys"))
+B3.place(x=600,y=300)
+
+name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
+name.place(x=100,y=250)
+
+nave1 = cHistoria.create_image(330, 100, image=N1, anchor="nw")
+nave2 = cHistoria.create_image(450, 100, image=N2, anchor="nw")
+nave3 = cHistoria.create_image(550, 100, image=N3, anchor="nw")
+
+
 
 cPrincipal.pack(side = "right")
 

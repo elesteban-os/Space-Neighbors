@@ -167,9 +167,13 @@ class Asteroides:
             time.sleep(0.05)
             self.ejeX = self.canvas.coords(self.imagen)[0]
             self.ejeY = self.canvas.coords(self.imagen)[1]
-            if navePrueba.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and self.canvas.bbox(self.imagen)[3] < navePrueba.returnbbox(3) and \
-                    navePrueba.returnbbox(0) < self.canvas.bbox(self.imagen)[0] and self.canvas.bbox(self.imagen)[2] < navePrueba.returnbbox(2):
+            if navePrueba.returnbbox(0) < self.canvas.bbox(self.imagen)[0] and navePrueba.returnbbox(2) > self.canvas.bbox(self.imagen)[2] and \
+                    navePrueba.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and navePrueba.returnbbox(3) > self.canvas.bbox(self.imagen)[3]:
+
+                #uy = self.canvas.create_rectangle(navePrueba.returnbbox(0), navePrueba.returnbbox(1), navePrueba.returnbbox(2), navePrueba.returnbbox(3), outline = "blue")
+                #uy2 = self.canvas.create_rectangle(self.canvas.bbox(self.imagen)[0], self.canvas.bbox(self.imagen)[1], self.canvas.bbox(self.imagen)[2], self.canvas.bbox(self.imagen)[3],outline = "red")
                 self.canvas.delete(self.imagen)
+                break
             elif self.ejeY <= 0 and self.contarRebote != 2:
                 self.contarRebote += 1
                 direccionY *= -1

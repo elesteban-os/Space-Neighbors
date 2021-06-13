@@ -21,6 +21,7 @@ import random
 from tkinter import messagebox
 import pygame, sys
 from pygame.locals import *
+from threading import Thread
 
 
 #globales
@@ -28,22 +29,39 @@ nav=0
 nav1=0
 nav2=0
 
-pausa=False
 
-#sonido--------------------
 
+
+
+#---------------------sonido--------------------
+
+#sonido = pygame.mixer.Sound("Geom.mp3")
+class Juego:
+    def __init__(self, sonido):
+        self.pausa = False
+        self.sonido_fondo = sonido
+
+
+    def sonarT(self):
+        Son = Thread(target= self.sonar())
+        Son.start()
+
+    def sonar(self):
+        while self.pausa ==False:
+
+            pygame.mixer.Sound.play(self.sonido_fondo, -1)
+
+    def stop(self):
+        if self.pausa==False :
+            pygame.mixer.pause()
+            self.pausa=True
+        else:
+            pygame.mixer.unpause()
+            self.pausa=False
 pygame.mixer.init()
-sonido_fondo = pygame.mixer.Sound("Geom.mp3")
-pygame.mixer.Sound.play(sonido_fondo, -1)
 
-def stop():
-    global pausa
-    if pausa==False :
-        pygame.mixer.pause()
-        pausa=True
-    else:
-        pygame.mixer.unpause()
-        pausa=False
+
+
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -246,8 +264,21 @@ lFondo.place(x = 0, y = 0)
         # Botones
 #boton parar sonido
 
-bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
+juego= Juego(pygame.mixer.Sound("Geom.mp3"))
+juego.sonarT()
+
+bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop())
 bstop.place(x = 600, y = 290)
+
+#bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
+#bstop.place(x = 600, y = 290)
+
+#bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
+#bstop.place(x = 600, y = 290)
+
+#bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
+#bstop.place(x = 600, y = 290)
+
 
 imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
@@ -359,6 +390,8 @@ name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
 name.place(x=100,y=250)
 
 cPrincipal.pack(side = "right")
+
+
 
 window.mainloop()
 print("Hola")

@@ -131,6 +131,16 @@ class Nave:
     def returnbbox(self, i):
         return self.canvas.bbox(self.NaveImg)[i]
 
+    def quitarEnergía(self):
+        self.energia -= 1
+        if self.energia == 0:
+            self.vida -= 1
+            if self.vida == 0:
+                print("Game Over")
+            else:
+                self.energia = 20
+        print(self.energia, self.vida)
+
 
 def generar():
     t = Thread(target= generar_aux)
@@ -141,7 +151,7 @@ def generar_aux():
         aver = cGameplay.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
         asteroidePrueba = Asteroides(cGameplay.coords(aver)[0], cGameplay.coords(aver)[1], aver, cGameplay)
         asteroidePrueba.moveT()
-        time.sleep(1.5)
+        time.sleep(0.5)
 
 #Clase de los asteroides
 class Asteroides:
@@ -169,10 +179,9 @@ class Asteroides:
             self.ejeY = self.canvas.coords(self.imagen)[1]
             if navePrueba.returnbbox(0) < self.canvas.bbox(self.imagen)[0] and navePrueba.returnbbox(2) > self.canvas.bbox(self.imagen)[2] and \
                     navePrueba.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and navePrueba.returnbbox(3) > self.canvas.bbox(self.imagen)[3]:
-
-                #uy = self.canvas.create_rectangle(navePrueba.returnbbox(0), navePrueba.returnbbox(1), navePrueba.returnbbox(2), navePrueba.returnbbox(3), outline = "blue")
-                #uy2 = self.canvas.create_rectangle(self.canvas.bbox(self.imagen)[0], self.canvas.bbox(self.imagen)[1], self.canvas.bbox(self.imagen)[2], self.canvas.bbox(self.imagen)[3],outline = "red")
                 self.canvas.delete(self.imagen)
+                navePrueba.quitarEnergía()
+
                 break
             elif self.ejeY <= 0 and self.contarRebote != 2:
                 self.contarRebote += 1

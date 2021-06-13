@@ -5,12 +5,18 @@ import tkinter as tk
 from PIL import ImageTk, Image
 from threading import Thread
 #import enemies
+import pygame
 
 window = tk.Tk()
 window.title("Space Neighbors")
 window.minsize(720, 450)
 window.resizable(False, False)
 window.config()
+
+pygame.mixer.init()
+explosionS = pygame.mixer.Sound("media/explosion01.wav")
+reboteS = pygame.mixer.Sound("media/rebote.wav")
+
 
 # Imagenes
 imgNave1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
@@ -21,6 +27,13 @@ listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
                    ImageTk.PhotoImage(Image.open("media/asteroide5.png")),
                    ImageTk.PhotoImage(Image.open("media/asteroide6.png"))]
 
+listaExplosiones = [ImageTk.PhotoImage(Image.open("media/exp01.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp02.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp03.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp04.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp05.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp06.png"))]
+
 # Canvas del juego
 cGameplay = tk.Canvas(window,  width = 730, height = 450, bg = "black")
 cGameplay.pack(side= "right")
@@ -28,8 +41,6 @@ cGameplay.pack(side= "right")
 # Creación de Imágenes
 imgNave23 = cGameplay.create_image(150, 250, image = imgNave1)
 
-
-cGameplay.create_image(200, 100, image = listaAsteroides[0]),
 
 
 
@@ -149,19 +160,19 @@ def generar():
 def generar_aux():
     while True:
         aver = cGameplay.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
-        asteroidePrueba = Asteroides(cGameplay.coords(aver)[0], cGameplay.coords(aver)[1], aver, cGameplay)
+        asteroidePrueba = Asteroides(cGameplay.coords(aver)[0], cGameplay.coords(aver)[1], aver, cGameplay, listaExplosiones)
         asteroidePrueba.moveT()
-        time.sleep(0.5)
+        time.sleep(1.5)
 
 #Clase de los asteroides
 class Asteroides:
-    def __init__(self, coordsX, coordsY, imagen, canvas):
+    def __init__(self, coordsX, coordsY, imagen, canvas, imgExplosiones):
         self.ejeX = coordsX
         self.ejeY = coordsY
         self.enMove = False
         self.contarRebote= 0
-        self.daño = False   #definir
         self.velocidadX = -1 * (random.randint(1, 10)) #definir
+        self.imagenExp = imgExplosiones
         self.imagen = imagen
         self.canvas = canvas
 
@@ -181,22 +192,35 @@ class Asteroides:
                     navePrueba.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and navePrueba.returnbbox(3) > self.canvas.bbox(self.imagen)[3]:
                 self.canvas.delete(self.imagen)
                 navePrueba.quitarEnergía()
-
+                pygame.mixer.Sound.play(explosionS, 0)
+                self.efectoExplosiones()
                 break
             elif self.ejeY <= 0 and self.contarRebote != 2:
+                pygame.mixer.Sound.play(reboteS, 0)
                 self.contarRebote += 1
                 direccionY *= -1
             elif self.ejeY >= 450 and self.contarRebote != 2:
+                pygame.mixer.Sound.play(reboteS, 0)
                 self.contarRebote += 1
                 direccionY *= -1
             elif self.ejeX <= 0 and self.contarRebote != 2:
+                pygame.mixer.Sound.play(reboteS, 0)
                 self.contarRebote += 1
                 self.velocidadX *= -1
             elif self.ejeX >= 730 and self.contarRebote != 2:
+                pygame.mixer.Sound.play(reboteS, 0)
                 self.contarRebote += 1
                 self.velocidadX *= -1
-            elif self.ejeX > 750:
+            elif self.ejeX > 750 or self.ejeX < -10:
+                self.canvas.delete(self.imagen)
                 break
+
+
+    def efectoExplosiones(self):
+        for i in self.imagenExp:
+            tmp = cGameplay.create_image(self.ejeX, self.ejeY, image = i)
+            time.sleep(0.1)
+            self.canvas.delete(tmp)
 
     def __del__(self):
         self.canvas.delete(self.imagen)

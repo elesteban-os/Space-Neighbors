@@ -1,8 +1,3 @@
-import random
-import tkinter as tk
-from threading import Thread
-import time
-
 #Clase de los asteroides
 class Asteroides:
     def __init__(self, coordsX, imagen, canvas):

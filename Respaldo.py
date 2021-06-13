@@ -82,7 +82,7 @@ class Juego:
             self.tiempo[0] += 1
         else:
             self.tiempo[1]+=1
-            #print(self.tiempo)
+            print(self.tiempo)
 
 pygame.mixer.init()
 

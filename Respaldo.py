@@ -28,10 +28,16 @@ from threading import Thread
 nav=0
 nav1=0
 nav2=0
+"""pausa=False
+
+pygame.mixer.init()
+sonido_fondo = pygame.mixer.Sound("Geom.mp3")
+pygame.mixer.Sound.play(sonido_fondo, -1)
 
 
-
-
+def stop():
+    global pausa
+    if pausa == False"""
 
 #---------------------sonido--------------------
 
@@ -42,14 +48,14 @@ class Juego:
         self.sonido_fondo = sonido
 
 
-    def sonarT(self):
-        Son = Thread(target= self.sonar())
-        Son.start()
+    #def sonarT(self):
+     #   Son = Thread(target= self.sonar())
+      #  Son.start()
 
     def sonar(self):
-        while self.pausa ==False:
+        #while self.pausa ==False:
 
-            pygame.mixer.Sound.play(self.sonido_fondo, -1)
+        pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
     def stop(self):
         if self.pausa==False :
@@ -61,7 +67,8 @@ class Juego:
 pygame.mixer.init()
 
 
-
+juego= Juego(pygame.mixer.Sound("Geom.mp3"))
+juego.sonar()
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -264,10 +271,8 @@ lFondo.place(x = 0, y = 0)
         # Botones
 #boton parar sonido
 
-juego= Juego(pygame.mixer.Sound("Geom.mp3"))
-juego.sonarT()
 
-bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop())
+bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
 bstop.place(x = 600, y = 290)
 
 #bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)

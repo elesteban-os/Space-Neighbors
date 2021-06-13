@@ -22,6 +22,7 @@ from tkinter import messagebox
 import pygame, sys
 from pygame.locals import *
 from threading import Thread
+import time
 
 
 #globales
@@ -43,9 +44,12 @@ def stop():
 
 #sonido = pygame.mixer.Sound("Geom.mp3")
 class Juego:
-    def __init__(self, sonido):
+    def __init__(self, sonido, tiempo, canvas):
         self.pausa = False
         self.sonido_fondo = sonido
+        self.tiempo=tiempo
+        self.jugando= True
+        self.canvas= canvas
 
 
     #def sonarT(self):
@@ -64,11 +68,26 @@ class Juego:
         else:
             pygame.mixer.unpause()
             self.pausa=False
+    def TiempoC(self):
+        tem = Thread(target=self.contadorT)
+        tem.start()
+
+    def contadorT(self):
+        while self.jugando == True:
+            time.sleep(0.3)
+            self.contadorTAux()
+    def contadorTAux(self):
+        if self.tiempo[1] == 59:
+            self.tiempo[1] =0
+            self.tiempo[0] += 1
+        else:
+            self.tiempo[1]+=1
+            #print(self.tiempo)
+
 pygame.mixer.init()
 
 
-juego= Juego(pygame.mixer.Sound("Geom.mp3"))
-juego.sonar()
+
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -271,18 +290,24 @@ lFondo.place(x = 0, y = 0)
         # Botones
 #boton parar sonido
 
+#funcion para que suene
+juego= Juego(pygame.mixer.Sound("media/Geom.mp3"), [0,0], cPrincipal)
+juego.sonar()
+
+juego.TiempoC()
+
 
 bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
 bstop.place(x = 600, y = 290)
 
-#bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
-#bstop.place(x = 600, y = 290)
+bstop1 = tk.Button(cniveles ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
+bstop1.place(x = 600, y = 400)
 
-#bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
-#bstop.place(x = 600, y = 290)
+bstop2 = tk.Button(cHistoria ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
+bstop2.place(x = 600, y = 400)
 
-#bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = stop)
-#bstop.place(x = 600, y = 290)
+bstop3 = tk.Button(cJuego ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
+bstop3.place(x = 600, y = 290)
 
 
 imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
@@ -368,7 +393,7 @@ bvolver1.place(x = 4, y = 4)
 
 varMap = tk.IntVar()
 
-#varVel = IntVar()
+#varVel = tk.IntVar()
 
 B1 = tk.Radiobutton(cHistoria, text="1", variable = varMap, value=1, bg="black", fg="blue", font=("fixedsys"))
 B1.place(x=400,y=300)

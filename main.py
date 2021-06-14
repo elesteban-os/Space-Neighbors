@@ -75,6 +75,7 @@ class Juego:
         self.sonNivel1=sonido1
         self.sonNivel2=sonido2
         self.sonNivel3=sonido3
+        self.sonFon=True
     def sonar(self):
 
         pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
@@ -108,29 +109,19 @@ class Juego:
         else:
             self.jugando = True
 
-    def songNivel1(self):
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
-
     def stop2(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo, -1)
+        pygame.mixer.Sound.stop(self.sonido_fondo)
         pygame.mixer.Sound.play(self.sonNivel1, -1)
 
-    def songNivel2(self):
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
-
     def stop3(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo, -1)
+        pygame.mixer.Sound.stop(self.sonido_fondo)
         pygame.mixer.Sound.play(self.sonNivel2, -1)
 
-    def songNivel4(self):
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
-
     def stop4(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo, -1)
+        pygame.mixer.Sound.stop(self.sonido_fondo)
         pygame.mixer.Sound.play(self.sonNivel3, -1)
 
 pygame.mixer.init()
-
 
 
 # Intercambio entre canvas:
@@ -160,15 +151,17 @@ def interNivel1():#intercambia a nivel 1
     if varMap.get() == 1:
         cniveles.pack_forget()
         cNivel1.pack(side="right")
+        juego.stop2()
         nav1 = cNivel1.create_image(400, 10, image=N11, anchor="nw")
-        Juego.stop2
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel1.pack(side="right")
+        juego.stop2()
         nav2 = cNivel1.create_image(400, 10, image=N22, anchor="nw")
     elif varMap.get() == 3:
         cniveles.pack_forget()
         cNivel1.pack(side="right")
+        juego.stop2()
         nav = cNivel1.create_image(400, 10, image=N33, anchor="nw")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
@@ -321,12 +314,12 @@ Kevin Chinchilla
 Autores de módulos modificados:--------
 """, bg = "black", fg = "white", font = ("fixedsys", 10))
 credits_.place(x=25,y=10)  #creacion de label con informacion "acerca de "
-
 #Funciones donde se llama a la clase juego, para sonidos y tiempo
 juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal)
 juego.sonar()
 juego.TiempoC()
-juego.stop2()
+
+
         # Botones
     #Boton para sonido en las diferentes canvas
 bstop = tk.Button(cPrincipal ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)

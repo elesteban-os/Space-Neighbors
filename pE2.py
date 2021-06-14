@@ -5,6 +5,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 from threading import Thread
 import pygame
+from fondo import *
 
 window = tk.Tk()
 window.title("Space Neighbors")
@@ -39,6 +40,14 @@ cGameplay.pack(side= "right")
 
 # Creación de Imágenes
 imgNave23 = cGameplay.create_image(150, 250, image = imgNave1)
+estrellaF = ImageTk.PhotoImage(Image.open("media/estrella.png"))
+
+listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
+                 ImageTk.PhotoImage(Image.open("media/planet2.png")),
+                 ImageTk.PhotoImage(Image.open("media/planet3.png")),
+                 ImageTk.PhotoImage(Image.open("media/planet4.png")),
+                 ImageTk.PhotoImage(Image.open("media/astFondo1.png")),
+                 ImageTk.PhotoImage(Image.open("media/astFondo2.png"))]
 
 
 
@@ -181,6 +190,32 @@ def generar_aux():
         asteroidePrueba = Asteroides(cGameplay.coords(aver)[0], cGameplay.coords(aver)[1], aver, cGameplay, listaExplosiones)
         asteroidePrueba.moveT()
         time.sleep(1.5)
+
+def generarFo():
+    t = Thread(target=generarFo_aux)
+    t.start()
+
+def generarFo_aux():
+    while True:
+        oi = cGameplay.create_image(730, random.randint(0, 450), image= estrellaF)
+        oia = Fondo(cGameplay, oi,  random.randint(10, 15))
+        oia.moveT()
+        time.sleep(0.2)
+
+def generarFo2():
+    t = Thread(target=generarFo_aux2)
+    t.start()
+
+def generarFo_aux2():
+    while True:
+        oi2 = cGameplay.create_image(730, random.randint(0, 450), image= listaPlanetas[random.randint(0, 5)])
+        oia2 = Fondo(cGameplay, oi2, 4)
+        oia2.moveT()
+        time.sleep(28)
+
+generarFo()
+generarFo2()
+
 
 """
 Clase de los asteroides

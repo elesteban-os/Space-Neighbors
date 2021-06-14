@@ -56,7 +56,7 @@ N3 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
 N11 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
 N22 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
 N33 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
-
+song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
 
 #creacion de clases
 
@@ -306,8 +306,8 @@ juego.sonar()
 juego.TiempoC()
         # Botones
     #Boton para sonido en las diferentes canvas
-bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
-bstop.place(x = 600, y = 290)
+bstop = tk.Button(cPrincipal ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop.place(x = 570, y = 4)
 
 #bstop1 = tk.Button(cniveles ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
 #bstop1.place(x = 600, y = 300)
@@ -357,7 +357,7 @@ bhistoria.place(x = 100, y = 270)
 bJugar = tk.Button(cHistoria ,image=imgJugar, borderwidth = 0,width = 150, height = 76, cursor= "hand2", command = InterJugar)
 bJugar.place(x = 100, y = 300)
 
-bvol = tk.Button(cModHis , image = imgAtras, borderwidth = 0,cursor= "hand2",command = InterAHistoria)
+bvol = tk.Button(cModHis , image = imgAtras,width = 120, height = 60, borderwidth = 0,cursor= "hand2",command = InterAHistoria)
 bvol.place(x = 5, y = 5)
 
 

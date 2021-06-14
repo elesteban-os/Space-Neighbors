@@ -63,7 +63,7 @@ song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
 #---------------------Clase juego--------------------
 
 class Juego:
-    def __init__(self, sonido, tiempo, canvas):
+    def __init__(self, sonido,sonido1, sonido2, sonido3, tiempo, canvas):
         self.pausa = False
         self.sonido_fondo = sonido
         self.tiempo=tiempo
@@ -72,11 +72,12 @@ class Juego:
         self.nombre=0
         self.puntaje=0
         self.modoJuego=""
-
+        self.sonNivel1=sonido1
+        self.sonNivel2=sonido2
+        self.sonNivel3=sonido3
     def sonar(self):
 
         pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
-
     def stop(self):# para pausar el sonido o despausar
         if self.pausa==False :
             pygame.mixer.pause()
@@ -84,6 +85,7 @@ class Juego:
         else:
             pygame.mixer.unpause()
             self.pausa=False
+
     def TiempoC(self):# Thread del contador de tiempo
         tem = Thread(target=self.contadorT)
         tem.start()
@@ -106,7 +108,26 @@ class Juego:
         else:
             self.jugando = True
 
+    def songNivel1(self):
+        pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
+    def stop2(self):
+        pygame.mixer.Sound.stop(self.sonido_fondo, -1)
+        pygame.mixer.Sound.play(self.sonNivel1, -1)
+
+    def songNivel2(self):
+        pygame.mixer.Sound.play(self.sonido_fondo, -1)
+
+    def stop3(self):
+        pygame.mixer.Sound.stop(self.sonido_fondo, -1)
+        pygame.mixer.Sound.play(self.sonNivel2, -1)
+
+    def songNivel4(self):
+        pygame.mixer.Sound.play(self.sonido_fondo, -1)
+
+    def stop4(self):
+        pygame.mixer.Sound.stop(self.sonido_fondo, -1)
+        pygame.mixer.Sound.play(self.sonNivel3, -1)
 
 pygame.mixer.init()
 
@@ -140,6 +161,7 @@ def interNivel1():#intercambia a nivel 1
         cniveles.pack_forget()
         cNivel1.pack(side="right")
         nav1 = cNivel1.create_image(400, 10, image=N11, anchor="nw")
+        Juego.stop2
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel1.pack(side="right")
@@ -301,9 +323,10 @@ Autores de módulos modificados:--------
 credits_.place(x=25,y=10)  #creacion de label con informacion "acerca de "
 
 #Funciones donde se llama a la clase juego, para sonidos y tiempo
-juego= Juego(pygame.mixer.Sound("media/Geom.mp3"), [0,0], cPrincipal)
+juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal)
 juego.sonar()
 juego.TiempoC()
+juego.stop2()
         # Botones
     #Boton para sonido en las diferentes canvas
 bstop = tk.Button(cPrincipal ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)

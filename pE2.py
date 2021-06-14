@@ -4,7 +4,6 @@ import time
 import tkinter as tk
 from PIL import ImageTk, Image
 from threading import Thread
-#import enemies
 import pygame
 
 window = tk.Tk()
@@ -44,7 +43,37 @@ imgNave23 = cGameplay.create_image(150, 250, image = imgNave1)
 
 
 
-#Clase del movimiento de la nave
+"""
+Clase del movimiento de la nave
+Atributos: 
++vida: vida de la nave
++energia: energía de la nave
++ejeX: ubicación en el eje X
++ejeY: ubicación  = Falseen el eje Y
++enMoveL: indica si se mueve hacia la izquierda
++enMoveR: indica si se mueve hacia la derecha
++enMoveU: indica si se mueve hacia arriba
++enMoveD: indica si se mueve hacia abajo
++NaveImg: imagen de la nave
++canvas: canvas en donde se encuentra posicionada la nave.
+
+Métodos
+-moverDT(): crea un thread para el movimiento hacia la derecha
+-moverD(): mueve hacia la derecha la nave
+-cancMoveD(): cancela el movimiento hacia la derecha
+-moverIT(): crea un thread para el movimiento hacia la izquierda
+-moverI(): mueve hacia la izquierda la nave
+-cancMoveI(): cancela el movimiento hacia la izquierda
+-moverArT(): crea un thread para el movimiento hacia arriba
+-moverAr(): mueve hacia arriba la nave
+-cancMoveAr(): cancela el movimiento hacia arriba
+-moverAbT(): crea un thread para el movimiento hacia abajo
+-moverAb(): mueve hacia abajo la nave
+-cancMoveAb(): cancela el movimiento hacia abajo
+-returnbbox(): retorna la bbox de la nave
+-quitarEnergía(): quita en una unidad la cantidad de energía de la nave, y si fuera el caso quita una unidad de vida
+"""
+
 class Nave:
     def __init__(self, coordsX, coordsY, imgNave, canvas):
         self.vida = 3
@@ -57,8 +86,6 @@ class Nave:
         self.enMoveD = False
         self.NaveImg = imgNave
         self.canvas = canvas
-
-    #---------------
 
     def moverDT(self, bind):
         if self.enMoveR == False:
@@ -78,8 +105,6 @@ class Nave:
     def cancMoveD(self, bind):
         self.enMoveR = False
 
-    #---------------
-
     def moverIT(self, bind):
         if self.enMoveL == False:
             self.enMoveL = True
@@ -97,8 +122,6 @@ class Nave:
 
     def cancMoveI(self, bind):
         self.enMoveL = False
-
-    # ---------------
 
     def moverArT(self, bind):
         if self.enMoveU == False:
@@ -118,8 +141,6 @@ class Nave:
     def cancMoveAr(self, bind):
         self.enMoveU = False
 
-    # -----------------
-
     def moverAbT(self, bind):
         if self.enMoveD == False:
             self.enMoveD = True
@@ -128,7 +149,6 @@ class Nave:
 
     def moverAb(self):
         while self.enMoveD == True:
-
             if self.ejeY != 450:
                 self.canvas.move(self.NaveImg, 0, 10)
                 self.ejeY = self.canvas.coords(self.NaveImg)[1]
@@ -150,8 +170,6 @@ class Nave:
                 print("Game Over")
             else:
                 self.energia = 20
-        print(self.energia, self.vida)
-
 
 def generar():
     t = Thread(target= generar_aux)
@@ -164,12 +182,27 @@ def generar_aux():
         asteroidePrueba.moveT()
         time.sleep(1.5)
 
-#Clase de los asteroides
+"""
+Clase de los asteroides
+Atributos:
++ejeX: coordenadas del eje X de los asteroides
++ejeY: coordenadas del eje Y de los asteroides
++contarRebote: cuenta cuantas veces ha rebotado el asteroide por la pantalla
++velocidadX: la velocidad que va a tener el asteroide
++imagenExp: las imágenes que se van a utilizar para el efecto de explosión de la nave
++imagen: imagen del asteroide
++canvas: canvas del asteroide
+
+Métodos:
+-moveT(): crea un thread para el movimiento de la nave
+-move():
+-efectoExplosiones():
+-__del__():
+"""
 class Asteroides:
     def __init__(self, coordsX, coordsY, imagen, canvas, imgExplosiones):
         self.ejeX = coordsX
         self.ejeY = coordsY
-        self.enMove = False
         self.contarRebote= 0
         self.velocidadX = -1 * (random.randint(1, 10)) #definir
         self.imagenExp = imgExplosiones
@@ -177,7 +210,6 @@ class Asteroides:
         self.canvas = canvas
 
     def moveT(self):
-        self.enMove = True
         thread = Thread(target = self.move)
         thread.start()
 

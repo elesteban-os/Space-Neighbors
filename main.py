@@ -268,8 +268,8 @@ cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
     # Widgets
         # Fondo de la pantalla principal
 
-lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
-lFondo.place(x = 0, y = 0)
+#lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
+#lFondo.place(x = 0, y = 0)
 
         #Labels con detalles en canva "acerca de"
 credits_ = tk.Label(cInfo,text = """
@@ -309,14 +309,14 @@ juego.TiempoC()
 bstop = tk.Button(cPrincipal ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
 bstop.place(x = 600, y = 290)
 
-bstop1 = tk.Button(cniveles ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
-bstop1.place(x = 600, y = 300)
+#bstop1 = tk.Button(cniveles ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
+#bstop1.place(x = 600, y = 300)
 
-bstop2 = tk.Button(cHistoria ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
-bstop2.place(x = 600, y = 300)
+#bstop2 = tk.Button(cHistoria ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
+#bstop2.place(x = 600, y = 300)
 
-bstop3 = tk.Button(cJuego ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
-bstop3.place(x = 600, y = 290)
+#bstop3 = tk.Button(cJuego ,text="parar audio", borderwidth = 0,font=("Rockwell", 15), command = juego.stop)
+#bstop3.place(x = 600, y = 290)
 
 #boton para cambiar a canva juego
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
@@ -334,48 +334,48 @@ bvolver = tk.Button(cInfo ,text="Volver", borderwidth = 0, command = interInfoAp
 bvolver.place(x = 4, y = 4)
 
 #Botenes de atras
-bvolverHis = tk.Button(cHistoria ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = volverJuego)
-bvolverHis.place(x = 4, y = 4)
 
-bvolverN = tk.Button(cniveles ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = volverJuego)
-bvolverN.place(x = 4, y = 4)
 
-bvolverN1 = tk.Button(cNivel1 ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = volverNiveles)
+bvolverN1 = tk.Button(cNivel1 ,image = imgAtras, width = 120, height = 60,borderwidth = 0, command = volverNiveles)
 bvolverN1.place(x = 4, y = 4)
 
-bvolverN2 = tk.Button(cNivel2 ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = volverNiveles)
+bvolverN2 = tk.Button(cNivel2 ,image = imgAtras,width = 120, height = 60,borderwidth = 0, command = volverNiveles)
 bvolverN2.place(x = 4, y = 4)
 
-bvolverN3 = tk.Button(cNivel3 ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = volverNiveles)
+bvolverN3 = tk.Button(cNivel3 ,image = imgAtras,width = 120, height = 60,borderwidth = 0, command = volverNiveles)
 bvolverN3.place(x = 4, y = 4)
 
 #boton Volver del juego a menu
-bvolver1 = tk.Button(cJuego ,text="Volver", borderwidth = 0,font=("Rockwell", 15), command = interInfoAprin)
+bvolver1 = tk.Button(cJuego , image = imgAtras, borderwidth = 0,width = 120, height = 60,cursor= "hand2", command = interInfoAprin)
 bvolver1.place(x = 4, y = 4)
 
 #botones canva juego modo historia y niveles
 
-bhistoria = tk.Button(cJuego ,text="Modo Historia", borderwidth = 0,font=("Rockwell", 15), command = interHistoria)
+bhistoria = tk.Button(cJuego ,image = imgHistoria, borderwidth = 0,width = 150, height = 76, command = interHistoria)
 bhistoria.place(x = 100, y = 270)
 
-bJugar = tk.Button(cHistoria ,text="Jugar", borderwidth = 0,font=("Rockwell", 15), command = InterJugar)
-bJugar.place(x = 100, y = 290)
+bJugar = tk.Button(cHistoria ,image=imgJugar, borderwidth = 0,width = 150, height = 76, cursor= "hand2", command = InterJugar)
+bJugar.place(x = 100, y = 300)
 
-bvol = tk.Button(cModHis ,text="volver", borderwidth = 0,font=("Rockwell", 15), command = InterAHistoria)
+bvol = tk.Button(cModHis , image = imgAtras, borderwidth = 0,cursor= "hand2",command = InterAHistoria)
 bvol.place(x = 5, y = 5)
 
 
-bNiveles = tk.Button(cJuego ,text="Niveles", borderwidth = 0,font=("Rockwell", 15), command = interNiveles)
+bNiveles = tk.Button(cJuego ,image=imgNiveles, borderwidth = 0,width = 150, height = 76, command = interNiveles)
 bNiveles.place(x = 300, y = 270)
 
-bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0, command = interNivel1)
+bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel1)
 bLevel1.place(x = 100, y = 270)
 
-bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0,command = interNivel2)
+bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interNivel2)
 bLevel2.place(x = 290, y = 270)
 
-bLevel3 = tk.Button(cniveles ,text="Nivel 3", borderwidth = 0,font=("Rockwell", 15), command = interNivel3)
-bLevel3.place(x = 600, y = 270)
+bLevel3 = tk.Button(cniveles ,image = imgNivel3, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel3)
+bLevel3.place(x = 480, y = 270)
+
+bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0,cursor = "hand2",  command = volverJuego)
+bvolverN.place(x = 4, y = 4)
+
 
 #radioboton para seleccionar avatar
 
@@ -404,15 +404,10 @@ Escoge3.place(x=500,y=200)
 #Entry para Modo historia
 
 name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
-name.place(x=1,y=250)
+name.place(x=100,y=250)
 
 #-----Configuracion canva About-----
-# Canvas
-cInfo = tk.Canvas(window,  width = 730, height = 450)
 
-# Widgets
-lFondoinf = tk.Label(cInfo, image = fondo, bg = "white")
-lFondoinf.place(x = 0, y = 0)
 
 lteclasinf = tk.Label(cInfo, image = flechas, bg = "white", borderwidth = 0)
 lteclasinf.place(x = 380, y = 80)
@@ -420,18 +415,6 @@ lteclasinf.place(x = 380, y = 80)
 bvolverl = tk.Button(cInfo, image = imgAtras, width = 120, height = 60, borderwidth = 0, cursor = "hand2", command = interInfoAprin)
 bvolverl.place(x = 4, y = 4)
 
-
-bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0, command = interNivel1)
-bLevel1.place(x = 100, y = 270)
-
-bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0,command = interNivel2)
-bLevel2.place(x = 290, y = 270)
-
-bLevel3 = tk.Button(cniveles ,image = imgNivel3, width = 150, height = 76, borderwidth = 0, command = interNivel3)
-bLevel3.place(x = 480, y = 270)
-
-bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0, command = volverJuego)
-bvolverN.place(x = 4, y = 4)
 
 
 nave1=cniveles.create_image(130, 10, image=N1, anchor="nw")

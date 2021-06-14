@@ -184,20 +184,21 @@ def generar_aux():
 
 """
 Clase de los asteroides
-Atributos:
+Atriblocidad que va a tener el asteroide
++imagenExp: lutos:
 +ejeX: coordenadas del eje X de los asteroides
 +ejeY: coordenadas del eje Y de los asteroides
 +contarRebote: cuenta cuantas veces ha rebotado el asteroide por la pantalla
-+velocidadX: la velocidad que va a tener el asteroide
-+imagenExp: las imágenes que se van a utilizar para el efecto de explosión de la nave
++velocidadX: la veas imágenes que se van a utilizar para el efecto de explosión de la nave
 +imagen: imagen del asteroide
 +canvas: canvas del asteroide
 
 Métodos:
 -moveT(): crea un thread para el movimiento de la nave
--move():
--efectoExplosiones():
--__del__():
+-move(): hace el movimiento de los asteroides y captura el impacto de los asteroides con los bordes de la pantalla
+y del jugador.
+-efectoExplosiones(): crea un efecto de explosión para los asteroides si llegan a impactar al jugador
+-__del__(): elimina la instancia
 """
 class Asteroides:
     def __init__(self, coordsX, coordsY, imagen, canvas, imgExplosiones):

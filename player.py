@@ -1,3 +1,6 @@
+from threading import Thread
+import tkinter
+import time
 """
 Clase del movimiento de la nave
 Atributos:
@@ -30,11 +33,11 @@ Métodos
 """
 
 class Nave:
-    def __init__(self, coordsX, coordsY, imgNave, canvas):
+    def __init__(self, imgNave, canvas):
         self.vida = 3
         self.energia = 20
-        self.ejeX = coordsX
-        self.ejeY = coordsY
+        self.ejeX = canvas.coords(imgNave)[0]
+        self.ejeY = canvas.coords(imgNave)[1]
         self.enMoveL = False
         self.enMoveR = False
         self.enMoveU = False
@@ -126,12 +129,3 @@ class Nave:
             else:
                 self.energia = 20
 
-#Detección de teclas
-window.bind("<KeyPress-Right>", navePrueba.moverDT)
-window.bind("<KeyRelease-Right>", navePrueba.cancMoveD)
-window.bind("<KeyPress-Left>", navePrueba.moverIT)
-window.bind("<KeyRelease-Left>", navePrueba.cancMoveI)
-window.bind("<KeyPress-Up>", navePrueba.moverArT)
-window.bind("<KeyRelease-Up>", navePrueba.cancMoveAr)
-window.bind("<KeyPress-Down>", navePrueba.moverAbT)
-window.bind("<KeyRelease-Down>", navePrueba.cancMoveAb)

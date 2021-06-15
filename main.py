@@ -22,6 +22,10 @@ import pygame, sys
 from pygame.locals import *
 from threading import Thread
 import time
+from player import *
+from enemies import *
+from fondo import *
+from juego import *
 
 #------------globales------por el momento
 nav=0
@@ -57,84 +61,35 @@ N11 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
 N22 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
 N33 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
 song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
+estrellaF = ImageTk.PhotoImage(Image.open("media/estrella.png"))
+listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide2.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide3.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide4.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide5.png")),
+                   ImageTk.PhotoImage(Image.open("media/asteroide6.png"))]
+
+listaExplosiones = [ImageTk.PhotoImage(Image.open("media/exp01.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp02.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp03.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp04.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp05.png")),
+                    ImageTk.PhotoImage(Image.open("media/exp06.png"))]
+
+listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
+                 ImageTk.PhotoImage(Image.open("media/planet2.png")),
+                 ImageTk.PhotoImage(Image.open("media/planet3.png")),
+                 ImageTk.PhotoImage(Image.open("media/planet4.png")),
+                 ImageTk.PhotoImage(Image.open("media/astFondo1.png")),
+                 ImageTk.PhotoImage(Image.open("media/astFondo2.png"))]
 
 #creacion de clases
 
 #---------------------Clase juego--------------------
 
-class Juego:
-    def __init__(self, sonido,sonido1, sonido2, sonido3, tiempo, canvas):
-        self.pausa = False
-        self.sonido_fondo = sonido
-        self.tiempo=tiempo
-        self.jugando= True
-        self.canvas= canvas
-        self.nombre=0
-        self.puntaje=0
-        self.modoJuego=""
-        self.sonNivel1=sonido1
-        self.sonNivel2=sonido2
-        self.sonNivel3=sonido3
-        #self.sonFon=True
-    def sonar(self):
 
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
-    def stop(self):# para pausar el sonido o despausar
-        if self.pausa==False :
-            pygame.mixer.pause()
-            self.pausa=True
-        else:
-            pygame.mixer.unpause()
-            self.pausa=False
-
-    def TiempoC(self):# Thread del contador de tiempo
-        tem = Thread(target=self.contadorT)
-        tem.start()
-
-    def contadorT(self): #contador de tiempo
-        while self.jugando == True:
-            time.sleep(0.3)
-            self.contadorTAux()
-    def contadorTAux(self):
-        if self.tiempo[1] == 59:
-            self.tiempo[1] =0
-            self.tiempo[0] += 1
-        else:
-            self.tiempo[1]+=1
-            print(self.tiempo)
-
-    def jugandoTF(self):#Funcion para detener el tiempo, cuando finaliza ejecucion
-        if self.jugando == True:
-            self.jugando=False
-        else:
-            self.jugando = True
-
-    def stop2(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo)
-        pygame.mixer.Sound.play(self.sonNivel1, -1)
-
-    def VolverSon1(self):
-        pygame.mixer.Sound.stop(self.sonNivel1)
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
-
-    def stop3(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo)
-        pygame.mixer.Sound.play(self.sonNivel2, -1)
-
-    def VolverSon2(self):
-        pygame.mixer.Sound.stop(self.sonNivel2)
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
-
-    def stop4(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo)
-        pygame.mixer.Sound.play(self.sonNivel3, -1)
-
-    def VolverSon3(self):
-        pygame.mixer.Sound.stop(self.sonNivel3)
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
 pygame.mixer.init()
-
 
 # Intercambio entre canvas:
 def interInfo():
@@ -162,19 +117,25 @@ def interNivel1():#intercambia a nivel 1
     global nav, nav1, nav2
     if varMap.get() == 1:
         cniveles.pack_forget()
-        cNivel1.pack(side="right")
+        cNivel1.pack(side="left")
         juego.stop2()
-        nav1 = cNivel1.create_image(400, 10, image=N11, anchor="nw")
+        nav1 = cNivel1.create_image(150, 250, image=N11)
+        iniciarNivel(cNivel1, nav1, 3)
+
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel1.pack(side="right")
         juego.stop2()
-        nav2 = cNivel1.create_image(400, 10, image=N22, anchor="nw")
+        nav2 = cNivel1.create_image(150, 250, image=N22)
+        iniciarNivel(cNivel1, nav2, 3)
+
     elif varMap.get() == 3:
         cniveles.pack_forget()
         cNivel1.pack(side="right")
         juego.stop2()
-        nav = cNivel1.create_image(400, 10, image=N33, anchor="nw")
+        nav = cNivel1.create_image(150, 250, image=N33)
+        iniciarNivel(cNivel1, nav, 3)
+
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
@@ -184,17 +145,19 @@ def interNivel2():#intercambia a nivel 2
         cniveles.pack_forget()
         cNivel2.pack(side="right")
         juego.stop3()
-        nav1 = cNivel2.create_image(400, 10, image=N11, anchor="nw")
+        nav1 = cNivel2.create_image(100, 130, image=N11, anchor="nw")
+        iniciarNivel(cNivel2, nav1, 3)
+
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel2.pack(side="right")
         juego.stop3()
-        nav2 = cNivel2.create_image(400, 10, image=N22, anchor="nw")
+        nav2 = cNivel2.create_image(100, 130, image=N22, anchor="nw")
     elif varMap.get() == 3:
         cniveles.pack_forget()
         cNivel2.pack(side="right")
         juego.stop3()
-        nav = cNivel2.create_image(400, 10, image=N33, anchor="nw")
+        nav = cNivel2.create_image(100, 130, image=N33, anchor="nw")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
@@ -204,17 +167,17 @@ def interNivel3():#intercambia a nivel 1
         cniveles.pack_forget()
         cNivel3.pack(side="right")
         juego.stop4()
-        nav1 = cNivel3.create_image(400, 10, image=N11, anchor="nw")
+        nav1 = cNivel3.create_image(100, 130, image=N11, anchor="nw")
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel3.pack(side="right")
         juego.stop4()
-        nav2 = cNivel3.create_image(400, 10, image=N22, anchor="nw")
+        nav2 = cNivel3.create_image(100, 130, image=N22, anchor="nw")
     elif varMap.get() == 3:
         cniveles.pack_forget()
         cNivel3.pack(side="right")
         juego.stop4()
-        nav = cNivel3.create_image(400, 10, image=N33, anchor="nw")
+        nav = cNivel3.create_image(100, 130, image=N33, anchor="nw")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
@@ -224,6 +187,7 @@ def volverJuego():
     cJuego.pack(side="right")
 
 def volverNiveles():
+    juego.jugandoTF()
     cNivel1.pack_forget()
     cNivel2.pack_forget()
     cNivel3.pack_forget()
@@ -240,6 +204,7 @@ def volverNiveles():
     juego.VolverSon1()
     juego.VolverSon2()
     juego.VolverSon3()
+
 
 #intercambio para jugar en modo Historia-----------------------
 def InterJugar():
@@ -278,6 +243,56 @@ def InterAHistoria():#funcion retorna a canva Modo historia
     cModHis.delete(nav)
     cModHis.delete(nav1)
     cModHis.delete(nav2)
+
+def iniciarNivel(canvas, nave, astTiempo):
+    juego.jugandoTF()
+    lvl = Nave(nave, canvas)
+    window.bind("<KeyPress-Right>", lvl.moverDT)
+    window.bind("<KeyRelease-Right>", lvl.cancMoveD)
+    window.bind("<KeyPress-Left>", lvl.moverIT)
+    window.bind("<KeyRelease-Left>", lvl.cancMoveI)
+    window.bind("<KeyPress-Up>", lvl.moverArT)
+    window.bind("<KeyRelease-Up>", lvl.cancMoveAr)
+    window.bind("<KeyPress-Down>", lvl.moverAbT)
+    window.bind("<KeyRelease-Down>", lvl.cancMoveAb)
+    thread = Thread(target=generarAsteroides, args=(astTiempo, canvas, lvl))
+    thread.start()
+
+    thread2 = Thread(target=generarFondo, args=(canvas,))
+    thread2.start()
+
+    thread3 = Thread(target=generarFondo2, args=(canvas,))
+    thread3.start()
+
+# Función que genera asteroides
+def generarAsteroides(tiempo, canvas, claseNave):
+    global listaAsteroides, listaExplosiones
+    while juego.returnJugando() == True:
+        imagen = canvas.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
+        atributos = Asteroides(imagen, canvas, listaExplosiones, claseNave, pygame.mixer.Sound("media/explosion01.wav"),
+                               pygame.mixer.Sound("media/rebote.wav"))
+        atributos.moveT()
+        time.sleep(tiempo)
+    atributos.detener()
+
+def generarFondo(canvas):
+    global estrellaF
+    while juego.returnJugando() == True:
+        generarImg = canvas.create_image(730, random.randint(0, 450), image= estrellaF)
+        hacerFondo = Fondo(canvas, generarImg,  random.randint(10, 15))
+        hacerFondo.moveT()
+        time.sleep(0.2)
+    hacerFondo.detener()
+
+def generarFondo2(canvas):
+    global listaPlanetas
+    while juego.returnJugando() == True:
+        generarImg = canvas.create_image(730, random.randint(0, 450), image=listaPlanetas[random.randint(0, 5)])
+        hacerFondo = Fondo(canvas, generarImg, random.randint(1, 3))
+        hacerFondo.moveT()
+        time.sleep(28)
+    hacerFondo.detener()
+
 
 # Creación de canvas
 

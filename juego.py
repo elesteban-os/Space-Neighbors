@@ -7,7 +7,7 @@ class Juego:
         self.pausa = False
         self.sonido_fondo = sonido
         self.tiempo=tiempo
-        self.jugando= True
+        self.jugando= False
         self.canvas= canvas
         self.nombre=0
         self.puntaje=0
@@ -105,6 +105,9 @@ class Juego:
 
     def returnJugando(self):
         return self.jugando
+
+    def returnPausa(self):
+        return self.pausa
 
     print("j")
 

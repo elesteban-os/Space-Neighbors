@@ -22,10 +22,9 @@ class Juego:
     def stop(self):# para pausar el sonido o despausar
         if self.pausa==False :
             pygame.mixer.pause()
-            pygame.mixer.Sound.set_volume(0)
             self.pausa=True
         else:
-            pygame.mixer.stop()
+            pygame.mixer.unpause()
             self.pausa=False
 
     def TiempoC(self):# Thread del contador de tiempo
@@ -52,7 +51,6 @@ class Juego:
         pygame.mixer.Sound.stop(self.sonido_fondo)
         pygame.mixer.Sound.play(self.sonNivel1, -1)
 
-
     def VolverSon1(self):
         pygame.mixer.Sound.stop(self.sonNivel1)
         pygame.mixer.Sound.play(self.sonido_fondo, -1)
@@ -75,4 +73,6 @@ class Juego:
 
     def returnJugando(self):
         return self.jugando
+
+    print("j")
 

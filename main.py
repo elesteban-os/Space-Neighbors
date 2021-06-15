@@ -145,19 +145,23 @@ def interNivel2():#intercambia a nivel 2
         cniveles.pack_forget()
         cNivel2.pack(side="right")
         juego.stop3()
-        nav1 = cNivel2.create_image(100, 130, image=N11, anchor="nw")
-        iniciarNivel(cNivel2, nav1, 3)
+        nav1 = cNivel2.create_image(150, 250, image=N11)
+        iniciarNivel(cNivel2, nav1, 2)
 
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel2.pack(side="right")
         juego.stop3()
-        nav2 = cNivel2.create_image(100, 130, image=N22, anchor="nw")
+        nav2 = cNivel2.create_image(150, 250, image=N22)
+        iniciarNivel(cNivel2, nav2, 2)
+
     elif varMap.get() == 3:
         cniveles.pack_forget()
         cNivel2.pack(side="right")
         juego.stop3()
-        nav = cNivel2.create_image(100, 130, image=N33, anchor="nw")
+        nav = cNivel2.create_image(150, 250, image=N33)
+        iniciarNivel(cNivel2, nav, 2)
+
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
@@ -167,17 +171,24 @@ def interNivel3():#intercambia a nivel 1
         cniveles.pack_forget()
         cNivel3.pack(side="right")
         juego.stop4()
-        nav1 = cNivel3.create_image(100, 130, image=N11, anchor="nw")
+        nav1 = cNivel3.create_image(150, 250, image=N11, anchor="nw")
+        iniciarNivel(cNivel3, nav1, 1)
+
     elif varMap.get() == 2:
         cniveles.pack_forget()
         cNivel3.pack(side="right")
         juego.stop4()
         nav2 = cNivel3.create_image(100, 130, image=N22, anchor="nw")
+        iniciarNivel(cNivel3, nav2, 1)
+
     elif varMap.get() == 3:
         cniveles.pack_forget()
         cNivel3.pack(side="right")
         juego.stop4()
         nav = cNivel3.create_image(100, 130, image=N33, anchor="nw")
+        iniciarNivel(cNivel3, nav, 1)
+
+
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 

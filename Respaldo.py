@@ -64,7 +64,7 @@ song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
 
 class Juego:
     def __init__(self, sonido,sonido1, sonido2, sonido3, tiempo, canvas):
-        self.pausa = True
+        self.pausa = False
         self.sonido_fondo = sonido
         self.tiempo=tiempo
         self.jugando= True
@@ -85,16 +85,18 @@ class Juego:
         if self.pausa==True :
             if self.SNF==True:
                 pygame.mixer.Sound.play(self.sonido_fondo, -1)
-            #self.pausa=False
-            elif self.SN1 == False:
-                pygame.mixer.Sound.play(self.sonido_fondo, -1)
-            elif self.SN2 == False:
-                pygame.mixer.Sound.play(self.sonido_fondo, -1)
-            elif self.SN3 == False:
-                pygame.mixer.Sound.play(self.sonido_fondo, -1)
+            elif self.SN1 == True:
+                pygame.mixer.Sound.play(self.sonNivel1, -1)
+            elif self.SN2 == True:
+                pygame.mixer.Sound.play(self.sonNivel2, -1)
+            elif self.SN3 == True:
+                pygame.mixer.Sound.play(self.sonNivel3, -1)
             self.pausa = False
         else:
             pygame.mixer.Sound.stop(self.sonido_fondo)
+            pygame.mixer.Sound.stop(self.sonNivel1)
+            pygame.mixer.Sound.stop(self.sonNivel2)
+            pygame.mixer.Sound.stop(self.sonNivel3)
             self.pausa=True
 
 
@@ -128,36 +130,36 @@ class Juego:
             pygame.mixer.Sound.play(self.sonNivel1, -1)
 
     def VolverSon1(self):
-        self.SNF = False
-        self.SN1 = True
+        self.SNF = True
+        self.SN1 = False
         if self.pausa==False:
             pygame.mixer.Sound.stop(self.sonNivel1)
             pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
     def stop3(self):
         self.SNF = False
-        self.SN1 = True
+        self.SN2 = True
         if self.pausa == False:
             pygame.mixer.Sound.stop(self.sonido_fondo)
             pygame.mixer.Sound.play(self.sonNivel2, -1)
 
     def VolverSon2(self):
-        self.SNF = False
-        self.SN1 = True
+        self.SNF = True
+        self.SN2 = False
         if self.pausa == False:
             pygame.mixer.Sound.stop(self.sonNivel2)
             pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
     def stop4(self):
         self.SNF = False
-        self.SN1 = True
+        self.SN3 = True
         if self.pausa == False:
             pygame.mixer.Sound.stop(self.sonido_fondo)
             pygame.mixer.Sound.play(self.sonNivel3, -1)
 
     def VolverSon3(self):
-        self.SNF = False
-        self.SN1 = True
+        self.SNF = True
+        self.SN3 = False
         if self.pausa == False:
             pygame.mixer.Sound.stop(self.sonNivel3)
             pygame.mixer.Sound.play(self.sonido_fondo, -1)
@@ -190,60 +192,88 @@ def interNiveles():#intercambia a canva de niveles a escoger
 def interNivel1():#intercambia a nivel 1
     global nav, nav1, nav2
     if varMap.get() == 1:
-        cniveles.pack_forget()
-        cNivel1.pack(side="right")
-        juego.stop2()
-        nav1 = cNivel1.create_image(400, 10, image=N11, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel1.pack(side="right")
+            juego.stop2()
+            nav1 = cNivel1.create_image(400, 10, image=N11, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 2:
-        cniveles.pack_forget()
-        cNivel1.pack(side="right")
-        juego.stop2()
-        nav2 = cNivel1.create_image(400, 10, image=N22, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel1.pack(side="right")
+            juego.stop2()
+            nav2 = cNivel1.create_image(400, 10, image=N22, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 3:
-        cniveles.pack_forget()
-        cNivel1.pack(side="right")
-        juego.stop2()
-        nav = cNivel1.create_image(400, 10, image=N33, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel1.pack(side="right")
+            juego.stop2()
+            nav = cNivel1.create_image(400, 10, image=N33, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
 def interNivel2():#intercambia a nivel 2
     global nav, nav1, nav2
     if varMap.get() == 1:
-        cniveles.pack_forget()
-        cNivel2.pack(side="right")
-        juego.stop3()
-        nav1 = cNivel2.create_image(400, 10, image=N11, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel2.pack(side="right")
+            juego.stop3()
+            nav1 = cNivel2.create_image(400, 10, image=N11, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 2:
-        cniveles.pack_forget()
-        cNivel2.pack(side="right")
-        juego.stop3()
-        nav2 = cNivel2.create_image(400, 10, image=N22, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel2.pack(side="right")
+            juego.stop3()
+            nav2 = cNivel2.create_image(400, 10, image=N22, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 3:
-        cniveles.pack_forget()
-        cNivel2.pack(side="right")
-        juego.stop3()
-        nav = cNivel2.create_image(400, 10, image=N33, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel2.pack(side="right")
+            juego.stop3()
+            nav = cNivel2.create_image(400, 10, image=N33, anchor="nw")
+
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
-def interNivel3():#intercambia a nivel 1
+def interNivel3():#intercambia a nivel 3
     global nav, nav1, nav2
     if varMap.get() == 1:
-        cniveles.pack_forget()
-        cNivel3.pack(side="right")
-        juego.stop4()
-        nav1 = cNivel3.create_image(400, 10, image=N11, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel3.pack(side="right")
+            juego.stop4()
+            nav1 = cNivel3.create_image(400, 10, image=N11, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 2:
-        cniveles.pack_forget()
-        cNivel3.pack(side="right")
-        juego.stop4()
-        nav2 = cNivel3.create_image(400, 10, image=N22, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel3.pack(side="right")
+            juego.stop4()
+            nav2 = cNivel3.create_image(400, 10, image=N22, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 3:
-        cniveles.pack_forget()
-        cNivel3.pack(side="right")
-        juego.stop4()
-        nav = cNivel3.create_image(400, 10, image=N33, anchor="nw")
+        if nameN.get() != "":
+            cniveles.pack_forget()
+            cNivel3.pack(side="right")
+            juego.stop4()
+            nav = cNivel3.create_image(400, 10, image=N33, anchor="nw")
+        else:
+            messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
@@ -269,6 +299,7 @@ def volverNiveles():
     juego.VolverSon1()
     juego.VolverSon2()
     juego.VolverSon3()
+    nameN.delete(0, tk.END)
 
 #intercambio para jugar en modo Historia-----------------------
 def InterJugar():
@@ -307,6 +338,7 @@ def InterAHistoria():#funcion retorna a canva Modo historia
     cModHis.delete(nav)
     cModHis.delete(nav1)
     cModHis.delete(nav2)
+    name.delete(0, tk.END)
 
 # Creación de canvas
 
@@ -375,14 +407,14 @@ juego.TiempoC()
 bstop = tk.Button(cPrincipal ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
 bstop.place(x = 570, y = 4)
 
-#bstop1 = tk.Button(cNivel1 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-#bstop1.place(x = 570, y = 4)
+bstop1 = tk.Button(cNivel1 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop1.place(x = 570, y = 4)
 
-#bstop2 = tk.Button(cNivel2 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-#bstop2.place(x = 570, y = 4)
+bstop2 = tk.Button(cNivel2 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop2.place(x = 570, y = 4)
 
-#bstop3 = tk.Button(cNivel3 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-#bstop3.place(x = 570, y = 4)
+bstop3 = tk.Button(cNivel3 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop3.place(x = 570, y = 4)
 
 #boton para cambiar a canva juego
 bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
@@ -431,13 +463,13 @@ bNiveles = tk.Button(cJuego ,image=imgNiveles, borderwidth = 0,width = 150, heig
 bNiveles.place(x = 300, y = 270)
 
 bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel1)
-bLevel1.place(x = 100, y = 270)
+bLevel1.place(x = 100, y = 300)
 
 bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interNivel2)
-bLevel2.place(x = 290, y = 270)
+bLevel2.place(x = 290, y = 300)
 
 bLevel3 = tk.Button(cniveles ,image = imgNivel3, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel3)
-bLevel3.place(x = 480, y = 270)
+bLevel3.place(x = 480, y = 300)
 
 bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0,cursor = "hand2",  command = volverJuego)
 bvolverN.place(x = 4, y = 4)
@@ -473,10 +505,13 @@ Escoge2.place(x=350,y=200)
 Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
 Escoge3.place(x=500,y=200)
 
-#Entry para Modo historia
+#Entry para Modo historia y niveles
 
 name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
 name.place(x=100,y=250)
+
+nameN = tk.Entry(cniveles,fg = "black",font=("fixedsys"))
+nameN.place(x=290,y=270)
 
 #-----Configuracion canva About-----
 

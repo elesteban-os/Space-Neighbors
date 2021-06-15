@@ -44,6 +44,7 @@ class Nave:
         self.enMoveD = False
         self.NaveImg = imgNave
         self.canvas = canvas
+        self.bbox = [canvas.bbox(imgNave)[0], canvas.bbox(imgNave)[1], canvas.bbox(imgNave)[2], canvas.bbox(imgNave)[3]]
 
     def moverDT(self, bind):
         if self.enMoveR == False:
@@ -57,6 +58,8 @@ class Nave:
                 self.canvas.move(self.NaveImg, 10, 0)
                 self.ejeX = self.canvas.coords(self.NaveImg)[0]
                 time.sleep(0.02)
+                self.bbox = [self.canvas.bbox(self.NaveImg)[0], self.canvas.bbox(self.NaveImg)[1],
+                             self.canvas.bbox(self.NaveImg)[2], self.canvas.bbox(self.NaveImg)[3]]
             else:
                 break
 
@@ -75,6 +78,8 @@ class Nave:
                 self.canvas.move(self.NaveImg, -10, 0)
                 self.ejeX = self.canvas.coords(self.NaveImg)[0]
                 time.sleep(0.02)
+                self.bbox = [self.canvas.bbox(self.NaveImg)[0], self.canvas.bbox(self.NaveImg)[1],
+                             self.canvas.bbox(self.NaveImg)[2], self.canvas.bbox(self.NaveImg)[3]]
             else:
                 break
 
@@ -93,6 +98,8 @@ class Nave:
                 self.canvas.move(self.NaveImg, 0, -10)
                 self.ejeY = self.canvas.coords(self.NaveImg)[1]
                 time.sleep(0.02)
+                self.bbox = [self.canvas.bbox(self.NaveImg)[0], self.canvas.bbox(self.NaveImg)[1],
+                             self.canvas.bbox(self.NaveImg)[2], self.canvas.bbox(self.NaveImg)[3]]
             else:
                 break
 
@@ -111,6 +118,8 @@ class Nave:
                 self.canvas.move(self.NaveImg, 0, 10)
                 self.ejeY = self.canvas.coords(self.NaveImg)[1]
                 time.sleep(0.02)
+                self.bbox = [self.canvas.bbox(self.NaveImg)[0], self.canvas.bbox(self.NaveImg)[1],
+                             self.canvas.bbox(self.NaveImg)[2], self.canvas.bbox(self.NaveImg)[3]]
             else:
                 break
 
@@ -118,7 +127,7 @@ class Nave:
         self.enMoveD = False
 
     def returnbbox(self, i):
-        return self.canvas.bbox(self.NaveImg)[i]
+        return self.bbox[i]
 
     def quitarEnergía(self):
         self.energia -= 1

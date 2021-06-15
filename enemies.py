@@ -22,7 +22,7 @@ y del jugador.
 -__del__(): elimina la instancia y la imagen del asteroide para ahorrar recursos
 """
 class Asteroides:
-    def __init__(self, imagen, canvas, imgExplosiones, nave, sRebote, sExplosion):
+    def __init__(self, imagen, canvas, imgExplosiones, nave, sRebote, sExplosion, juego):
         self.ejeX = canvas.coords(imagen)[0]
         self.ejeY = canvas.coords(imagen)[1]
         self.contarRebote= 0
@@ -34,6 +34,7 @@ class Asteroides:
         self.reboteS = sRebote
         self.explosionS = sExplosion
         self.jugando = True
+        self.claseJuego = juego
 
     def moveT(self):
         thread = Thread(target = self.move)
@@ -50,23 +51,28 @@ class Asteroides:
                     self.nave.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and self.nave.returnbbox(3) > self.canvas.bbox(self.imagen)[3]:
                 self.canvas.delete(self.imagen)
                 self.nave.quitarEnergía()
-                pygame.mixer.Sound.play(self.explosionS, 0)
+                if self.claseJuego.returnPausa() == False:
+                    pygame.mixer.Sound.play(self.explosionS, 0)
                 self.efectoExplosiones()
                 break
             elif self.ejeY <= 0 and self.contarRebote != 2:
-                pygame.mixer.Sound.play(self.reboteS, 0)
+                if self.claseJuego.returnPausa() == False:
+                    pygame.mixer.Sound.play(self.reboteS, 0)
                 self.contarRebote += 1
                 direccionY *= -1
             elif self.ejeY >= 450 and self.contarRebote != 2:
-                pygame.mixer.Sound.play(self.reboteS, 0)
+                if self.claseJuego.returnPausa() == False:
+                    pygame.mixer.Sound.play(self.reboteS, 0)
                 self.contarRebote += 1
                 direccionY *= -1
             elif self.ejeX <= 0 and self.contarRebote != 2:
-                pygame.mixer.Sound.play(self.reboteS, 0)
+                if self.claseJuego.returnPausa() == False:
+                    pygame.mixer.Sound.play(self.reboteS, 0)
                 self.contarRebote += 1
                 self.velocidadX *= -1
             elif self.ejeX >= 730 and self.contarRebote != 2:
-                pygame.mixer.Sound.play(self.reboteS, 0)
+                if self.claseJuego.returnPausa() == False:
+                    pygame.mixer.Sound.play(self.reboteS, 0)
                 self.contarRebote += 1
                 self.velocidadX *= -1
             elif self.ejeX > 750 or self.ejeX < -10:
@@ -82,6 +88,12 @@ class Asteroides:
 
     def detener(self):
         self.jugando = False
+
+    def cambiarSonar(self):
+        self.sonar = not self.sonar
+
+    def returnSonar(self):
+        return self.sonar
 
     def __del__(self):
         self.canvas.delete(self.imagen)

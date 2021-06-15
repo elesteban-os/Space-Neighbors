@@ -78,19 +78,23 @@ class Juego:
         self.SN1= False
         self.SN2=False
         self.SN3=False
+        self.SNF=True
     def sonar(self):
         pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
     def stop(self):# para pausar el sonido o despausar
         if self.pausa==True :
-            pygame.mixer.Sound.stop(self.sonido_fondo)
-            self.pausa=False
-            if self.SN1 == False:
-
+            if self.SNF==True:
+                pygame.mixer.Sound.play(self.sonido_fondo, -1)
+            #self.pausa=False
+            elif self.SN1 == False:
+                pygame.mixer.Sound.play(self.sonido_fondo, -1)
             elif self.SN2 == False:
-
+                pygame.mixer.Sound.play(self.sonido_fondo, -1)
             elif self.SN3 == False:
-        elif self.pausa==False :
-            pygame.mixer.Sound.play(self.sonido_fondo, -1)
+                pygame.mixer.Sound.play(self.sonido_fondo, -1)
+            self.pausa = False
+        else:
+            pygame.mixer.Sound.stop(self.sonido_fondo)
             self.pausa=True
 
 
@@ -117,28 +121,46 @@ class Juego:
             self.jugando = True
 
     def stop2(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo)
-        pygame.mixer.Sound.play(self.sonNivel1, -1)
+        self.SNF=False
+        self.SN1=True
+        if self.pausa==False:
+            pygame.mixer.Sound.stop(self.sonido_fondo)
+            pygame.mixer.Sound.play(self.sonNivel1, -1)
 
     def VolverSon1(self):
-        pygame.mixer.Sound.stop(self.sonNivel1)
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
+        self.SNF = False
+        self.SN1 = True
+        if self.pausa==False:
+            pygame.mixer.Sound.stop(self.sonNivel1)
+            pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
     def stop3(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo)
-        pygame.mixer.Sound.play(self.sonNivel2, -1)
+        self.SNF = False
+        self.SN1 = True
+        if self.pausa == False:
+            pygame.mixer.Sound.stop(self.sonido_fondo)
+            pygame.mixer.Sound.play(self.sonNivel2, -1)
 
     def VolverSon2(self):
-        pygame.mixer.Sound.stop(self.sonNivel2)
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
+        self.SNF = False
+        self.SN1 = True
+        if self.pausa == False:
+            pygame.mixer.Sound.stop(self.sonNivel2)
+            pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
     def stop4(self):
-        pygame.mixer.Sound.stop(self.sonido_fondo)
-        pygame.mixer.Sound.play(self.sonNivel3, -1)
+        self.SNF = False
+        self.SN1 = True
+        if self.pausa == False:
+            pygame.mixer.Sound.stop(self.sonido_fondo)
+            pygame.mixer.Sound.play(self.sonNivel3, -1)
 
     def VolverSon3(self):
-        pygame.mixer.Sound.stop(self.sonNivel3)
-        pygame.mixer.Sound.play(self.sonido_fondo, -1)
+        self.SNF = False
+        self.SN1 = True
+        if self.pausa == False:
+            pygame.mixer.Sound.stop(self.sonNivel3)
+            pygame.mixer.Sound.play(self.sonido_fondo, -1)
 
 pygame.mixer.init()
 

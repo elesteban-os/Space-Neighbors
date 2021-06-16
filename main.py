@@ -295,6 +295,7 @@ def generarFondo(canvas):
         time.sleep(0.2)
     hacerFondo.detener()
 
+
 def generarFondo2(canvas):
     global listaPlanetas
     while juego.returnJugando() == True:

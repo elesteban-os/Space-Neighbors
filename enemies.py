@@ -78,6 +78,9 @@ class Asteroides:
             elif self.ejeX > 750 or self.ejeX < -10:
                 self.canvas.delete(self.imagen)
                 break
+            elif self.claseJuego.returnJugando() == False:
+                self.canvas.delete(self.imagen)
+                break
 
 
     def efectoExplosiones(self):
@@ -88,6 +91,7 @@ class Asteroides:
 
     def detener(self):
         self.jugando = False
+        self.canvas.delete(self.imagen)
 
     def cambiarSonar(self):
         self.sonar = not self.sonar

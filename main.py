@@ -18,6 +18,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import random
 from tkinter import messagebox
+import tkinter.ttk as ttk
 import pygame, sys
 from pygame.locals import *
 from threading import Thread
@@ -62,6 +63,10 @@ N22 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
 N33 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
 song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
 estrellaF = ImageTk.PhotoImage(Image.open("media/estrella.png"))
+vida100= ImageTk.PhotoImage(Image.open("media/life.png"))
+vida50= ImageTk.PhotoImage(Image.open("media/life1.png"))
+vida10=ImageTk.PhotoImage(Image.open("media/life2.png"))
+vida0=ImageTk.PhotoImage(Image.open("media/life3.png"))
 listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
                    ImageTk.PhotoImage(Image.open("media/asteroide2.png")),
                    ImageTk.PhotoImage(Image.open("media/asteroide3.png")),
@@ -117,7 +122,7 @@ def interNivel1():#intercambia a nivel 1
     global nav, nav1, nav2
     if varMap.get() == 1:
         cniveles.pack_forget()
-        cNivel1.pack(side="left")
+        cNivel1.pack(side="right")
         juego.stop2()
         nav1 = cNivel1.create_image(150, 250, image=N11)
         iniciarNivel(cNivel1, nav1, 3, juego)
@@ -198,10 +203,12 @@ def volverJuego():
     cJuego.pack(side="right")
 
 def volverNiveles():
-    juego.jugandoTF()
+    if juego.returnJugando() == True:
+        juego.jugandoTF()
     cNivel1.pack_forget()
     cNivel2.pack_forget()
     cNivel3.pack_forget()
+    cGameOver.pack_forget()
     cCargando.pack(side = "right")
     juego.VolverSon1()
     juego.VolverSon2()
@@ -222,6 +229,8 @@ def reset():
     cNivel3.delete(nav2)
     cniveles.pack(side="right")
     cCargando.pack_forget()
+    juego.resetTime()
+
 
 
 #intercambio para jugar en modo Historia-----------------------
@@ -230,8 +239,11 @@ def InterJugar():
     if varMap.get()==1:
         if name.get() != "":
             cHistoria.pack_forget()
-            cModHis.pack(side = "right")
-            nav1 = cModHis.create_image(400, 10, image=N11, anchor="nw")
+            cNivel1.pack(side="right")
+            juego.stop2()
+            nav1 = cNivel1.create_image(150, 250, image=N11)
+            juego.iniciarHistoria(name.get())
+            iniciarNivel(cNivel1, nav1, 3, juego)
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get()==2:
@@ -239,14 +251,14 @@ def InterJugar():
         if name.get() != "":
             cHistoria.pack_forget()
             cModHis.pack(side = "right")
-            nav2 = cModHis.create_image(400, 10, image=N22, anchor="nw")
+            nav2 = cModHis.create_image(150, 250, image=N22)
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 3:
         if name.get() != "":
             cHistoria.pack_forget()
             cModHis.pack(side = "right")
-            nav=cModHis.create_image(400, 10, image=N33, anchor="nw")
+            nav=cModHis.create_image(150, 250, image=N33)
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
@@ -264,6 +276,7 @@ def InterAHistoria():#funcion retorna a canva Modo historia
 
 def iniciarNivel(canvas, nave, astTiempo, claseJuego):
     juego.jugandoTF()
+    juego.TiempoC()
     lvl = Nave(nave, canvas)
     window.bind("<KeyPress-Right>", lvl.moverDT)
     window.bind("<KeyRelease-Right>", lvl.cancMoveD)
@@ -288,10 +301,17 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
     while juego.returnJugando() == True:
         imagen = canvas.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
         atributos = Asteroides(imagen, canvas, listaExplosiones, claseNave, pygame.mixer.Sound("media/explosion01.wav"),
-                               pygame.mixer.Sound("media/rebote.wav"), claseJuego) # a ver
+                               pygame.mixer.Sound("media/rebote.wav"), claseJuego)
         atributos.moveT()
+        if claseNave.returnJugando() == False:
+            canvas.pack_forget()
+            cGameOver.pack(side = "right")
+            claseJuego.jugandoTF()
+            break
+        if claseJuego.returnJugando() == False and claseJuego.returnHistoria() == True:
+            break
         time.sleep(tiempo)
-    atributos.detener()
+
 
 def generarFondo(canvas, claseJuego):
     global estrellaF
@@ -299,6 +319,8 @@ def generarFondo(canvas, claseJuego):
         generarImg = canvas.create_image(730, random.randint(0, 450), image= estrellaF)
         hacerFondo = Fondo(canvas, generarImg,  random.randint(10, 15), claseJuego)
         hacerFondo.moveT()
+        if juego.returnJugando() == False and juego.returnHistoria() == True:
+            break
         time.sleep(0.2)
 
 
@@ -309,6 +331,8 @@ def generarFondo2(canvas, claseJuego):
         generarImg = canvas.create_image(730, random.randint(0, 450), image=listaPlanetas[random.randint(0, 5)])
         hacerFondo = Fondo(canvas, generarImg, random.randint(1, 3), claseJuego)
         hacerFondo.moveT()
+        if juego.returnJugando() == False and juego.returnHistoria() == True:
+            break
         time.sleep(28)
 
 
@@ -329,13 +353,59 @@ cniveles  = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
 cNivel1 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
+label_pts1 = tk.Label(cNivel1, text="PTS: " , font=("Fixedsys", 20), bg='black',fg='white')
+label_pts1.place(x=635, y=410)
+
+label_time1=tk.Label(cNivel1, text="0:0" , font=("Fixedsys", 20), bg='black',fg='white')
+label_time1.place(x=4, y=410)
+
+LiveNivel1=ttk.Progressbar(cNivel1, orient = "horizontal", length=100, mode="determinate")
+LiveNivel1.place(x=320, y=420)
+LiveNivel1["value"]=100
+
+lifen1= cNivel1.create_image(370, 400, image=vida100)
+
+
 cNivel2 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
+label_pts2 = tk.Label(cNivel2, text="PTS: " , font=("Fixedsys", 20), bg='black',fg='white')
+label_pts2.place(x=635, y=410)
+
+label_time2=tk.Label(cNivel2, text="0:0" , font=("Fixedsys", 20), bg='black',fg='white')
+label_time2.place(x=4, y=410)
+
+LiveNivel2=ttk.Progressbar(cNivel2, orient = "horizontal", length=100, mode="determinate")
+LiveNivel2.place(x=320, y=420)
+LiveNivel2["value"]=100
+
+lifen2= cNivel2.create_image(370, 400, image=vida100)
+
 cNivel3 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+label_pts3 = tk.Label(cNivel3, text="PTS: " , font=("Fixedsys", 20), bg='black',fg='white')
+label_pts3.place(x=635, y=410)
+
+label_time3=tk.Label(cNivel3, text="0:0" , font=("Fixedsys", 20), bg='black',fg='white')
+label_time3.place(x=4, y=410)
+
+LiveNivel3=ttk.Progressbar(cNivel3, orient = "horizontal", length=100, mode="determinate")
+LiveNivel3.place(x=320, y=420)
+LiveNivel3["value"]=100
+
+lifen3= cNivel3.create_image(370, 400, image=vida100)
 
 cCargando = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 lCargando = tk.Label(cCargando, text = "Por favor, espere...", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lCargando.place(x = 150, y = 200)
+
+cGameOver = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+lGameOver = tk.Label(cGameOver, text = "Has sido derrotado", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lGameOver.place(x = 170, y = 150)
+bvolverGO = tk.Button(cGameOver, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
+bvolverGO.place(x = 290, y = 250)
+
+
+
 
 cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
@@ -374,7 +444,8 @@ Autores de módulos modificados:--------
 """, bg = "black", fg = "white", font = ("fixedsys", 10))
 credits_.place(x=25,y=10)  #creacion de label con informacion "acerca de "
 #Funciones donde se llama a la clase juego, para sonidos y tiempo
-juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal)
+juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal, label_time1,
+             label_time2, label_time3)
 juego.sonar()
 juego.TiempoC()
 

@@ -53,7 +53,7 @@ class Asteroides:
             elif self.nave.returnbbox(0) < self.canvas.bbox(self.imagen)[0] and self.nave.returnbbox(2) > self.canvas.bbox(self.imagen)[2] and \
                     self.nave.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and self.nave.returnbbox(3) > self.canvas.bbox(self.imagen)[3]:
                 self.canvas.delete(self.imagen)
-                self.nave.quitarEnergía()
+                self.nave.quitarEnergia()
                 if self.claseJuego.returnPausa() == False:
                     pygame.mixer.Sound.play(self.explosionS, 0)
                 self.efectoExplosiones()

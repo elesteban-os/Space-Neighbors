@@ -38,6 +38,7 @@ class Nave:
         self.energia = 20
         self.ejeX = canvas.coords(imgNave)[0]
         self.ejeY = canvas.coords(imgNave)[1]
+        self.jugando = True
         self.enMoveL = False
         self.enMoveR = False
         self.enMoveU = False
@@ -129,14 +130,18 @@ class Nave:
     def returnbbox(self, i):
         return self.bbox[i]
 
-    def quitarEnergía(self):
-        self.energia -= 1
+    def quitarEnergia(self):
+        self.energia -= 10
         if self.energia == 0:
             self.vida -= 1
             if self.vida == 0:
-                print("Game Over")
+                self.jugando = False
             else:
                 self.energia = 20
+        print(self.energia)
+
+    def returnJugando(self):
+        return self.jugando
 
 
 

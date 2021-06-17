@@ -22,31 +22,32 @@ Atributos:
 
 Métodos
 -sonar(): Hace sonar la cancion desde el inicio
--stop():# para pausar el sonido o despausar
--TiempoC():crea un thread para el temporizadorr
--contadorT():es la funcion principal que llama a la auxiliar
+-stop(): para pausar el sonido o reanudar
+-TiempoC(): crea un thread para el temporizadorr
+-contadorT(): es la funcion principal que llama a la auxiliar
 -contadorTAux(): hace el conteo del temporizador
--jugandoTF():#Funcion para detener el tiempo, cuando finaliza ejecucion
+-jugandoTF(): Funcion para detener el tiempo, cuando finaliza ejecucion
 -stop2(): detiene  la cancion principal y suena la del nivel 1
--VolverSon1():detiene la cancion del nivel y vuelve la cancion principal
-- stop3():detiene  la cancion principal y suena la del nivel 2
--VolverSon2():detiene la cancion del nivel y vuelve la cancion principal
--stop4():detiene  la cancion principal y suena la del nivel 3
-- VolverSon3():detiene la cancion del nivel y vuelve la cancion principal
--returnJugando():
--returnPausa():
+-VolverSon1(): detiene la cancion del nivel y vuelve la cancion principal
+-stop3(): detiene  la cancion principal y suena la del nivel 2
+-VolverSon2(): detiene la cancion del nivel y vuelve la cancion principal
+-stop4(): detiene  la cancion principal y suena la del nivel 3
+-VolverSon3(): detiene la cancion del nivel y vuelve la cancion principal
+-returnJugando(): retorna el atributo "jugando"
+-returnPausa(): retorna el atributo "pausa"
         
 """
 class Juego:
-    def __init__(self, sonido,sonido1, sonido2, sonido3, tiempo, canvas):
+    def __init__(self, sonido, sonido1, sonido2, sonido3, tiempo, canvas, label1, label2, label3):
         self.pausa = False
         self.sonido_fondo = sonido
         self.tiempo=tiempo
         self.jugando= False
+        self.historia= False
         self.canvas= canvas
         self.nombre=0
         self.puntaje=0
-        self.modoJuego=""
+        self.nivel=0
         self.sonNivel1=sonido1
         self.sonNivel2=sonido2
         self.sonNivel3=sonido3
@@ -54,6 +55,9 @@ class Juego:
         self.SN2 = False
         self.SN3 = False
         self.SNF = True
+        self.labelT = label1
+        self.label2T = label2
+        self.label3T = label3
 
     def sonar(self):
         pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
@@ -82,15 +86,22 @@ class Juego:
 
     def contadorT(self): #contador de tiempo
         while self.jugando == True:
-            time.sleep(0.3)
+            time.sleep(1)
             self.contadorTAux()
 
     def contadorTAux(self):
         if self.tiempo[1] == 59:
             self.tiempo[1] =0
             self.tiempo[0] += 1
+            self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+            self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+            self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+
         else:
             self.tiempo[1]+=1
+            self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+            self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+            self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             print(self.tiempo)
 
     def jugandoTF(self):#Funcion para detener el tiempo, cuando finaliza ejecucion
@@ -144,5 +155,18 @@ class Juego:
     def returnPausa(self):
         return self.pausa
 
-    print("j")
+    def iniciarHistoria(self, nombre):
+        self.historia = True
+        self.nombre = nombre
+        self.nivel = 1
+
+    def returnHistoria(self):
+        return self.historia
+
+    def resetTime(self):
+        self.tiempo = [0, 0]
+        self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+        self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+        self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+
 

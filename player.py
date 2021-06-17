@@ -138,3 +138,5 @@ class Nave:
             else:
                 self.energia = 20
 
+
+

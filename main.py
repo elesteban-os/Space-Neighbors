@@ -202,6 +202,15 @@ def volverNiveles():
     cNivel1.pack_forget()
     cNivel2.pack_forget()
     cNivel3.pack_forget()
+    cCargando.pack(side = "right")
+    juego.VolverSon1()
+    juego.VolverSon2()
+    juego.VolverSon3()
+    thread = Thread(target = reset)
+    thread.start()
+
+def reset():
+    time.sleep(3)
     cNivel1.delete(nav)
     cNivel1.delete(nav1)
     cNivel1.delete(nav2)
@@ -212,9 +221,7 @@ def volverNiveles():
     cNivel3.delete(nav1)
     cNivel3.delete(nav2)
     cniveles.pack(side="right")
-    juego.VolverSon1()
-    juego.VolverSon2()
-    juego.VolverSon3()
+    cCargando.pack_forget()
 
 
 #intercambio para jugar en modo Historia-----------------------
@@ -269,10 +276,10 @@ def iniciarNivel(canvas, nave, astTiempo, claseJuego):
     thread = Thread(target=generarAsteroides, args=(astTiempo, canvas, lvl, claseJuego))
     thread.start()
 
-    thread2 = Thread(target=generarFondo, args=(canvas,))
+    thread2 = Thread(target=generarFondo, args=(canvas, claseJuego,))
     thread2.start()
 
-    thread3 = Thread(target=generarFondo2, args=(canvas,))
+    thread3 = Thread(target=generarFondo2, args=(canvas, claseJuego,))
     thread3.start()
 
 # Función que genera asteroides
@@ -286,24 +293,24 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
         time.sleep(tiempo)
     atributos.detener()
 
-def generarFondo(canvas):
+def generarFondo(canvas, claseJuego):
     global estrellaF
     while juego.returnJugando() == True:
         generarImg = canvas.create_image(730, random.randint(0, 450), image= estrellaF)
-        hacerFondo = Fondo(canvas, generarImg,  random.randint(10, 15))
+        hacerFondo = Fondo(canvas, generarImg,  random.randint(10, 15), claseJuego)
         hacerFondo.moveT()
         time.sleep(0.2)
-    hacerFondo.detener()
 
 
-def generarFondo2(canvas):
+
+def generarFondo2(canvas, claseJuego):
     global listaPlanetas
     while juego.returnJugando() == True:
         generarImg = canvas.create_image(730, random.randint(0, 450), image=listaPlanetas[random.randint(0, 5)])
-        hacerFondo = Fondo(canvas, generarImg, random.randint(1, 3))
+        hacerFondo = Fondo(canvas, generarImg, random.randint(1, 3), claseJuego)
         hacerFondo.moveT()
         time.sleep(28)
-    hacerFondo.detener()
+
 
 
 # Creación de canvas
@@ -325,6 +332,10 @@ cNivel1 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 cNivel2 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
 cNivel3 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+cCargando = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+lCargando = tk.Label(cCargando, text = "Por favor, espere...", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lCargando.place(x = 150, y = 200)
 
 cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 

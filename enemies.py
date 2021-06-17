@@ -47,7 +47,10 @@ class Asteroides:
             time.sleep(0.05)
             self.ejeX = self.canvas.coords(self.imagen)[0]
             self.ejeY = self.canvas.coords(self.imagen)[1]
-            if self.nave.returnbbox(0) < self.canvas.bbox(self.imagen)[0] and self.nave.returnbbox(2) > self.canvas.bbox(self.imagen)[2] and \
+            if self.claseJuego.returnJugando() == False:
+                self.canvas.delete(self.imagen)
+                break
+            elif self.nave.returnbbox(0) < self.canvas.bbox(self.imagen)[0] and self.nave.returnbbox(2) > self.canvas.bbox(self.imagen)[2] and \
                     self.nave.returnbbox(1) < self.canvas.bbox(self.imagen)[1] and self.nave.returnbbox(3) > self.canvas.bbox(self.imagen)[3]:
                 self.canvas.delete(self.imagen)
                 self.nave.quitarEnergía()
@@ -78,9 +81,7 @@ class Asteroides:
             elif self.ejeX > 750 or self.ejeX < -10:
                 self.canvas.delete(self.imagen)
                 break
-            elif self.claseJuego.returnJugando() == False:
-                self.canvas.delete(self.imagen)
-                break
+
 
 
     def efectoExplosiones(self):

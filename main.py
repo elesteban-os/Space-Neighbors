@@ -288,7 +288,7 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
     while juego.returnJugando() == True:
         imagen = canvas.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
         atributos = Asteroides(imagen, canvas, listaExplosiones, claseNave, pygame.mixer.Sound("media/explosion01.wav"),
-                               pygame.mixer.Sound("media/rebote.wav"), claseJuego)
+                               pygame.mixer.Sound("media/rebote.wav"), claseJuego) # a ver
         atributos.moveT()
         time.sleep(tiempo)
     atributos.detener()

@@ -2,6 +2,41 @@ import pygame
 from threading import Thread
 import time
 
+"""
+Clase de juego
+Atributos:
++pausa: boolean 
++sonido_fondo: sonido principal del juego
++tiempo: tiempo que transcurre en los niveles
++canvas:canvas en donde se encuntran ......
++nombre: nombre del jugador
++puntaje: puntaje que va aumentando en el juego
++modoJuego: -............
++sonNivel1: sonido para el nivel 1
++sonNivel2: sonido para el nivel 2
++sonNivel3: sonido para el nivel 1
++SN1 = boolean
++SN2 = boolean
++SN3 = boolean
++SNF = boolean
+
+Métodos
+-sonar(): Hace sonar la cancion desde el inicio
+-stop():# para pausar el sonido o despausar
+-TiempoC():crea un thread para el temporizadorr
+-contadorT():es la funcion principal que llama a la auxiliar
+-contadorTAux(): hace el conteo del temporizador
+-jugandoTF():#Funcion para detener el tiempo, cuando finaliza ejecucion
+-stop2(): detiene  la cancion principal y suena la del nivel 1
+-VolverSon1():detiene la cancion del nivel y vuelve la cancion principal
+- stop3():detiene  la cancion principal y suena la del nivel 2
+-VolverSon2():detiene la cancion del nivel y vuelve la cancion principal
+-stop4():detiene  la cancion principal y suena la del nivel 3
+- VolverSon3():detiene la cancion del nivel y vuelve la cancion principal
+-returnJugando():
+-returnPausa():
+        
+"""
 class Juego:
     def __init__(self, sonido,sonido1, sonido2, sonido3, tiempo, canvas):
         self.pausa = False

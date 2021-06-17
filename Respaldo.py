@@ -67,6 +67,10 @@ N22 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
 N33 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
 song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
 estrellaF = ImageTk.PhotoImage(Image.open("media/estrella.png"))
+vida100= ImageTk.PhotoImage(Image.open("media/life.png"))
+vida50= ImageTk.PhotoImage(Image.open("media/life1.png"))
+vida10=ImageTk.PhotoImage(Image.open("media/life2.png"))
+vida0=ImageTk.PhotoImage(Image.open("media/life3.png"))
 listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
                    ImageTk.PhotoImage(Image.open("media/asteroide2.png")),
                    ImageTk.PhotoImage(Image.open("media/asteroide3.png")),
@@ -352,20 +356,20 @@ class timee:#falta que cuando ingrese al nivel, tambien empiece el cronometro
                 if self.tiempo[1] == 59:
                     self.tiempo[1] = 0
                     self.tiempo[0] += 1
-                    self.label2.config(text="Tiempo: " + str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+                    self.label2.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
                 else:
                     self.tiempo[1] += 1
                     print(self.tiempo)
-                    self.label2.config(text="Tiempo: " + str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+                    self.label2.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             if n3 == True:
                 if self.tiempo[1] == 59:
                     self.tiempo[1] = 0
                     self.tiempo[0] += 1
-                    self.label3.config(text="Tiempo: " + str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+                    self.label3.config(text= str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
                 else:
                     self.tiempo[1] += 1
                     print(self.tiempo)
-                    self.label3.config(text="Tiempo: " + str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+                    self.label3.config(text= str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
 
 #tiemp=timee([0,0],label_time1 )
 #tiemp.contadorT()
@@ -572,36 +576,44 @@ label_pts1 = tk.Label(cNivel1, text="PTS: " , font=("Vermin Vibes V", 12), bg='b
 label_pts1.place(x=635, y=390)
 
 
-label_time1=tk.Label(cNivel1, text="Tiempo: " , font=("Vermin Vibes V", 12), bg='black',fg='white')
+label_time1=tk.Label(cNivel1, text=" " , font=("Vermin Vibes V", 12), bg='black',fg='white')
 label_time1.place(x=4, y=390)
 
 LiveNivel1=ttk.Progressbar(cNivel1, orient = "horizontal", length=100, mode="determinate")
-LiveNivel1.place(x=320, y=390)
+LiveNivel1.place(x=320, y=410)
 LiveNivel1["value"]=100
+
+lifen1= cNivel1.create_image(370, 380, image=vida100)
+
 #-------------------------------------------------
 label_pts2 = tk.Label(cNivel2, text="PTS: " , font=("Vermin Vibes V", 12), bg='black',fg='white')
 label_pts2.place(x=635, y=390)
 
-label_time2=tk.Label(cNivel2, text="Tiempo: " , font=("Vermin Vibes V", 12), bg='black',fg='white')
+label_time2=tk.Label(cNivel2, text=" " , font=("Vermin Vibes V", 12), bg='black',fg='white')
 label_time2.place(x=4, y=390)
 
 LiveNivel2=ttk.Progressbar(cNivel2, orient = "horizontal", length=100, mode="determinate")
-LiveNivel2.place(x=320, y=390)
+LiveNivel2.place(x=320, y=410)
 LiveNivel2["value"]=100
+
+lifen2= cNivel2.create_image(370, 380, image=vida100)
 #----------------------------------------------------
 label_pts3 = tk.Label(cNivel3, text="PTS: " , font=("Vermin Vibes V", 12), bg='black',fg='white')
 label_pts3.place(x=635, y=390)
 
-label_time3=tk.Label(cNivel3, text="Tiempo: " , font=("Vermin Vibes V", 12), bg='black',fg='white')
+label_time3=tk.Label(cNivel3, text="" , font=("Vermin Vibes V", 12), bg='black',fg='white')
 label_time3.place(x=4, y=390)
 
 LiveNivel3=ttk.Progressbar(cNivel3, orient = "horizontal", length=100, mode="determinate")
-LiveNivel3.place(x=320, y=390)
+LiveNivel3.place(x=320, y=410)
 LiveNivel3["value"]=100
 
+lifen3= cNivel3.create_image(370, 380, image=vida100)
 
 tiemp=timee([0,0],label_time1, label_time2, label_time3)
 tiemp.TiempoC()
+
+
 
 cPrincipal.pack(side = "right")
 #cierra lo de tkinter y lo de pygame

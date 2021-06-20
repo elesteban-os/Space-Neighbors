@@ -38,7 +38,8 @@ Métodos
         
 """
 class Juego:
-    def __init__(self, sonido, sonido1, sonido2, sonido3, tiempo, canvas, label1, label2, label3):
+    def __init__(self, sonido, sonido1, sonido2, sonido3, tiempo, canvas, label1, label2, label3, label4, label5, label6,
+                 pg1, pg2, pg3):
         self.pausa = False
         self.sonido_fondo = sonido
         self.tiempo=tiempo
@@ -58,6 +59,15 @@ class Juego:
         self.labelT = label1
         self.label2T = label2
         self.label3T = label3
+        self.labelP = label4
+        self.labelP2 = label5
+        self.labelP3 = label6
+        self.valorPunt = 0
+        self.progressBar1 = pg1
+        self.progressBar2 = pg2
+        self.progressBar3 = pg3
+        self.nave = 0
+        self.backup = 0
 
     def sonar(self):
         pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
@@ -96,12 +106,22 @@ class Juego:
             self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+            self.puntaje += self.valorPunt
+            self.labelP.config(text=str(self.puntaje))
+            self.labelP2.config(text=str(self.puntaje))
+            self.labelP3.config(text=str(self.puntaje))
 
         else:
-            self.tiempo[1]+=1
+            self.tiempo[1]+=29.5
             self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+            self.puntaje += self.valorPunt
+
+            self.labelP.config(text=str(self.puntaje))
+            self.labelP2.config(text=str(self.puntaje))
+            self.labelP3.config(text=str(self.puntaje))
+
             print(self.tiempo)
 
     def jugandoTF(self):#Funcion para detener el tiempo, cuando finaliza ejecucion
@@ -155,18 +175,74 @@ class Juego:
     def returnPausa(self):
         return self.pausa
 
-    def iniciarHistoria(self, nombre):
+    def iniciarHistoria(self, nombre, nave):
         self.historia = True
         self.nombre = nombre
         self.nivel = 1
+        self.nave = nave
 
     def returnHistoria(self):
         return self.historia
 
-    def resetTime(self):
+    def reset(self):
         self.tiempo = [0, 0]
-        self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
-        self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
-        self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
+        self.labelT.config(text="Time")
+        self.label2T.config(text="Time")
+        self.label3T.config(text="Time")
 
+        self.puntaje = 0
+        self.valorPunt = 0
+
+        self.labelP.config(text="Points")
+        self.labelP2.config(text="Points")
+        self.labelP3.config(text="Points")
+
+        self.progressBar1["value"] = 100
+        self.progressBar2["value"] = 100
+        self.progressBar3["value"] = 100
+
+
+    def setPuntaje(self, num):
+        self.valorPunt = num
+
+    def returnTiempo(self):
+        return self.tiempo
+
+    def returnNivel(self):
+        return self.nivel
+
+    def setBackup(self, vidaNav, energiaNav):
+        if vidaNav == -1:
+            self.backup = 0
+        else:
+            self.backup = [self.puntaje, vidaNav, energiaNav]
+
+    def returnBackup(self):
+        return self.backup
+
+    def importBackup(self, puntaje):
+        self.puntaje = puntaje
+        self.labelP.config(text=str(self.puntaje))
+        self.labelP2.config(text=str(self.puntaje))
+        self.labelP3.config(text=str(self.puntaje))
+
+    def resetTiempo(self):
+        self.tiempo = [0,0]
+
+    def returnNave(self):
+        return self.nave
+
+    def sumaNivel(self):
+        self.nivel += 1
+
+    def returnPuntaje(self):
+        return self.puntaje
+
+    def terminarHistoria(self):
+        self.historia = False
+        self.nivel = 0
+
+    def returnPuntaje(self):
+        return self.puntaje
+        self.puntaje = 0
 

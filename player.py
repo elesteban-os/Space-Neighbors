@@ -33,7 +33,7 @@ Métodos
 """
 
 class Nave:
-    def __init__(self, imgNave, canvas):
+    def __init__(self, imgNave, canvas, pg1, pg2, pg3, vida3, vida2, vida1):
         self.vida = 3
         self.energia = 20
         self.ejeX = canvas.coords(imgNave)[0]
@@ -46,6 +46,12 @@ class Nave:
         self.NaveImg = imgNave
         self.canvas = canvas
         self.bbox = [canvas.bbox(imgNave)[0], canvas.bbox(imgNave)[1], canvas.bbox(imgNave)[2], canvas.bbox(imgNave)[3]]
+        self.progressBar1 = pg1
+        self.progressBar2 = pg2
+        self.progressBar3 = pg3
+        self.vida3 = vida3
+        self.vida2 = vida2
+        self.vida1 = vida1
 
     def moverDT(self, bind):
         if self.enMoveR == False:
@@ -131,17 +137,47 @@ class Nave:
         return self.bbox[i]
 
     def quitarEnergia(self):
-        self.energia -= 10
+        self.energia -= 1
+        self.progressBar1["value"] -= 5
+        self.progressBar2["value"] -= 5
+        self.progressBar3["value"] -= 5
+
         if self.energia == 0:
             self.vida -= 1
+            if self.vida == 2:
+                self.canvas.delete(self.vida3)
+                self.vida2 = self.canvas.create_image(370, 400, image=self.vida2)
+            if self.vida == 1:
+                self.canvas.delete(self.vida2)
+                self.vida1 = self.canvas.create_image(370, 400, image=self.vida1)
             if self.vida == 0:
+                self.canvas.delete(self.vida1)
                 self.jugando = False
             else:
                 self.energia = 20
+                self.progressBar1["value"] = 100
+                self.progressBar2["value"] = 100
+                self.progressBar3["value"] = 100
         print(self.energia)
 
     def returnJugando(self):
         return self.jugando
+
+    def setBackup(self):
+        return [self.vida, self.energia]
+
+    def importBackup(self, vida, energia):
+        self.vida = vida
+        self.energia = energia
+        self.progressBar1["value"] = (energia * 100) // 20
+        self.progressBar2["value"] = (energia * 100) // 20
+        self.progressBar3["value"] = (energia * 100) // 20
+        if self.vida == 2:
+            self.canvas.delete(self.vida3)
+            self.vida2 = self.canvas.create_image(370, 400, image=self.vida2)
+        if self.vida == 1:
+            self.canvas.delete(self.vida3)
+            self.vida1 = self.canvas.create_image(370, 400, image=self.vida1)
 
 
 

@@ -224,9 +224,10 @@ def volverNiveles():
     cWin.pack_forget()
     cWinHis.pack_forget()
     cCargando.pack(side = "right")
-    juego.VolverSon1()
-    juego.VolverSon2()
-    juego.VolverSon3()
+    if juego.returnHistoria() == False:
+        juego.VolverSon1()
+        juego.VolverSon2()
+        juego.VolverSon3()
     juego.terminarHistoria()
     thread = Thread(target = reset)
     thread.start()
@@ -345,28 +346,32 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
             canvas.pack_forget()
             claseJuego.setBackup(claseNave.setBackup()[0], claseNave.setBackup()[1])
             claseJuego.jugandoTF()
-            claseJuego.VolverSon1()
+            if claseJuego.returnNivel() < 3:
+                claseJuego.VolverSon1()
+                claseJuego.VolverSon2()
+                claseJuego.VolverSon3()
             canvas.pack_forget()
             if claseJuego.returnNivel() != 3:
                 cCargando.pack(side="right")
             claseJuego.resetTiempo()
             if claseJuego.returnNivel() == 1:
-                naveHistoria = cNivel2.create_image(150, 250, image = listaNave[claseJuego.returnNave()])
+                naveHistoria = cNivel2.create_image(150, 250, image = listaNave[claseJuego.returnNave() - 1])
                 claseJuego.stop3()
                 thread = Thread(target= sigHistoria, args= (canvas, cNivel2, naveHistoria, 3, claseJuego, 3))
                 thread.start()
             if claseJuego.returnNivel() == 2:
-                naveHistoria = cNivel3.create_image(150, 250, image=listaNave[claseJuego.returnNave()])
+                naveHistoria = cNivel3.create_image(150, 250, image=listaNave[claseJuego.returnNave() - 1])
                 claseJuego.stop4()
                 claseJuego.setPuntaje(5)
                 thread = Thread(target=sigHistoria, args=(canvas, cNivel3, naveHistoria, 1, claseJuego, 5))
                 thread.start()
             if claseJuego.returnNivel() == 3:
                 claseJuego.jugandoTF()
-                lPuntosHis.config(text="Puntaje: " + str(claseJuego.returnPuntaje()))
-                # comparar puntaje
+                lPuntosHis.config(text="Puntaje: " + str(claseJuego.returnDatos()[1]))
+                print(claseJuego.returnDatos())# comparar puntaje
                 claseJuego.terminarHistoria()
                 claseJuego.reset()
+                claseJuego.setBackup(-1, -1)
                 cWinHis.pack(side= "right")
                 threadTer = Thread(target = terminarHistoria, args=(canvas, naveHistoria))
                 threadTer.start()

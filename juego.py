@@ -235,12 +235,16 @@ class Juego:
     def sumaNivel(self):
         self.nivel += 1
 
-    def returnPuntaje(self):
-        return self.puntaje
+    def returnDatos(self):
+        return [self.nombre, self.puntaje]
 
     def terminarHistoria(self):
         self.historia = False
+        self.puntaje = 0
         self.nivel = 0
+        self.labelP.config(text=str(self.puntaje))
+        self.labelP2.config(text=str(self.puntaje))
+        self.labelP3.config(text=str(self.puntaje))
 
     def returnPuntaje(self):
         return self.puntaje

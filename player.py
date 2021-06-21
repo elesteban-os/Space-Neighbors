@@ -137,7 +137,7 @@ class Nave:
         return self.bbox[i]
 
     def quitarEnergia(self):
-        self.energia -= 1
+        self.energia -= 20
         self.progressBar1["value"] -= 5
         self.progressBar2["value"] -= 5
         self.progressBar3["value"] -= 5
@@ -179,5 +179,8 @@ class Nave:
             self.canvas.delete(self.vida3)
             self.vida1 = self.canvas.create_image(370, 400, image=self.vida1)
 
-
+    def limpieza(self):
+        self.canvas.delete(self.vida1)
+        self.canvas.delete(self.vida2)
+        self.canvas.delete(self.vida3)
 

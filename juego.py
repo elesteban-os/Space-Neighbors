@@ -68,6 +68,7 @@ class Juego:
         self.progressBar3 = pg3
         self.nave = 0
         self.backup = 0
+        self.mayor = False
 
     def sonar(self):
         pygame.mixer.Sound.play(self.sonido_fondo, -1)# el -1 es para que se reproduzca infinitamente
@@ -112,7 +113,7 @@ class Juego:
             self.labelP3.config(text=str(self.puntaje))
 
         else:
-            self.tiempo[1]+= 1#29.5
+            self.tiempo[1]+= 1
             self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
@@ -249,4 +250,15 @@ class Juego:
     def returnPuntaje(self):
         return self.puntaje
         self.puntaje = 0
+
+    def puntajeMayor(self, valor):
+        self.mayor = valor
+
+    def returnMayor(self):
+        return self.mayor
+
+    def returnNombre(self):
+        return self.nombre
+        self.nombre = ""
+
 

@@ -33,6 +33,8 @@ nav=0
 nav1=0
 nav2=0
 naveHistoria = 0
+naveJugando = 0
+listaPuntos = []
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -120,6 +122,10 @@ def interHistoria():#intercambia a canva de modo historia
 def interNiveles():#intercambia a canva de niveles a escoger
     cJuego.pack_forget()
     cniveles.pack(side="right")
+
+def interPuntaje():
+    cPrincipal.pack_forget()
+    cPuntaje.pack(side="right")
 
 def interNivel1():#intercambia a nivel 1
     global nav, nav1, nav2
@@ -215,6 +221,7 @@ def volverJuego():
     cJuego.pack(side="right")
 
 def volverNiveles():
+    global naveJugando
     if juego.returnJugando() == True:
         juego.jugandoTF()
     cNivel1.pack_forget()
@@ -227,10 +234,18 @@ def volverNiveles():
     juego.VolverSon1()
     juego.VolverSon2()
     juego.VolverSon3()
+    juego.puntajeMayor(False)
+    naveJugando.limpieza()
     lPuntosGO.config(text = "")
     juego.terminarHistoria()
     thread = Thread(target = reset)
     thread.start()
+    labelPTS.place_forget()
+    labelPTSGO.place_forget()
+
+def volverPuntajes():
+    cPuntaje.pack_forget()
+    cPrincipal.pack(side = "right")
 
 def reset():
     time.sleep(3)
@@ -307,12 +322,13 @@ def InterAHistoria():#funcion retorna a canva Modo historia
 
 
 def iniciarNivel(canvas, nave, astTiempo, claseJuego):
-    global vida100, vida50, vida10
+    global vida100, vida50, vida10, naveJugando
     if claseJuego.returnHistoria() == False:
         juego.jugandoTF()
     juego.TiempoC()
     vida3 = canvas.create_image(370, 400, image=vida100)
     lvl = Nave(nave, canvas, LiveNivel1, LiveNivel2, LiveNivel3, vida3, vida50, vida10)
+    naveJugando = lvl
     if claseJuego.returnBackup() != 0:
         lvl.importBackup(claseJuego.returnBackup()[1], claseJuego.returnBackup()[2])
         claseJuego.importBackup(claseJuego.returnBackup()[0])
@@ -346,6 +362,9 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
             canvas.pack_forget()
             if claseJuego.returnHistoria() == True:
                 lPuntosGO.config(text = "Puntaje: " + str(claseJuego.returnDatos()[1]))
+                updatePuntos(claseJuego.returnPuntaje(), claseJuego.returnNombre())
+                if claseJuego.returnMayor() == True:
+                    labelPTSGO.place(x=450, y=250)
                 claseJuego.terminarHistoria()
                 claseJuego.reset()
                 claseJuego.setBackup(-1, -1)
@@ -353,11 +372,13 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
                 threadTer.start()
             cGameOver.pack(side = "right")
             claseJuego.jugandoTF()
+            claseNave.limpieza()
             break
         if claseJuego.returnTiempo()[0] == 1 and claseJuego.returnHistoria() == False:
             canvas.pack_forget()
             cWin.pack(side = "right")
             claseJuego.jugandoTF()
+            claseNave.limpieza()
             break
         if claseJuego.returnTiempo()[0] == 1 and claseJuego.returnHistoria() == True:
             canvas.pack_forget()
@@ -377,6 +398,7 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
 
                 naveHistoria = cNivel2.create_image(150, 250, image = listaNave[claseJuego.returnNave() - 1])
                 claseJuego.stop3()
+                claseNave.limpieza()
                 thread = Thread(target= sigHistoria, args= (canvas, cNivel2, naveHistoria, 0.90, claseJuego, 3,))
                 thread.start()
             if claseJuego.returnNivel() == 2:
@@ -386,17 +408,21 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
                 naveHistoria = cNivel3.create_image(150, 250, image=listaNave[claseJuego.returnNave() - 1])
                 claseJuego.stop4()
                 claseJuego.setPuntaje(5)
+                claseNave.limpieza()
                 thread = Thread(target=sigHistoria, args=(canvas, cNivel3, naveHistoria, 0.5, claseJuego, 5,))
                 thread.start()
             if claseJuego.returnNivel() == 3:
 
                 claseJuego.jugandoTF()
                 lPuntosHis.config(text="Puntaje: " + str(claseJuego.returnDatos()[1]))
-                print(claseJuego.returnDatos()) # comparar puntaje
+                updatePuntos(claseJuego.returnPuntaje(), claseJuego.returnNombre())
+                if claseJuego.returnMayor() == True:
+                    labelPTS.place(x = 450, y = 250)
                 claseJuego.terminarHistoria()
                 claseJuego.reset()
                 claseJuego.setBackup(-1, -1)
                 cWinHis.pack(side= "right")
+                claseNave.limpieza()
                 threadTer = Thread(target = terminarHistoria, args=(canvas, naveHistoria,))
                 threadTer.start()
 
@@ -517,6 +543,10 @@ bvolverGO.place(x = 290, y = 250)
 lPuntosGO = tk.Label(cGameOver, text = "", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lPuntosGO.place(x = 235, y = 200)
 
+labelPTSGO = tk.Label(cGameOver, text="""¡Estás en la 
+lista de mejores 
+puntajes!""" , font=("Fixedsys", 20), bg='black',fg='white')
+
 
 cWin = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 lWin = tk.Label(cWin, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
@@ -529,6 +559,11 @@ lPuntosHis = tk.Label(cWinHis, text = "", font = ("fixedsys", "30"), bg = "black
 lPuntosHis.place(x = 235, y = 200)
 bvolverWinHis = tk.Button(cWinHis, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
 bvolverWinHis.place(x = 290, y = 250)
+
+labelPTS = tk.Label(cWinHis, text="""¡Estás en la 
+lista de mejores 
+puntajes!""" , font=("Fixedsys", 20), bg='black',fg='white')
+
 
 bvolverWin = tk.Button(cWin, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
 bvolverWin.place(x = 290, y = 250)
@@ -601,7 +636,7 @@ bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderw
 bInfo.place(x = 120, y = 270)
 
 #boton para cambiar a canva de puntajes,------por definir
-bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2")
+bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interPuntaje)
 bPuntajes.place(x = 460, y = 270)
 
 #botones para devolverse
@@ -687,6 +722,75 @@ Escoge3.place(x=500,y=200)
 name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
 name.place(x=100,y=250)
 
+# Canvas de puntajes
+cPuntaje= tk.Canvas(window,  width = 730, height = 450, bg = "black")
+#Labels puntaje ------------------------------------------
+lTitulo = tk.Label(cPuntaje, text = "Mejores puntajes", font = ("fixedsys", "20"), bg = "black", fg = "white")
+lTitulo.place(x = 270, y = 10)
+
+ljugador1 = tk.Label(cPuntaje, text = "1:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador1.place(x = 100, y = 90)
+
+ljugador1_1 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador1_1.place(x = 135, y = 90)
+
+ljugador2 = tk.Label(cPuntaje, text = "2:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador2.place(x = 100, y = 130)
+
+ljugador2_2 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador2_2.place(x = 135, y = 130)
+
+ljugador3 = tk.Label(cPuntaje, text = "3:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador3.place(x = 100, y = 170)
+
+ljugador3_3 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador3_3.place(x = 135, y = 170)
+
+ljugador4 = tk.Label(cPuntaje, text = "4:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador4.place(x = 100, y = 210)
+
+ljugador4_4 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador4_4.place(x = 135, y = 210)
+
+ljugador5 = tk.Label(cPuntaje, text = "5:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador5.place(x = 100, y = 250)
+
+ljugador5_5 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador5_5.place(x = 135, y = 250)
+
+ljugador6 = tk.Label(cPuntaje, text = "6:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador6.place(x = 400, y = 90)
+
+ljugador6_6 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador6_6.place(x = 435, y = 90)
+
+ljugador7 = tk.Label(cPuntaje, text = "7:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador7.place(x = 400, y = 130)
+
+ljugador7_7 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador7_7.place(x = 435, y = 130)
+
+ljugador8 = tk.Label(cPuntaje, text = "8:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador8.place(x = 400, y = 170)
+
+ljugador8_8 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador8_8.place(x = 435, y = 170)
+
+ljugador9 = tk.Label(cPuntaje, text = "9:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador9.place(x = 400, y = 210)
+
+ljugador9_9 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador9_9.place(x = 435, y = 210)
+
+ljugador10 = tk.Label(cPuntaje, text = "10:", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador10.place(x = 400, y = 250)
+
+ljugador10_10 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
+ljugador10_10.place(x = 445, y = 250)
+
+bvolverPunt = tk.Button(cPuntaje, image = imgAtras, width = 120, height = 60,borderwidth = 0, command = volverPuntajes)
+bvolverPunt.place(x = 4, y = 4)
+
 #-----Configuracion canva About-----
 
 
@@ -710,6 +814,97 @@ bvolverHis.place(x = 4, y = 4)
 nave1 = cHistoria.create_image(330, 100, image=N1, anchor="nw")
 nave2 = cHistoria.create_image(450, 100, image=N2, anchor="nw")
 nave3 = cHistoria.create_image(550, 100, image=N3, anchor="nw")
+
+# Funciones para lectura/escritura:
+listaLabelsPuntos = [ljugador1_1, ljugador2_2, ljugador3_3, ljugador4_4, ljugador5_5, ljugador6_6, ljugador7_7, ljugador8_8, ljugador9_9, ljugador10_10]
+
+def generadorListaPuntos(lec):
+    list = []
+    result = ""
+    numstr = False
+    for i in lec:
+        if i == "]":
+            list.append(int(result))
+            break
+        if i == "[":
+            continue
+        elif i == ",":
+            if numstr == True:
+                list.append(int(result))
+                result = ""
+                numstr = False
+            else:
+                list.append(result)
+                result = ""
+                numstr = True
+        elif i == " " or i == "'":
+            continue
+        elif numstr == True:
+            result += i
+        elif numstr == False:
+            result += i
+    return list
+
+def escriturainicial(listaLabels):
+    global listaPuntos
+    esc = open("media/best.txt", "r")
+
+    leer = esc.readlines()[0]
+    listaPuntos = generadorListaPuntos(leer)
+    result = ""
+    next = False
+    listaLab = listaLabels
+    for i in listaPuntos:
+        result += " " + str(i)
+        if next == False:
+            next = True
+        elif next == True:
+            listaLab[0].config(text = result)
+            listaLab = listaLab[1:]
+            result = ""
+            next = False
+    esc.close()
+
+escriturainicial(listaLabelsPuntos)
+
+def updatePuntos(puntos, nombre):
+    global listaPuntos, listaLabelsPuntos, juego
+    resultLista = []
+    mayor = False
+    for i in listaPuntos:
+        if len(resultLista) == 20:
+            break
+        elif mayor == True:
+            resultLista.append(i)
+        elif isinstance(i, int):
+            if puntos > i:
+                resultLista[len(resultLista) - 1] = nombre
+                resultLista.append(puntos)
+                mayor = True
+            else:
+                resultLista.append(i)
+        else:
+            resultLista.append(i)
+    if mayor == True:
+        esc = open("media/best.txt", "w")
+        esc.write(str(resultLista))
+        esc.close()
+
+        result = ""
+        next = False
+        listaLab = listaLabelsPuntos
+        for i in resultLista:
+            result += " " + str(i)
+            if next == False:
+                next = True
+            elif next == True:
+                listaLab[0].config(text=result)
+                listaLab = listaLab[1:]
+                result = ""
+                next = False
+        juego.puntajeMayor(True)
+    else:
+        juego.puntajeMayor(False)
 
 
 

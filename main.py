@@ -129,7 +129,7 @@ def interNivel1():#intercambia a nivel 1
         juego.stop2()
         nav1 = cNivel1.create_image(150, 250, image=N11)
         juego.setPuntaje(1)
-        iniciarNivel(cNivel1, nav1, 3, juego)
+        iniciarNivel(cNivel1, nav1, 1, juego)
 
     elif varMap.get() == 2:
         cniveles.pack_forget()
@@ -137,7 +137,7 @@ def interNivel1():#intercambia a nivel 1
         juego.stop2()
         juego.setPuntaje(1)
         nav2 = cNivel1.create_image(150, 250, image=N22)
-        iniciarNivel(cNivel1, nav2, 3, juego)
+        iniciarNivel(cNivel1, nav2, 1, juego)
 
     elif varMap.get() == 3:
         cniveles.pack_forget()
@@ -145,7 +145,7 @@ def interNivel1():#intercambia a nivel 1
         juego.stop2()
         juego.setPuntaje(1)
         nav = cNivel1.create_image(150, 250, image=N33)
-        iniciarNivel(cNivel1, nav, 3, juego)
+        iniciarNivel(cNivel1, nav, 1, juego)
 
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
@@ -158,7 +158,7 @@ def interNivel2():#intercambia a nivel 2
         juego.stop3()
         juego.setPuntaje(3)
         nav1 = cNivel2.create_image(150, 250, image=N11)
-        iniciarNivel(cNivel2, nav1, 2, juego)
+        iniciarNivel(cNivel2, nav1, 0.90, juego)
 
     elif varMap.get() == 2:
         cniveles.pack_forget()
@@ -166,7 +166,7 @@ def interNivel2():#intercambia a nivel 2
         juego.stop3()
         juego.setPuntaje(3)
         nav2 = cNivel2.create_image(150, 250, image=N22)
-        iniciarNivel(cNivel2, nav2, 2, juego)
+        iniciarNivel(cNivel2, nav2, 0.90, juego)
 
     elif varMap.get() == 3:
         cniveles.pack_forget()
@@ -174,7 +174,7 @@ def interNivel2():#intercambia a nivel 2
         juego.stop3()
         juego.setPuntaje(3)
         nav = cNivel2.create_image(150, 250, image=N33)
-        iniciarNivel(cNivel2, nav, 2, juego)
+        iniciarNivel(cNivel2, nav, 0.90, juego)
 
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
@@ -187,7 +187,7 @@ def interNivel3():#intercambia a nivel 1
         juego.stop4()
         juego.setPuntaje(5)
         nav1 = cNivel3.create_image(150, 250, image=N11)
-        iniciarNivel(cNivel3, nav1, 1, juego)
+        iniciarNivel(cNivel3, nav1, 0.5, juego)
 
     elif varMap.get() == 2:
         cniveles.pack_forget()
@@ -195,7 +195,7 @@ def interNivel3():#intercambia a nivel 1
         juego.stop4()
         juego.setPuntaje(5)
         nav2 = cNivel3.create_image(150, 250, image=N22)
-        iniciarNivel(cNivel3, nav2, 1, juego)
+        iniciarNivel(cNivel3, nav2, 0.5, juego)
 
     elif varMap.get() == 3:
         cniveles.pack_forget()
@@ -203,7 +203,7 @@ def interNivel3():#intercambia a nivel 1
         juego.stop4()
         juego.setPuntaje(5)
         nav = cNivel3.create_image(150, 250, image=N33)
-        iniciarNivel(cNivel3, nav, 1, juego)
+        iniciarNivel(cNivel3, nav, 0.5, juego)
 
 
     else:
@@ -224,10 +224,10 @@ def volverNiveles():
     cWin.pack_forget()
     cWinHis.pack_forget()
     cCargando.pack(side = "right")
-    if juego.returnHistoria() == False:
-        juego.VolverSon1()
-        juego.VolverSon2()
-        juego.VolverSon3()
+    juego.VolverSon1()
+    juego.VolverSon2()
+    juego.VolverSon3()
+    lPuntosGO.config(text = "")
     juego.terminarHistoria()
     thread = Thread(target = reset)
     thread.start()
@@ -264,22 +264,32 @@ def InterJugar():
             juego.setPuntaje(1)
             naveHistoria = cNivel1.create_image(150, 250, image=N11)
             juego.iniciarHistoria(name.get(), 1)
-            iniciarNivel(cNivel1, naveHistoria, 3, juego)
+            iniciarNivel(cNivel1, naveHistoria, 1, juego)
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get()==2:
-
         if name.get() != "":
             cHistoria.pack_forget()
-            cModHis.pack(side = "right")
-            nav2 = cModHis.create_image(150, 250, image=N22)
+            cNivel1.pack(side="right")
+            juego.stop2()
+            juego.jugandoTF()
+            juego.setPuntaje(1)
+            naveHistoria = cNivel1.create_image(150, 250, image=N22)
+            juego.iniciarHistoria(name.get(), 2)
+            iniciarNivel(cNivel1, naveHistoria, 1, juego)
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     elif varMap.get() == 3:
         if name.get() != "":
             cHistoria.pack_forget()
-            cModHis.pack(side = "right")
-            nav=cModHis.create_image(150, 250, image=N33)
+            cNivel1.pack(side="right")
+            juego.stop2()
+            juego.jugandoTF()
+            juego.setPuntaje(1)
+            naveHistoria = cNivel1.create_image(150, 250, image=N33)
+            juego.iniciarHistoria(name.get(), 3)
+            iniciarNivel(cNivel1, naveHistoria, 1, juego)
+
         else:
             messagebox.showinfo("No puede Jugar", "Ingrese Nombre")
     else:
@@ -334,6 +344,13 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
         atributos.moveT()
         if claseNave.returnJugando() == False:
             canvas.pack_forget()
+            if claseJuego.returnHistoria() == True:
+                lPuntosGO.config(text = "Puntaje: " + str(claseJuego.returnDatos()[1]))
+                claseJuego.terminarHistoria()
+                claseJuego.reset()
+                claseJuego.setBackup(-1, -1)
+                threadTer = Thread(target=terminarHistoria, args=(canvas, naveHistoria,))
+                threadTer.start()
             cGameOver.pack(side = "right")
             claseJuego.jugandoTF()
             break
@@ -355,25 +372,32 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
                 cCargando.pack(side="right")
             claseJuego.resetTiempo()
             if claseJuego.returnNivel() == 1:
+                threadimg = Thread(target= terminarHistoria, args= (canvas, naveHistoria,))
+                threadimg.start()
+
                 naveHistoria = cNivel2.create_image(150, 250, image = listaNave[claseJuego.returnNave() - 1])
                 claseJuego.stop3()
-                thread = Thread(target= sigHistoria, args= (canvas, cNivel2, naveHistoria, 3, claseJuego, 3))
+                thread = Thread(target= sigHistoria, args= (canvas, cNivel2, naveHistoria, 0.90, claseJuego, 3,))
                 thread.start()
             if claseJuego.returnNivel() == 2:
+                threadimg = Thread(target=terminarHistoria, args=(canvas, naveHistoria,))
+                threadimg.start()
+
                 naveHistoria = cNivel3.create_image(150, 250, image=listaNave[claseJuego.returnNave() - 1])
                 claseJuego.stop4()
                 claseJuego.setPuntaje(5)
-                thread = Thread(target=sigHistoria, args=(canvas, cNivel3, naveHistoria, 1, claseJuego, 5))
+                thread = Thread(target=sigHistoria, args=(canvas, cNivel3, naveHistoria, 0.5, claseJuego, 5,))
                 thread.start()
             if claseJuego.returnNivel() == 3:
+
                 claseJuego.jugandoTF()
                 lPuntosHis.config(text="Puntaje: " + str(claseJuego.returnDatos()[1]))
-                print(claseJuego.returnDatos())# comparar puntaje
+                print(claseJuego.returnDatos()) # comparar puntaje
                 claseJuego.terminarHistoria()
                 claseJuego.reset()
                 claseJuego.setBackup(-1, -1)
                 cWinHis.pack(side= "right")
-                threadTer = Thread(target = terminarHistoria, args=(canvas, naveHistoria))
+                threadTer = Thread(target = terminarHistoria, args=(canvas, naveHistoria,))
                 threadTer.start()
 
 
@@ -381,29 +405,20 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
             break
         time.sleep(tiempo)
 
-cWinHis = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-lWinHis = tk.Label(cWinHis, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
-lWinHis.place(x = 250, y = 150)
-lPuntosHis = tk.Label(cWinHis, text = "", font = ("fixedsys", "30"), bg = "black", fg = "white")
-lPuntosHis.place(x = 235, y = 200)
-bvolverWinHis = tk.Button(cWinHis, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
-bvolverWinHis.place(x = 290, y = 250)
+
 
 def terminarHistoria(canvas, naveHistoria):
     time.sleep(3)
     canvas.delete(naveHistoria)
 
-"""def volverHistoria():"""
-
-
-def sigHistoria(canvas, canvas2, naveHistoria, num, claseJuego, puntaje):
+def sigHistoria(canvas, canvas2, naveHistoria, astTiempo, claseJuego, puntaje):
     time.sleep(3)
     claseJuego.jugandoTF()
     canvas.delete(naveHistoria)
     cCargando.pack_forget()
     canvas2.pack(side = "right")
     juego.reset()
-    iniciarNivel(canvas2, naveHistoria, num, claseJuego)
+    iniciarNivel(canvas2, naveHistoria, astTiempo, claseJuego)
     claseJuego.setPuntaje(puntaje)
 
 
@@ -495,13 +510,25 @@ lCargando.place(x = 150, y = 200)
 
 cGameOver = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 lGameOver = tk.Label(cGameOver, text = "¡Has sido derrotado!", font = ("fixedsys", "30"), bg = "black", fg = "white")
-lGameOver.place(x = 170, y = 150)
+lGameOver.place(x = 140, y = 150)
 bvolverGO = tk.Button(cGameOver, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
 bvolverGO.place(x = 290, y = 250)
+
+lPuntosGO = tk.Label(cGameOver, text = "", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lPuntosGO.place(x = 235, y = 200)
+
 
 cWin = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 lWin = tk.Label(cWin, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lWin.place(x = 250, y = 150)
+
+cWinHis = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+lWinHis = tk.Label(cWinHis, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lWinHis.place(x = 250, y = 150)
+lPuntosHis = tk.Label(cWinHis, text = "", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lPuntosHis.place(x = 235, y = 200)
+bvolverWinHis = tk.Button(cWinHis, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
+bvolverWinHis.place(x = 290, y = 250)
 
 bvolverWin = tk.Button(cWin, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
 bvolverWin.place(x = 290, y = 250)

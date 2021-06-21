@@ -112,7 +112,7 @@ class Juego:
             self.labelP3.config(text=str(self.puntaje))
 
         else:
-            self.tiempo[1]+=29.5
+            self.tiempo[1]+= 1#29.5
             self.labelT.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label2T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))
             self.label3T.config(text=str(self.tiempo[0]) + ":" + str(self.tiempo[1]))

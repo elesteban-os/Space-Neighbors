@@ -137,7 +137,7 @@ class Nave:
         return self.bbox[i]
 
     def quitarEnergia(self):
-        self.energia -= 20
+        self.energia -= 1
         self.progressBar1["value"] -= 5
         self.progressBar2["value"] -= 5
         self.progressBar3["value"] -= 5

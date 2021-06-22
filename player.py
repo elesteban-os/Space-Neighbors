@@ -14,6 +14,13 @@ Atributos:
 +enMoveD: indica si se mueve hacia abajo
 +NaveImg: imagen de la nave
 +canvas: canvas en donde se encuentra posicionada la nave.
++bbox = [canvas.bbox(imgNave)[0], canvas.bbox(imgNave)[1], canvas.bbox(imgNave)[2], canvas.bbox(imgNave)[3]]
++progressBar1 = pg1
++progressBar2 = pg2
++progressBar3 = pg3
++vida3 = vida3
++vida2 = vida2
++vida1 = vida1
 
 Métodos
 -moverDT(): crea un thread para el movimiento hacia la derecha
@@ -30,6 +37,11 @@ Métodos
 -cancMoveAb(): cancela el movimiento hacia abajo
 -returnbbox(): retorna la bbox de la nave
 -quitarEnergía(): quita en una unidad la cantidad de energía de la nave, y si fuera el caso quita una unidad de vida
+-returnJugando():retorna el valor booleano de jugando
+-setBackup():hace el respaldo de la vida, y la energia
+-importBackup( vida, energia):importa el respaldo, con la vida y energia 
+-limpieza():elimina los atributos de vida
+
 """
 
 class Nave:

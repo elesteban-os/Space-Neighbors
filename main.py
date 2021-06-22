@@ -100,7 +100,6 @@ listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
 
 
 pygame.mixer.init()
-
 # Intercambio entre canvas:
 def interInfo():
     cPrincipal.pack_forget()
@@ -261,6 +260,7 @@ def reset():
     cNivel3.delete(nav1)
     cNivel3.delete(nav2)
     cNivel3.delete(naveHistoria)
+    name.delete(0, tk.END)
     cPrincipal.pack(side="right")
     cCargando.pack_forget()
     juego.reset()
@@ -448,7 +448,6 @@ def sigHistoria(canvas, canvas2, naveHistoria, astTiempo, claseJuego, puntaje):
     claseJuego.setPuntaje(puntaje)
 
 
-
 def generarFondo(canvas, claseJuego):
     global estrellaF
     while juego.returnJugando() == True:
@@ -472,8 +471,7 @@ def generarFondo2(canvas, claseJuego):
         time.sleep(28)
 
 
-
-# Creación de canvas
+# -------------------------------------Creación de canvas -------------------------------
 
     # Canvas de la pantalla principal.
 cPrincipal = tk.Canvas(window,  width = 730, height = 450, bg = "black")
@@ -487,7 +485,61 @@ cModHis = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
 cniveles  = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 
+
+#-------------------------canvas de niveles ----------------------------
 cNivel1 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+cNivel2 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+cNivel3 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+#---------------------Canvas de cargando ---------------------
+
+cCargando = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+cGameOver = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+cWin = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+lWin = tk.Label(cWin, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lWin.place(x = 250, y = 150)
+
+cWinHis = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+#-----------------canva de informacion-----------
+cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+
+# Canvas de puntajes
+cPuntaje= tk.Canvas(window,  width = 730, height = 450, bg = "black")
+#--------------Entry para Modo historia---------------------------
+nameEntry = tk.StringVar()
+name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"), textvariable=nameEntry , justify="center")
+name.place(x=100,y=250)
+
+def limitador(nameEntry):
+    if len(nameEntry.get()) > 0:
+        #donde esta el :8 limitas la cantidad d caracteres
+        nameEntry.set(nameEntry.get()[:8])
+
+nameEntry.trace("w", lambda *args: limitador(nameEntry))
+
+#------------------------------Labels----------------------------------
+
+    #--------------------------Labels del programa -----------------
+# Fondo de la pantalla principal
+lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
+lFondo.place(x = 0, y = 0)
+
+lInicio = tk.Label(cPrincipal, text = "Space Neighbors", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lInicio.place(x = 180, y = 100)
+
+#labels que indican que selecciones un avatar
+
+Lselec= tk.Label(cHistoria,text = "Seleccione avatar para poder jugar " , bg = "black", fg = "white", font = ("fixedsys", 10))
+Lselec.place(x=410,y=50)
+
+LselecN= tk.Label(cniveles,text = "Seleccione avatar para poder jugar " , bg = "black", fg = "white", font = ("fixedsys", 10))
+LselecN.place(x=230,y=230)
+
+        #Nivel1 , Nivel2 y Nivel 3: labels y barras de progreso------------------
 
 label_pts1 = tk.Label(cNivel1, text="Points" , font=("Fixedsys", 20), bg='black',fg='white')
 label_pts1.place(x=635, y=410)
@@ -501,9 +553,6 @@ LiveNivel1["value"]=100
 
 
 
-
-cNivel2 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-
 label_pts2 = tk.Label(cNivel2, text="Points" , font=("Fixedsys", 20), bg='black',fg='white')
 label_pts2.place(x=635, y=410)
 
@@ -515,9 +564,6 @@ LiveNivel2.place(x=320, y=420)
 LiveNivel2["value"]=100
 
 
-
-cNivel3 = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-
 label_pts3 = tk.Label(cNivel3, text="Points" , font=("Fixedsys", 20), bg='black',fg='white')
 label_pts3.place(x=635, y=410)
 
@@ -527,204 +573,34 @@ label_time3.place(x=4, y=410)
 LiveNivel3=ttk.Progressbar(cNivel3, orient = "horizontal", length=100, mode="determinate")
 LiveNivel3.place(x=320, y=420)
 LiveNivel3["value"]=100
-
-
-
-cCargando = tk.Canvas(window,  width = 730, height = 450, bg= "black")
+#-----------------labels de Cargando-------------------
 lCargando = tk.Label(cCargando, text = "Por favor, espere...", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lCargando.place(x = 150, y = 200)
 
-cGameOver = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-lGameOver = tk.Label(cGameOver, text = "¡Has sido derrotado!", font = ("fixedsys", "30"), bg = "black", fg = "white")
-lGameOver.place(x = 140, y = 150)
-bvolverGO = tk.Button(cGameOver, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
-bvolverGO.place(x = 290, y = 250)
-
+#   Labels de Gameover
 lPuntosGO = tk.Label(cGameOver, text = "", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lPuntosGO.place(x = 235, y = 200)
+
+lGameOver = tk.Label(cGameOver, text = "¡Has sido derrotado!", font = ("fixedsys", "30"), bg = "black", fg = "white")
+lGameOver.place(x = 140, y = 150)
+
 
 labelPTSGO = tk.Label(cGameOver, text="""¡Estás en la 
 lista de mejores 
 puntajes!""" , font=("Fixedsys", 20), bg='black',fg='white')
 
+#   Labels de canva del ganador en modo historia
 
-cWin = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-lWin = tk.Label(cWin, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
-lWin.place(x = 250, y = 150)
-
-cWinHis = tk.Canvas(window,  width = 730, height = 450, bg= "black")
 lWinHis = tk.Label(cWinHis, text = "¡Ganaste!", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lWinHis.place(x = 250, y = 150)
 lPuntosHis = tk.Label(cWinHis, text = "", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lPuntosHis.place(x = 235, y = 200)
-bvolverWinHis = tk.Button(cWinHis, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
-bvolverWinHis.place(x = 290, y = 250)
-
 labelPTS = tk.Label(cWinHis, text="""¡Estás en la 
 lista de mejores 
 puntajes!""" , font=("Fixedsys", 20), bg='black',fg='white')
 
 
-bvolverWin = tk.Button(cWin, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
-bvolverWin.place(x = 290, y = 250)
-
-
-
-
-cInfo = tk.Canvas(window,  width = 730, height = 450, bg= "black")
-
-    # Widgets
-        # Fondo de la pantalla principal
-
-#lFondo = tk.Label(cPrincipal, image = fondo, bg = "white")
-#lFondo.place(x = 0, y = 0)
-
-        #Labels con detalles en canva "acerca de"
-credits_ = tk.Label(cInfo,text = """
-
-País:
-Costa Rica
-
-Universidad y carrera:
-Instituto Tecnológico de Costa Rica
-Computer Engineering
-
-Asignatura, año que cursa y grupo:
-Taller de programación
-2021
-Grupo 1
-
-Profesor:
-Jeff Schmidt
-
-Versión programa:
-1.0
-
-Desarrolladores:
-David Leiton
-Kevin Chinchilla
-
-Autores de módulos modificados:--------
-""", bg = "black", fg = "white", font = ("fixedsys", 10))
-credits_.place(x=25,y=10)  #creacion de label con informacion "acerca de "
-#Funciones donde se llama a la clase juego, para sonidos y tiempo
-juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal, label_time1,
-             label_time2, label_time3, label_pts1, label_pts2, label_pts3, LiveNivel1, LiveNivel2, LiveNivel3)
-juego.sonar()
-juego.TiempoC()
-
-
-        # Botones
-    #Boton para sonido en las diferentes canvas
-bstop = tk.Button(cPrincipal ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-bstop.place(x = 570, y = 4)
-
-bstop1 = tk.Button(cNivel1 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-bstop1.place(x = 570, y = 4)
-
-bstop2 = tk.Button(cNivel2 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-bstop2.place(x = 570, y = 4)
-
-bstop3 = tk.Button(cNivel3 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
-bstop3.place(x = 570, y = 4)
-
-#boton para cambiar a canva juego
-bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
-bPlay.place(x = 290, y = 270)
-#boton para cambiar a canva info
-bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interInfo)
-bInfo.place(x = 120, y = 270)
-
-#boton para cambiar a canva de puntajes,------por definir
-bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interPuntaje)
-bPuntajes.place(x = 460, y = 270)
-
-#botones para devolverse
-bvolver = tk.Button(cInfo ,text="Volver", borderwidth = 0, command = interInfoAprin)# se devuelve de informacion a la principal
-bvolver.place(x = 4, y = 4)
-
-#Botenes de atras
-
-
-bvolverN1 = tk.Button(cNivel1 ,image = imgAtras, width = 120, height = 60,borderwidth = 0, command = volverNiveles)
-bvolverN1.place(x = 4, y = 4)
-
-bvolverN2 = tk.Button(cNivel2 ,image = imgAtras,width = 120, height = 60,borderwidth = 0, command = volverNiveles)
-bvolverN2.place(x = 4, y = 4)
-
-bvolverN3 = tk.Button(cNivel3 ,image = imgAtras,width = 120, height = 60,borderwidth = 0, command = volverNiveles)
-bvolverN3.place(x = 4, y = 4)
-
-#boton Volver del juego a menu
-bvolver1 = tk.Button(cJuego , image = imgAtras, borderwidth = 0,width = 120, height = 60,cursor= "hand2", command = interInfoAprin)
-bvolver1.place(x = 4, y = 4)
-
-#botones canva juego modo historia y niveles
-
-bhistoria = tk.Button(cJuego ,image = imgHistoria, borderwidth = 0,width = 150, height = 76, command = interHistoria)
-bhistoria.place(x = 100, y = 270)
-
-bJugar = tk.Button(cHistoria ,image=imgJugar, borderwidth = 0,width = 150, height = 76, cursor= "hand2", command = InterJugar)
-bJugar.place(x = 100, y = 300)
-
-bvol = tk.Button(cModHis , image = imgAtras,width = 120, height = 60, borderwidth = 0,cursor= "hand2",command = InterAHistoria)
-bvol.place(x = 5, y = 5)
-
-
-bNiveles = tk.Button(cJuego ,image=imgNiveles, borderwidth = 0,width = 150, height = 76, command = interNiveles)
-bNiveles.place(x = 300, y = 270)
-
-bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel1)
-bLevel1.place(x = 100, y = 270)
-
-bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interNivel2)
-bLevel2.place(x = 290, y = 270)
-
-bLevel3 = tk.Button(cniveles ,image = imgNivel3, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel3)
-bLevel3.place(x = 480, y = 270)
-
-bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0,cursor = "hand2",  command = volverJuego)
-bvolverN.place(x = 4, y = 4)
-#labels que indican que selecciones un avatar
-
-Lselec= tk.Label(cHistoria,text = "Seleccione avatar para poder jugar " , bg = "black", fg = "white", font = ("fixedsys", 10))
-Lselec.place(x=410,y=50)
-
-LselecN= tk.Label(cniveles,text = "Seleccione avatar para poder jugar " , bg = "black", fg = "white", font = ("fixedsys", 10))
-LselecN.place(x=230,y=230)
-
-#radioboton para seleccionar avatar
-
-varMap = tk.IntVar()
-
-#varVel = tk.IntVar()
-
-B1 = tk.Radiobutton(cHistoria, text="1", variable = varMap, value=1, bg="black", fg="blue", font=("fixedsys"))
-B1.place(x=400,y=300)
-
-B2 = tk.Radiobutton(cHistoria, text="2", value=2 , variable = varMap, bg="black", fg="blue", font=("fixedsys"))
-B2.place(x=500,y=300)
-
-B3 = tk.Radiobutton(cHistoria, text="3",value=3,variable = varMap, bg="black", fg="blue", font=("fixedsys"))
-B3.place(x=600,y=300)
-
-Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
-Escoge1.place(x=210,y=200)
-
-Escoge2 = tk.Radiobutton(cniveles, text="2", value=2, variable = varMap, bg="black", fg="blue", font=("fixedsys"))
-Escoge2.place(x=350,y=200)
-
-Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
-Escoge3.place(x=500,y=200)
-
-#Entry para Modo historia
-
-name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"))
-name.place(x=100,y=250)
-
-# Canvas de puntajes
-cPuntaje= tk.Canvas(window,  width = 730, height = 450, bg = "black")
-#Labels puntaje ------------------------------------------
+#---------------------------------Labels puntaje para jugadores------------------------------------------
 lTitulo = tk.Label(cPuntaje, text = "Mejores puntajes", font = ("fixedsys", "20"), bg = "black", fg = "white")
 lTitulo.place(x = 270, y = 10)
 
@@ -788,27 +664,158 @@ ljugador10.place(x = 400, y = 250)
 ljugador10_10 = tk.Label(cPuntaje, text = "", font = ("fixedsys", "20"), bg = "black", fg = "white")
 ljugador10_10.place(x = 445, y = 250)
 
-bvolverPunt = tk.Button(cPuntaje, image = imgAtras, width = 120, height = 60,borderwidth = 0, command = volverPuntajes)
-bvolverPunt.place(x = 4, y = 4)
 
-#-----Configuracion canva About-----
+        #Labels con detalles en canva "acerca de"
+credits_ = tk.Label(cInfo,text = """
 
+País:
+Costa Rica
 
+Universidad y carrera:
+Instituto Tecnológico de Costa Rica
+Computer Engineering
+
+Asignatura, año que cursa y grupo:
+Taller de programación
+2021
+Grupo 1
+
+Profesor:
+Jeff Schmidt
+
+Versión programa:
+1.0
+
+Desarrolladores:
+David Leiton
+Kevin Chinchilla
+
+Autores de módulos modificados:--------
+""", bg = "black", fg = "white", font = ("fixedsys", 10))
+credits_.place(x=25,y=10)  #creacion de label con informacion "acerca de "
+#-------para las flechas de movimiento
 lteclasinf = tk.Label(cInfo, image = flechas, bg = "white", borderwidth = 0)
 lteclasinf.place(x = 380, y = 80)
+
+
+#Funciones donde se llama a la clase juego, para sonidos y tiempo
+juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal, label_time1,
+             label_time2, label_time3, label_pts1, label_pts2, label_pts3, LiveNivel1, LiveNivel2, LiveNivel3)
+juego.sonar()
+juego.TiempoC()
+
+
+       # --------------------------------------Botones del juego----------------------------------
+    #Boton para sonido en las diferentes canvas
+bstop = tk.Button(cPrincipal ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop.place(x = 570, y = 4)
+
+bstop1 = tk.Button(cNivel1 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop1.place(x = 570, y = 4)
+
+bstop2 = tk.Button(cNivel2 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop2.place(x = 570, y = 4)
+
+bstop3 = tk.Button(cNivel3 ,image=song, borderwidth = 0,width = 150, height = 76, command = juego.stop)
+bstop3.place(x = 570, y = 4)
+
+#boton para cambiar a canva juego
+bPlay = tk.Button(cPrincipal, image = imgJugar, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interJuego)
+bPlay.place(x = 290, y = 270)
+#boton para cambiar a canva info
+bInfo = tk.Button(cPrincipal, image = imgInfo, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interInfo)
+bInfo.place(x = 120, y = 270)
+
+#boton para cambiar a canva de puntajes,------por definir
+bPuntajes = tk.Button(cPrincipal, image = imgPuntajes, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interPuntaje)
+bPuntajes.place(x = 460, y = 270)
+
+
+#Botenes de atras
+bvolverN1 = tk.Button(cNivel1 ,image = imgAtras, width = 120, height = 60,borderwidth = 0, command = volverNiveles)
+bvolverN1.place(x = 4, y = 4)
+
+bvolverN2 = tk.Button(cNivel2 ,image = imgAtras,width = 120, height = 60,borderwidth = 0, command = volverNiveles)
+bvolverN2.place(x = 4, y = 4)
+
+bvolverN3 = tk.Button(cNivel3 ,image = imgAtras,width = 120, height = 60,borderwidth = 0, command = volverNiveles)
+bvolverN3.place(x = 4, y = 4)
+
+#boton Volver del juego a menu
+bvolver1 = tk.Button(cJuego , image = imgAtras, borderwidth = 0,width = 120, height = 60,cursor= "hand2", command = interInfoAprin)
+bvolver1.place(x = 4, y = 4)
+
+#botones canva juego modo historia y niveles
+bhistoria = tk.Button(cJuego ,image = imgHistoria, borderwidth = 0,width = 150, height = 76, command = interHistoria)
+bhistoria.place(x = 200, y = 270)
+
+bJugar = tk.Button(cHistoria ,image=imgJugar, borderwidth = 0,width = 150, height = 76, cursor= "hand2", command = InterJugar)
+bJugar.place(x = 105, y = 300)
+
+bvol = tk.Button(cModHis , image = imgAtras,width = 120, height = 60, borderwidth = 0,cursor= "hand2",command = InterAHistoria)
+bvol.place(x = 5, y = 5)
+
+bNiveles = tk.Button(cJuego ,image=imgNiveles, borderwidth = 0,width = 150, height = 76, command = interNiveles)
+bNiveles.place(x = 380, y = 270)
+
+bLevel1 = tk.Button(cniveles ,image = imgNivel1, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel1)
+bLevel1.place(x = 100, y = 270)
+
+bLevel2 = tk.Button(cniveles ,image = imgNivel2, width = 150, height = 76, borderwidth = 0, cursor = "hand2", command = interNivel2)
+bLevel2.place(x = 290, y = 270)
+
+bLevel3 = tk.Button(cniveles ,image = imgNivel3, width = 150, height = 76, borderwidth = 0,cursor = "hand2",  command = interNivel3)
+bLevel3.place(x = 480, y = 270)
+#para devolverse a pricipal
+bvolverN = tk.Button(cniveles ,image = imgAtras , width = 120, height = 60, borderwidth = 0,cursor = "hand2",  command = volverJuego)
+bvolverN.place(x = 4, y = 4)
+
+bvolverPunt = tk.Button(cPuntaje, image = imgAtras, width = 120, height = 60,borderwidth = 0, command = volverPuntajes)
+bvolverPunt.place(x = 4, y = 4)
 
 bvolverl = tk.Button(cInfo, image = imgAtras, width = 120, height = 60, borderwidth = 0, cursor = "hand2", command = interInfoAprin)
 bvolverl.place(x = 4, y = 4)
 
-
-
-nave1=cniveles.create_image(130, 10, image=N1, anchor="nw")
-nave2=cniveles.create_image(270, 10, image=N2, anchor="nw")
-nave3= cniveles.create_image(400, 10, image=N3, anchor="nw")
-
 #Botenes de atras
 bvolverHis = tk.Button(cHistoria ,image = imgAtras , width = 120, height = 60, borderwidth = 0, command = volverJuego)
 bvolverHis.place(x = 4, y = 4)
+
+bvolverWin = tk.Button(cWin, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
+bvolverWin.place(x = 290, y = 250)
+
+bvolverGO = tk.Button(cGameOver, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
+bvolverGO.place(x = 290, y = 250)
+
+bvolverWinHis = tk.Button(cWinHis, image = imgAtras, width = 120, height = 60, borderwidth = 0, command = volverNiveles)# se devuelve de informacion a la principal
+bvolverWinHis.place(x = 290, y = 250)
+
+
+#-----------------------radioboton para seleccionar avatar----------------------------
+
+varMap = tk.IntVar()
+
+B1 = tk.Radiobutton(cHistoria, text="1", variable = varMap, value=1, bg="black", fg="blue", font=("fixedsys"))
+B1.place(x=400,y=300)
+
+B2 = tk.Radiobutton(cHistoria, text="2", value=2 , variable = varMap, bg="black", fg="blue", font=("fixedsys"))
+B2.place(x=500,y=300)
+
+B3 = tk.Radiobutton(cHistoria, text="3",value=3,variable = varMap, bg="black", fg="blue", font=("fixedsys"))
+B3.place(x=600,y=300)
+
+Escoge1 = tk.Radiobutton(cniveles, text="1", value=1, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
+Escoge1.place(x=210,y=200)
+
+Escoge2 = tk.Radiobutton(cniveles, text="2", value=2, variable = varMap, bg="black", fg="blue", font=("fixedsys"))
+Escoge2.place(x=350,y=200)
+
+Escoge3 = tk.Radiobutton(cniveles, text="3",value=3, variable = varMap,bg="black", fg="blue", font=("fixedsys"))
+Escoge3.place(x=500,y=200)
+
+#creaciones de imagenes de naves---------------------------
+nave1=cniveles.create_image(130, 10, image=N1, anchor="nw")
+nave2=cniveles.create_image(270, 10, image=N2, anchor="nw")
+nave3= cniveles.create_image(400, 10, image=N3, anchor="nw")
 
 
 nave1 = cHistoria.create_image(330, 100, image=N1, anchor="nw")
@@ -908,10 +915,11 @@ def updatePuntos(puntos, nombre):
 
 
 
-cPrincipal.pack(side = "right")
+cPrincipal.pack(side = "right")#coloca la canva principal  de primero
 #cierra lo de tkinter y lo de pygame
 window.mainloop()
 juego.jugandoTF()
 pygame.mixer.quit()
 pygame.quit()
-print("Jeff Buen profe")
+
+print("Jeff Buen profe al 100")

@@ -13,6 +13,11 @@ Atriblocidad que va a tener el asteroide
 +velocidadX: la veas imágenes que se van a utilizar para el efecto de explosión de la nave
 +imagen: imagen del asteroide
 +canvas: canvas del asteroide
++nave = nave
++reboteS = sRebote
++explosionS = sExplosion
++jugando = True
++claseJuego = juego
 
 Métodos:
 -moveT(): crea un thread para el movimiento de la nave
@@ -20,6 +25,12 @@ Métodos:
 y del jugador.
 -efectoExplosiones(): crea un efecto de explosión para los asteroides si llegan a impactar al jugador
 -__del__(): elimina la instancia y la imagen del asteroide para ahorrar recursos
+-detener(): detiene el movimiento del asteroide
+- cambiarSonar():funcion que contiene un boolean, si es true suena y si es false, no suena
+-returnSonar():retorna el boolean de cambiarsonar()
+
+
+
 """
 class Asteroides:
     def __init__(self, imagen, canvas, imgExplosiones, nave, sRebote, sExplosion, juego):

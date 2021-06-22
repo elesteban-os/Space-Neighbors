@@ -19,6 +19,19 @@ Atributos:
 +SN2 = boolean
 +SN3 = boolean
 +SNF = boolean
++label1
++ label2
++label3
++ label4
++ label5
++ label6
++valorPunt = 0
++progressBar1 = pg1
++progressBar2 = pg2
++progressBar3 = pg3
++nave = 0
++backup = 0
++mayor = False
 
 Métodos
 -sonar(): Hace sonar la cancion desde el inicio
@@ -35,7 +48,32 @@ Métodos
 -VolverSon3(): detiene la cancion del nivel y vuelve la cancion principal
 -returnJugando(): retorna el atributo "jugando"
 -returnPausa(): retorna el atributo "pausa"
-        
+-iniciarHistoria(nombre, nave):Prepara lo que se llegue a necesitar en el modo historia
+E:el nombre del jugador e imagen de la nave
+S:-
+R:-
+-returnHistoria():retorna lo atributo historia
+-reset():reinicia el puntaje, tiempo
+-setPuntaje( num):hace que el puntaje que vaya sumandose
+E:numero
+S:el puntaje sumado con el numero
+R:-
+-returnTiempo():retorna el atributo tiempo
+-returnNivel():retorna el atributo del nivel
+-setBackup( vidaNav, energiaNav):Hace un respaldo de todo lo que se necesita para los siguientes niveles 
+-returnBackup(): retorna el respaldo que se hizo
+-importBackup( puntaje):importa el respaldo, con el puntaje y labels necesarios
+-resetTiempo():restea el tiempo en cero
+-returnNave():retorna la imagen de la nave
+-sumaNivel():Contador de niveles, segun sea el nivel
+-returnDatos():retorna el nombre y puntaje
+-terminarHistoria():es un reset del modo historia 
+-returnPuntaje():retorna el puntaje obtenido
+-puntajeMayor( valor):Si jugador obtiene un puntaje mayor de lo que existe, se obtiene un boolean, true si esta dentro de los mejores puntajes y False si no
+-returnMayor():retorna el puntaje mayor
+-returnNombre():retorna el nombre del jugador , ademas de que elimina el nombre
+
+    
 """
 class Juego:
     def __init__(self, sonido, sonido1, sonido2, sonido3, tiempo, canvas, label1, label2, label3, label4, label5, label6,

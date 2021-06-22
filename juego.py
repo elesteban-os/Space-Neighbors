@@ -11,7 +11,6 @@ Atributos:
 +canvas:canvas en donde se encuntran ......
 +nombre: nombre del jugador
 +puntaje: puntaje que va aumentando en el juego
-+modoJuego: -............
 +sonNivel1: sonido para el nivel 1
 +sonNivel2: sonido para el nivel 2
 +sonNivel3: sonido para el nivel 1

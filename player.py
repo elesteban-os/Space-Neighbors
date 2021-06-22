@@ -15,12 +15,12 @@ Atributos:
 +NaveImg: imagen de la nave
 +canvas: canvas en donde se encuentra posicionada la nave.
 +bbox = [canvas.bbox(imgNave)[0], canvas.bbox(imgNave)[1], canvas.bbox(imgNave)[2], canvas.bbox(imgNave)[3]]
-+progressBar1 = pg1
-+progressBar2 = pg2
-+progressBar3 = pg3
-+vida3 = vida3
-+vida2 = vida2
-+vida1 = vida1
++progressBar1:
++progressBar2: pg2
++progressBar3: pg3
++vida3: = vida3
++vida2: = vida2
++vida1: = vida1
 
 Métodos
 -moverDT(): crea un thread para el movimiento hacia la derecha

@@ -5,19 +5,19 @@ import time
 
 """
 Clase de los asteroides
-Atriblocidad que va a tener el asteroide
-+imagenExp: lutos:
+Atributos que va a tener el asteroide
++imagenExp: imagen de la explosion
 +ejeX: coordenadas del eje X de los asteroides
 +ejeY: coordenadas del eje Y de los asteroides
 +contarRebote: cuenta cuantas veces ha rebotado el asteroide por la pantalla
 +velocidadX: la veas imágenes que se van a utilizar para el efecto de explosión de la nave
 +imagen: imagen del asteroide
 +canvas: canvas del asteroide
-+nave = nave
-+reboteS = sRebote
-+explosionS = sExplosion
-+jugando = True
-+claseJuego = juego
++nave: imagen de la nave
++reboteS: sRebote
++explosionS: sExplosion
++jugando: = True
++claseJuego: = juego
 
 Métodos:
 -moveT(): crea un thread para el movimiento de la nave
@@ -28,7 +28,6 @@ y del jugador.
 -detener(): detiene el movimiento del asteroide
 - cambiarSonar():funcion que contiene un boolean, si es true suena y si es false, no suena
 -returnSonar():retorna el boolean de cambiarsonar()
-
 
 
 """

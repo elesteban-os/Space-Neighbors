@@ -9,7 +9,7 @@ window.resizable(False, False)
 window.config()
 
 # Imagen Nave
-imgNave1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
+imgNave1 = ImageTk.PhotoImage(Image.open("../media/imgNave1.png"))
 
 
 

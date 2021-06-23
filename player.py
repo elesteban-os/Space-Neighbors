@@ -39,7 +39,7 @@ Métodos
 -quitarEnergía(): quita en una unidad la cantidad de energía de la nave, y si fuera el caso quita una unidad de vida
 -returnJugando():retorna el valor booleano de jugando
 -setBackup():hace el respaldo de la vida, y la energia
--importBackup( vida, energia):importa el respaldo, con la vida y energia 
+-importBackup(vida, energia):importa el respaldo, con la vida y energia 
 -limpieza():elimina los atributos de vida
 
 """

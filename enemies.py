@@ -14,10 +14,10 @@ Atributos que va a tener el asteroide
 +imagen: imagen del asteroide
 +canvas: canvas del asteroide
 +nave: imagen de la nave
-+reboteS: sRebote
-+explosionS: sExplosion
-+jugando: = True
-+claseJuego: = juego
++reboteS: sonido de rebote de los asteroides
++explosionS: sonido de choque contra la nave
++jugando:  boolean que determina si se esta jugando o  no
++claseJuego:  clase de juego para controlar atributos de dicha clase en de asteroides
 
 Métodos:
 -moveT(): crea un thread para el movimiento de la nave

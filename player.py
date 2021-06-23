@@ -7,20 +7,20 @@ Atributos:
 +vida: vida de la nave
 +energia: energía de la nave
 +ejeX: ubicación en el eje X
-+ejeY: ubicación  = Falseen el eje Y
++ejeY: ubicación  = Falsen el eje Y
 +enMoveL: indica si se mueve hacia la izquierda
 +enMoveR: indica si se mueve hacia la derecha
 +enMoveU: indica si se mueve hacia arriba
 +enMoveD: indica si se mueve hacia abajo
 +NaveImg: imagen de la nave
 +canvas: canvas en donde se encuentra posicionada la nave.
-+bbox = [canvas.bbox(imgNave)[0], canvas.bbox(imgNave)[1], canvas.bbox(imgNave)[2], canvas.bbox(imgNave)[3]]
-+progressBar1:
-+progressBar2: pg2
-+progressBar3: pg3
-+vida3: = vida3
-+vida2: = vida2
-+vida1: = vida1
++bbox : coordenas de impacto de la nave, que provee la bbox
++progressBar1:la barra de energia 1
++progressBar2:la barra de energia 2
++progressBar3:la barra de energia 3
++vida3: imagenes de las vidas(corazones)
++vida2: imagenes de las vidas(corazones)
++vida1: imagenes de las vidas(corazones)
 
 Métodos
 -moverDT(): crea un thread para el movimiento hacia la derecha

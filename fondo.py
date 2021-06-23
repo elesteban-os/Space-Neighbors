@@ -7,7 +7,7 @@ Atributos:
 +canvas: canvas donde se mueve el fondo
 +imagen:imagenes de las estrellas y de los planetas 
 +velocidadX: velocidad de movimiento en el eje x
-+jugando:boolean que determina si se esta jugando o  no
++jugando:boolean que determina si se esta jugando o no
 Metodos:
 - moveT():Crea un thread para el movimiento del fondo
 - move():Funcion que hace el movimiento del fondo de la pantalla

@@ -14,25 +14,25 @@ window.resizable(False, False)
 window.config()
 
 pygame.mixer.init()
-explosionS = pygame.mixer.Sound("media/explosion01.wav")
-reboteS = pygame.mixer.Sound("media/rebote.wav")
+explosionS = pygame.mixer.Sound("../media/explosion01.wav")
+reboteS = pygame.mixer.Sound("../media/rebote.wav")
 
 
 # Imagenes
-imgNave1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
-listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide2.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide3.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide4.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide5.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide6.png"))]
+imgNave1 = ImageTk.PhotoImage(Image.open("../media/imgNave1.png"))
+listaAsteroides = [ImageTk.PhotoImage(Image.open("../media/asteroide1.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide2.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide3.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide4.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide5.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide6.png"))]
 
-listaExplosiones = [ImageTk.PhotoImage(Image.open("media/exp01.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp02.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp03.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp04.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp05.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp06.png"))]
+listaExplosiones = [ImageTk.PhotoImage(Image.open("../media/exp01.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp02.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp03.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp04.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp05.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp06.png"))]
 
 # Canvas del juego
 cGameplay = tk.Canvas(window,  width = 730, height = 450, bg = "black")
@@ -40,14 +40,14 @@ cGameplay.pack(side= "right")
 
 # Creación de Imágenes
 imgNave23 = cGameplay.create_image(150, 250, image = imgNave1)
-estrellaF = ImageTk.PhotoImage(Image.open("media/estrella.png"))
+estrellaF = ImageTk.PhotoImage(Image.open("../media/estrella.png"))
 
-listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
-                 ImageTk.PhotoImage(Image.open("media/planet2.png")),
-                 ImageTk.PhotoImage(Image.open("media/planet3.png")),
-                 ImageTk.PhotoImage(Image.open("media/planet4.png")),
-                 ImageTk.PhotoImage(Image.open("media/astFondo1.png")),
-                 ImageTk.PhotoImage(Image.open("media/astFondo2.png"))]
+listaPlanetas = [ImageTk.PhotoImage(Image.open("../media/planet1.png")),
+                 ImageTk.PhotoImage(Image.open("../media/planet2.png")),
+                 ImageTk.PhotoImage(Image.open("../media/planet3.png")),
+                 ImageTk.PhotoImage(Image.open("../media/planet4.png")),
+                 ImageTk.PhotoImage(Image.open("../media/astFondo1.png")),
+                 ImageTk.PhotoImage(Image.open("../media/astFondo2.png"))]
 
 
 

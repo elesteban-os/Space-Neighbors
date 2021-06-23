@@ -28,13 +28,14 @@ from enemies import *
 from fondo import *
 from juego import *
 
-#------------globales------por el momento
+# Globales utilizadas.
 nav=0
 nav1=0
 nav2=0
 naveHistoria = 0
 naveJugando = 0
 listaPuntos = []
+
 
 # Creación de la ventana de trabajo.
 window = tk.Tk()
@@ -93,7 +94,7 @@ listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
                  ImageTk.PhotoImage(Image.open("media/astFondo1.png")),
                  ImageTk.PhotoImage(Image.open("media/astFondo2.png"))]
 
-
+# Inicialización del reproductor de música.
 pygame.mixer.init()
 # Intercambio entre canvas:
 
@@ -752,8 +753,6 @@ Versión programa:
 Desarrolladores:
 David Leiton
 Kevin Chinchilla
-
-Autores de módulos modificados:--------
 """, bg = "black", fg = "white", font = ("fixedsys", 10))
 credits_.place(x=25,y=10)  #creacion de label con informacion "acerca de "
 #-------para las flechas de movimiento
@@ -888,6 +887,11 @@ nave3 = cHistoria.create_image(550, 100, image=N3, anchor="nw")
 # Funciones para lectura/escritura:
 listaLabelsPuntos = [ljugador1_1, ljugador2_2, ljugador3_3, ljugador4_4, ljugador5_5, ljugador6_6, ljugador7_7, ljugador8_8, ljugador9_9, ljugador10_10]
 
+""" 
+generadorListaPuntos: función que hace una lista para el puntaje.
+E: string de lectura.
+S: lista para el puntaje.
+"""
 def generadorListaPuntos(lec):
     list = []
     result = ""
@@ -915,6 +919,12 @@ def generadorListaPuntos(lec):
             result += i
     return list
 
+"""
+escriturainicial: función que escribe en los labels de puntaje utilizando un archivi .txt
+E: lista de labels.
+S: lista de puntaje actualizada y labels con su correcta escritura.
+"""
+
 def escriturainicial(listaLabels):
     global listaPuntos
     esc = open("media/best.txt", "r")
@@ -937,6 +947,12 @@ def escriturainicial(listaLabels):
 
 escriturainicial(listaLabelsPuntos)
 
+
+"""
+updatePuntos: función que actualiza la tabla de puntajes en caso de que fuera necesario.
+E: puntaje del jugador, nombre del jugador.
+S: actualización de labels, aviso de posible puntaje mayor.
+"""
 def updatePuntos(puntos, nombre):
     global listaPuntos, listaLabelsPuntos, juego
     resultLista = []

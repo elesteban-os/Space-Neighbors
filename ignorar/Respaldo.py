@@ -43,54 +43,54 @@ window.resizable(False, False)
 window.config()
 
 # Importación de imágenes
-fondo = ImageTk.PhotoImage(Image.open("media/bgSpace.png"))
-imgJugar = ImageTk.PhotoImage(Image.open("media/botonJugar.png"))
-imgInfo = ImageTk.PhotoImage(Image.open("media/botonAcerca.png"))
-imgPuntajes = ImageTk.PhotoImage(Image.open("media/botonPuntajes.png"))
-flechas = ImageTk.PhotoImage(Image.open("media/teclas.png"))
-imgNave1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
-imgNave2 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
-imgNave3 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
-imgAtras = ImageTk.PhotoImage(Image.open("media/botonAtras.png"))
-imgHistoria = ImageTk.PhotoImage(Image.open("media/botonHistoria.png"))
-imgNiveles = ImageTk.PhotoImage(Image.open("media/botonNiveles.png"))
-imgNivel1 = ImageTk.PhotoImage(Image.open("media/botonNivel1.png"))
-imgNivel2 = ImageTk.PhotoImage(Image.open("media/botonNivel2.png"))
-imgNivel3 = ImageTk.PhotoImage(Image.open("media/botonNivel3.png"))
-N1 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
-N2 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
-N3 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
-N11 = ImageTk.PhotoImage(Image.open("media/imgNave1.png"))
-N22 = ImageTk.PhotoImage(Image.open("media/imgNave2.png"))
-N33 = ImageTk.PhotoImage(Image.open("media/imgNave3.png"))
-song= ImageTk.PhotoImage(Image.open("media/botonSonido.png"))
-estrellaF = ImageTk.PhotoImage(Image.open("media/estrella.png"))
-vida100= ImageTk.PhotoImage(Image.open("media/life.png"))
-vida50= ImageTk.PhotoImage(Image.open("media/life1.png"))
-vida10=ImageTk.PhotoImage(Image.open("media/life2.png"))
+fondo = ImageTk.PhotoImage(Image.open("../media/bgSpace.png"))
+imgJugar = ImageTk.PhotoImage(Image.open("../media/botonJugar.png"))
+imgInfo = ImageTk.PhotoImage(Image.open("../media/botonAcerca.png"))
+imgPuntajes = ImageTk.PhotoImage(Image.open("../media/botonPuntajes.png"))
+flechas = ImageTk.PhotoImage(Image.open("../media/teclas.png"))
+imgNave1 = ImageTk.PhotoImage(Image.open("../media/imgNave1.png"))
+imgNave2 = ImageTk.PhotoImage(Image.open("../media/imgNave2.png"))
+imgNave3 = ImageTk.PhotoImage(Image.open("../media/imgNave3.png"))
+imgAtras = ImageTk.PhotoImage(Image.open("../media/botonAtras.png"))
+imgHistoria = ImageTk.PhotoImage(Image.open("../media/botonHistoria.png"))
+imgNiveles = ImageTk.PhotoImage(Image.open("../media/botonNiveles.png"))
+imgNivel1 = ImageTk.PhotoImage(Image.open("../media/botonNivel1.png"))
+imgNivel2 = ImageTk.PhotoImage(Image.open("../media/botonNivel2.png"))
+imgNivel3 = ImageTk.PhotoImage(Image.open("../media/botonNivel3.png"))
+N1 = ImageTk.PhotoImage(Image.open("../media/imgNave1.png"))
+N2 = ImageTk.PhotoImage(Image.open("../media/imgNave2.png"))
+N3 = ImageTk.PhotoImage(Image.open("../media/imgNave3.png"))
+N11 = ImageTk.PhotoImage(Image.open("../media/imgNave1.png"))
+N22 = ImageTk.PhotoImage(Image.open("../media/imgNave2.png"))
+N33 = ImageTk.PhotoImage(Image.open("../media/imgNave3.png"))
+song= ImageTk.PhotoImage(Image.open("../media/botonSonido.png"))
+estrellaF = ImageTk.PhotoImage(Image.open("../media/estrella.png"))
+vida100= ImageTk.PhotoImage(Image.open("../media/life.png"))
+vida50= ImageTk.PhotoImage(Image.open("../media/life1.png"))
+vida10=ImageTk.PhotoImage(Image.open("../media/life2.png"))
 
 listaNave = [N11, N22, N33]
 
-listaAsteroides = [ImageTk.PhotoImage(Image.open("media/asteroide1.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide2.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide3.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide4.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide5.png")),
-                   ImageTk.PhotoImage(Image.open("media/asteroide6.png"))]
+listaAsteroides = [ImageTk.PhotoImage(Image.open("../media/asteroide1.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide2.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide3.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide4.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide5.png")),
+                   ImageTk.PhotoImage(Image.open("../media/asteroide6.png"))]
 
-listaExplosiones = [ImageTk.PhotoImage(Image.open("media/exp01.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp02.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp03.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp04.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp05.png")),
-                    ImageTk.PhotoImage(Image.open("media/exp06.png"))]
+listaExplosiones = [ImageTk.PhotoImage(Image.open("../media/exp01.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp02.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp03.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp04.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp05.png")),
+                    ImageTk.PhotoImage(Image.open("../media/exp06.png"))]
 
-listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
-                 ImageTk.PhotoImage(Image.open("media/planet2.png")),
-                 ImageTk.PhotoImage(Image.open("media/planet3.png")),
-                 ImageTk.PhotoImage(Image.open("media/planet4.png")),
-                 ImageTk.PhotoImage(Image.open("media/astFondo1.png")),
-                 ImageTk.PhotoImage(Image.open("media/astFondo2.png"))]
+listaPlanetas = [ImageTk.PhotoImage(Image.open("../media/planet1.png")),
+                 ImageTk.PhotoImage(Image.open("../media/planet2.png")),
+                 ImageTk.PhotoImage(Image.open("../media/planet3.png")),
+                 ImageTk.PhotoImage(Image.open("../media/planet4.png")),
+                 ImageTk.PhotoImage(Image.open("../media/astFondo1.png")),
+                 ImageTk.PhotoImage(Image.open("../media/astFondo2.png"))]
 
 pygame.mixer.init()
 # Intercambio entre canvas:
@@ -115,9 +115,7 @@ def interNiveles():#intercambia a canva de niveles a escoger
     cJuego.pack_forget()
     cniveles.pack(side="right")
 
-def interPuntaje():
-    cPrincipal.pack_forget()
-    cPuntaje.pack(side="right")
+|
 
 def interNivel1():#intercambia a nivel 1
     global nav, nav1, nav2
@@ -348,8 +346,9 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
     global listaAsteroides, listaExplosiones, cNivel2, cNivel3, naveHistoria, listaNave
     while juego.returnJugando() == True:
         imagen = canvas.create_image(730, random.randint(0, 450), image = listaAsteroides[random.randint(0, 5)])
-        atributos = Asteroides(imagen, canvas, listaExplosiones, claseNave, pygame.mixer.Sound("media/explosion01.wav"),
-                               pygame.mixer.Sound("media/rebote.wav"), claseJuego)
+        atributos = Asteroides(imagen, canvas, listaExplosiones, claseNave, pygame.mixer.Sound(
+            "../media/explosion01.wav"),
+                               pygame.mixer.Sound("../media/rebote.wav"), claseJuego)
         atributos.moveT()
         if claseNave.returnJugando() == False:
             canvas.pack_forget()
@@ -691,7 +690,8 @@ lteclasinf.place(x = 380, y = 80)
 
 
 #Funciones donde se llama a la clase juego, para sonidos y tiempo
-juego= Juego(pygame.mixer.Sound("media/Geom.mp3"),pygame.mixer.Sound("media/Nivel1S.mp3"),pygame.mixer.Sound("media/Nivel2S.mp3"),pygame.mixer.Sound("media/Nivel3S.mp3"), [0,0], cPrincipal, label_time1,
+juego= Juego(pygame.mixer.Sound("../media/Geom.mp3"), pygame.mixer.Sound("../media/Nivel1S.mp3"), pygame.mixer.Sound(
+    "../media/Nivel2S.mp3"), pygame.mixer.Sound("../media/Nivel3S.mp3"), [0, 0], cPrincipal, label_time1,
              label_time2, label_time3, label_pts1, label_pts2, label_pts3, LiveNivel1, LiveNivel2, LiveNivel3)
 juego.sonar()
 juego.TiempoC()
@@ -846,7 +846,7 @@ def generadorListaPuntos(lec):
 
 def escriturainicial(listaLabels):
     global listaPuntos
-    esc = open("media/best.txt", "r")
+    esc = open("../media/best.txt", "r")
 
     leer = esc.readlines()[0]
     listaPuntos = generadorListaPuntos(leer)
@@ -885,7 +885,7 @@ def updatePuntos(puntos, nombre):
         else:
             resultLista.append(i)
     if mayor == True:
-        esc = open("media/best.txt", "w")
+        esc = open("../media/best.txt", "w")
         esc.write(str(resultLista))
         esc.close()
 

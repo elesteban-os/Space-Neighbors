@@ -14,23 +14,23 @@ Atributos:
 +sonNivel1: sonido para el nivel 1
 +sonNivel2: sonido para el nivel 2
 +sonNivel3: sonido para el nivel 1
-+SN1 = boolean
-+SN2 = boolean
-+SN3 = boolean
-+SNF = boolean
-+label1
-+ label2
-+label3
-+ label4
-+ label5
-+ label6
-+valorPunt = 0
-+progressBar1 = pg1
-+progressBar2 = pg2
-+progressBar3 = pg3
-+nave = 0
-+backup = 0
-+mayor = False
++SN1 = boolean que indica la reproducción del sonido de fondo del nivel 1.
++SN2 = boolean que indica la reproducción del sonido de fondo del nivel 2.
++SN3 = boolean que indica la reproducción del sonido de fondo del nivel 3.
++SNF = boolean que indica la reproducción del sonido de fondo del intercambio entre canvas.
++labelT = label de tiempo del nivel 1.
++label2T = label de tiempo del nivel 2.
++label3T = label de tiempo del nivel 3.
++labelP = label de puntaje del nivel 1.
++labelP2 = label de puntaje del nivel 2.
++labelP3 = label de puntaje del nivel 3.
++valorPunt = valor que va a tener el puntaje según su nivel.
++progressBar1 = barra de progreso para la energía de la nave en el nivel 1.
++progressBar2 = barra de progreso para la energía de la nave en el nivel 2.
++progressBar3 = barra de progreso para la energía de la nave en el nivel 3.
++nave = clase de la nave.
++backup = creación de copia de ciertos datos entre la nave y la clase juego.
++mayor = declara si el puntaje obtenido es mayor que uno de la lista de puntajes altos.
 
 Métodos
 -sonar(): Hace sonar la cancion desde el inicio
@@ -48,15 +48,15 @@ Métodos
 -returnJugando(): retorna el atributo "jugando"
 -returnPausa(): retorna el atributo "pausa"
 -iniciarHistoria(nombre, nave):Prepara lo que se llegue a necesitar en el modo historia
-E:el nombre del jugador e imagen de la nave
-S:-
-R:-
+ E:el nombre del jugador e imagen de la nave
+ S:-
+ R:-
 -returnHistoria():retorna lo atributo historia
 -reset():reinicia el puntaje, tiempo
--setPuntaje( num):hace que el puntaje que vaya sumandose
-E:numero
-S:el puntaje sumado con el numero
-R:-
+-setPuntaje(num):hace que el puntaje que vaya sumandose
+ E:numero
+ S:el puntaje sumado con el numero
+ R:-
 -returnTiempo():retorna el atributo tiempo
 -returnNivel():retorna el atributo del nivel
 -setBackup( vidaNav, energiaNav):Hace un respaldo de todo lo que se necesita para los siguientes niveles 
@@ -68,9 +68,11 @@ R:-
 -returnDatos():retorna el nombre y puntaje
 -terminarHistoria():es un reset del modo historia 
 -returnPuntaje():retorna el puntaje obtenido
--puntajeMayor( valor):Si jugador obtiene un puntaje mayor de lo que existe, se obtiene un boolean, true si esta dentro de los mejores puntajes y False si no
+-puntajeMayor(valor):Si jugador obtiene un puntaje mayor de lo que existe, se obtiene un boolean, true si esta dentro de los mejores 
+ puntajes y False si no.
+ E: valor del puntaje
 -returnMayor():retorna el puntaje mayor
--returnNombre():retorna el nombre del jugador , ademas de que elimina el nombre
+-returnNombre():retorna el nombre del jugador , ademas elimina el nombre del jugador.
 
     
 """

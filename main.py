@@ -93,40 +93,43 @@ listaPlanetas = [ImageTk.PhotoImage(Image.open("media/planet1.png")),
                  ImageTk.PhotoImage(Image.open("media/astFondo1.png")),
                  ImageTk.PhotoImage(Image.open("media/astFondo2.png"))]
 
-#creacion de clases
-
-#---------------------Clase juego--------------------
-
-
 
 pygame.mixer.init()
 # Intercambio entre canvas:
+
+# Función que pasa del canvas principal al canvas de información.
 def interInfo():
     cPrincipal.pack_forget()
     cInfo.pack(side = "right")
 
-def interInfoAprin():#Se devuelve a principal, este en jugar o en acerca de
+# Función que pasa del canvas de información al canvas principal.
+def interInfoAprin():
     cInfo.pack_forget()
     cJuego.pack_forget()
     cPrincipal.pack(side = "right")
 
-def interJuego():#funcion intercambia a canva juego
+# Funcion intercambia a canva juego
+def interJuego():
     cPrincipal.pack_forget()
     cJuego.pack(side = "right")
 
-def interHistoria():#intercambia a canva de modo historia
+# Intercambia a canva de modo historia
+def interHistoria():
     cJuego.pack_forget()
     cHistoria.pack(side="right")
 
-def interNiveles():#intercambia a canva de niveles a escoger
+# Intercambia a canva de niveles a escoger
+def interNiveles():
     cJuego.pack_forget()
     cniveles.pack(side="right")
 
+# Intercambia al canvas de puntajes.
 def interPuntaje():
     cPrincipal.pack_forget()
     cPuntaje.pack(side="right")
 
-def interNivel1():#intercambia a nivel 1
+# Intercambia al nivel 1. Hace preparativos para comenzar el juego.
+def interNivel1():
     global nav, nav1, nav2
     if varMap.get() == 1:
         cniveles.pack_forget()
@@ -155,7 +158,8 @@ def interNivel1():#intercambia a nivel 1
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
-def interNivel2():#intercambia a nivel 2
+# Intercambia al nivel 2. Hace preparativos para comenzar el juego.
+def interNivel2():
     global nav, nav1, nav2
     if varMap.get() == 1:
         cniveles.pack_forget()
@@ -184,7 +188,8 @@ def interNivel2():#intercambia a nivel 2
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
-def interNivel3():#intercambia a nivel 1
+# Intercambia al nivel 3. Hace preparativos para comenzar el juego.
+def interNivel3():
     global nav, nav1, nav2
     if varMap.get() == 1:
         cniveles.pack_forget()
@@ -214,11 +219,14 @@ def interNivel3():#intercambia a nivel 1
     else:
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
+# Regresa al canvas de "Juego"
 def volverJuego():
     cHistoria.pack_forget()
     cniveles.pack_forget()
     cJuego.pack(side="right")
 
+# Funciona tanto para el modo historia como para el modo de niveles. Al regresar de un canvas de nivel, se reinicia todo
+# lo necesario para que no afecte a la jugabilidad de otro nivel por jugar.
 def volverNiveles():
     global naveJugando
     if juego.returnJugando() == True:
@@ -241,11 +249,16 @@ def volverNiveles():
     thread.start()
     labelPTS.place_forget()
     labelPTSGO.place_forget()
+    label_Nombre1.config(text="")
+    label_Nombre2.config(text="")
+    label_Nombre3.config(text="")
 
+# Se regresa del canvas de puntajes.
 def volverPuntajes():
     cPuntaje.pack_forget()
     cPrincipal.pack(side = "right")
 
+# Hace un reinicio de ciertos parámetros para no afectar jugabilidad.
 def reset():
     time.sleep(3)
     cNivel1.delete(nav)
@@ -266,8 +279,7 @@ def reset():
     juego.reset()
 
 
-
-#intercambio para jugar en modo Historia-----------------------
+# Intercambio para jugar en modo historia y hace preparativos de todo lo necesario para jugar en el modo historia.
 def InterJugar():
     global naveHistoria
     if varMap.get()==1:
@@ -311,8 +323,8 @@ def InterJugar():
         messagebox.showinfo("No puede Jugar", "Seleccione avatar")
 
 
-
-def InterAHistoria():#funcion retorna a canva Modo historia
+# Función que entra al canvas de modo historia.
+def InterAHistoria():
     global nav, nav1, nav2
     cModHis.pack_forget()
     cHistoria.pack(side = "right")
@@ -320,7 +332,12 @@ def InterAHistoria():#funcion retorna a canva Modo historia
     cModHis.delete(nav1)
     cModHis.delete(nav2)
 
-
+""" 
+iniciarNivel: función que prepara el nivel por jugar. 
+E: Canvas del nivel, imagen de la nave, el tiempo en el que los asteroides se van a actualizar y la clase juego.
+S: Crea clases, pega imágenes en canvas, inicia el tiempo, prepara las entradas de teclado, inicia los movimientos del fondo,
+inicia el movimiento de los asteroides e importa un posible backup.
+"""
 def iniciarNivel(canvas, nave, astTiempo, claseJuego):
     global vida100, vida50, vida10, naveJugando
     if claseJuego.returnHistoria() == False:
@@ -329,6 +346,10 @@ def iniciarNivel(canvas, nave, astTiempo, claseJuego):
     vida3 = canvas.create_image(370, 400, image=vida100)
     lvl = Nave(nave, canvas, LiveNivel1, LiveNivel2, LiveNivel3, vida3, vida50, vida10)
     naveJugando = lvl
+    if claseJuego.returnHistoria() == True:
+        label_Nombre1.config(text=claseJuego.returnNombre())
+        label_Nombre2.config(text=claseJuego.returnNombre())
+        label_Nombre3.config(text=claseJuego.returnNombre())
     if claseJuego.returnBackup() != 0:
         lvl.importBackup(claseJuego.returnBackup()[1], claseJuego.returnBackup()[2])
         claseJuego.importBackup(claseJuego.returnBackup()[0])
@@ -350,7 +371,15 @@ def iniciarNivel(canvas, nave, astTiempo, claseJuego):
     thread3 = Thread(target=generarFondo2, args=(canvas, claseJuego,))
     thread3.start()
 
-# Función que genera asteroides
+"""
+generarAsteroides: es la función encargada de muchas de las reacciones en la clase juego y su principal función es generar
+asteroides.
+E: tiempo en el cuál los asteroides se van a regenerar, canvas en dónde se van a colocar los asteroides, la clase de la nave 
+que va a jugar, clase del juego.
+S: Genera asteroides importandolos a una clase, reconoce si el tiempo está en 1 minuto, reporta si el jugador gana o pierde
+pasa de nivel, hace preparativos para terminar el modo historia y no cometer un problema, limpia canvas si es necesario,
+detecta la cantidad de vidas de la nave y juega un rol en la obtención de puntajes. 
+"""
 def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
     global listaAsteroides, listaExplosiones, cNivel2, cNivel3, naveHistoria, listaNave
     while juego.returnJugando() == True:
@@ -425,18 +454,25 @@ def generarAsteroides(tiempo, canvas, claseNave, claseJuego):
                 claseNave.limpieza()
                 threadTer = Thread(target = terminarHistoria, args=(canvas, naveHistoria,))
                 threadTer.start()
-
-
             claseJuego.sumaNivel()
             break
         time.sleep(tiempo)
 
-
-
+"""
+terminarHistoria: función que elimina parámetros que puedan influir en la jugabilidad.
+E: canvas y la imagen de la nave.
+S: elimina la imagen de la nave en su respectivo canvas..
+"""
 def terminarHistoria(canvas, naveHistoria):
     time.sleep(3)
     canvas.delete(naveHistoria)
 
+"""
+sigHistoria: función que hace preparativos para ir al siguiente nivel.
+E: canvas anterior para hacer limpieza, canvas por jugar, la imagen de la nave que está jugando, el tiempo de actualización de
+los asteroides, la clase juego y el puntaje que se va a poder obtener al jugar.
+S: elimina ciertos paramentros del canvas anterior y prepara el nuevo canvas que va a jugar.
+"""
 def sigHistoria(canvas, canvas2, naveHistoria, astTiempo, claseJuego, puntaje):
     time.sleep(3)
     claseJuego.jugandoTF()
@@ -447,7 +483,11 @@ def sigHistoria(canvas, canvas2, naveHistoria, astTiempo, claseJuego, puntaje):
     iniciarNivel(canvas2, naveHistoria, astTiempo, claseJuego)
     claseJuego.setPuntaje(puntaje)
 
-
+"""
+generarFondo: función que genera el fondo con estrellas.
+E: canvas que está jugando, la clase de juego.
+S: visualización de estrellas por la pantalla del canvas.
+"""
 def generarFondo(canvas, claseJuego):
     global estrellaF
     while juego.returnJugando() == True:
@@ -458,8 +498,11 @@ def generarFondo(canvas, claseJuego):
             break
         time.sleep(0.2)
 
-
-
+"""
+generarFondo: función que genera el fondo con planetas.
+E: canvas que está jugando, la clase de juego.
+S: visualización de planetas por la pantalla del canvas.
+"""
 def generarFondo2(canvas, claseJuego):
     global listaPlanetas
     while juego.returnJugando() == True:
@@ -514,9 +557,10 @@ nameEntry = tk.StringVar()
 name = tk.Entry(cHistoria,fg = "black",font=("fixedsys"), textvariable=nameEntry , justify="center")
 name.place(x=100,y=250)
 
+# Limita la cantidad de caracteres en el entry.
 def limitador(nameEntry):
     if len(nameEntry.get()) > 0:
-        #donde esta el :8 limitas la cantidad d caracteres
+        #donde esta el :8 limitas la cantidad de caracteres
         nameEntry.set(nameEntry.get()[:8])
 
 nameEntry.trace("w", lambda *args: limitador(nameEntry))
@@ -547,6 +591,12 @@ label_pts1.place(x=635, y=410)
 label_time1=tk.Label(cNivel1, text="Time" , font=("Fixedsys", 20), bg='black',fg='white')
 label_time1.place(x=4, y=410)
 
+label_Nombre1=tk.Label(cNivel1, text="" , font=("Fixedsys", 10), bg='black',fg='white')
+label_Nombre1.place(x=4, y=393)
+
+label_Nivel1=tk.Label(cNivel1, text="Nivel 1" , font=("Fixedsys", 10), bg='black',fg='white')
+label_Nivel1.place(x=4, y=373)
+
 LiveNivel1=ttk.Progressbar(cNivel1, orient = "horizontal", length=100, mode="determinate")
 LiveNivel1.place(x=320, y=420)
 LiveNivel1["value"]=100
@@ -559,6 +609,12 @@ label_pts2.place(x=635, y=410)
 label_time2=tk.Label(cNivel2, text="Time" , font=("Fixedsys", 20), bg='black',fg='white')
 label_time2.place(x=4, y=410)
 
+label_Nombre2=tk.Label(cNivel2, text="" , font=("Fixedsys", 10), bg='black',fg='white')
+label_Nombre2.place(x=4, y=393)
+
+label_Nivel2=tk.Label(cNivel2, text="Nivel 2" , font=("Fixedsys", 10), bg='black',fg='white')
+label_Nivel2.place(x=4, y=373)
+
 LiveNivel2=ttk.Progressbar(cNivel2, orient = "horizontal", length=100, mode="determinate")
 LiveNivel2.place(x=320, y=420)
 LiveNivel2["value"]=100
@@ -570,9 +626,16 @@ label_pts3.place(x=635, y=410)
 label_time3=tk.Label(cNivel3, text="Time" , font=("Fixedsys", 20), bg='black',fg='white')
 label_time3.place(x=4, y=410)
 
+label_Nombre3=tk.Label(cNivel3, text="" , font=("Fixedsys", 10), bg='black',fg='white')
+label_Nombre3.place(x=4, y=393)
+
+label_Nivel3=tk.Label(cNivel3, text="Nivel 3" , font=("Fixedsys", 10), bg='black',fg='white')
+label_Nivel3.place(x=4, y=373)
+
 LiveNivel3=ttk.Progressbar(cNivel3, orient = "horizontal", length=100, mode="determinate")
 LiveNivel3.place(x=320, y=420)
 LiveNivel3["value"]=100
+
 #-----------------labels de Cargando-------------------
 lCargando = tk.Label(cCargando, text = "Por favor, espere...", font = ("fixedsys", "30"), bg = "black", fg = "white")
 lCargando.place(x = 150, y = 200)
@@ -921,5 +984,3 @@ window.mainloop()
 juego.jugandoTF()
 pygame.mixer.quit()
 pygame.quit()
-
-print("Jeff Buen profe al 100")

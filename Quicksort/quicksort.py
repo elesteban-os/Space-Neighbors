@@ -1,6 +1,12 @@
+# Importación de librerías
 import random
 import time
 
+"""
+partition: función que ordena una lista.
+E: recibe la lista, la cantidad de elementos menor y la cantidad de elementos.
+S: partición ordenada.
+"""
 def partition(array, menor, mayor):
     i = (menor - 1)
     pivot = array[mayor]
@@ -13,6 +19,11 @@ def partition(array, menor, mayor):
     array[i + 1], array[mayor] = array[mayor], array[i + 1]
     return (i + 1)
 
+"""
+quickSort: función que ordena una lista completa.
+E: lista, el elemento menor y el número de elementos.
+S: lista ordenada.
+"""
 def quickSort(array, menor, mayor):
     if len(array) == 1:
         return array
@@ -22,7 +33,8 @@ def quickSort(array, menor, mayor):
         quickSort(array, menor, pi - 1)
         quickSort(array, pi + 1, mayor)
 
-i = 1
+# Inicialización del quicksort
+i = 0
 tiempo = 0
 listaTiempo = []
 while i != 15:
@@ -35,10 +47,6 @@ while i != 15:
     tiempo += tiempo_final
     i += 1
 
-print("Lista de tiempos:", listaTiempo, "Promedio de tiempo:", tiempo / 5)
-
-
-
-
-quickSort(listaRandom, 0, n - 1)
-print(listaRandom)
+# Análisis de resultados.
+print("Lista de tiempos:", listaTiempo)
+print("Promedio de tiempo:", tiempo / 15)

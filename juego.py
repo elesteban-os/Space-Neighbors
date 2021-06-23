@@ -60,6 +60,9 @@ Métodos
 -returnTiempo():retorna el atributo tiempo
 -returnNivel():retorna el atributo del nivel
 -setBackup( vidaNav, energiaNav):Hace un respaldo de todo lo que se necesita para los siguientes niveles 
+E:Entra la vida de la nave y la energia
+S:Actualiza la vida y la energia 
+R:-
 -returnBackup(): retorna el respaldo que se hizo
 -importBackup( puntaje):importa el respaldo, con el puntaje y labels necesarios
 -resetTiempo():restea el tiempo en cero
@@ -71,6 +74,7 @@ Métodos
 -puntajeMayor(valor):Si jugador obtiene un puntaje mayor de lo que existe, se obtiene un boolean, true si esta dentro de los mejores 
  puntajes y False si no.
  E: valor del puntaje
+ S:Boolean que indica si es True esta adentro de tabla de puntajes
 -returnMayor():retorna el puntaje mayor
 -returnNombre():retorna el nombre del jugador , ademas elimina el nombre del jugador.
 

@@ -10,3 +10,4 @@ Para la ejecución del juego, se debe entrar al archivo "main.py". Ella importar
 Por favor, no alterar archivos.
 
 Link del Video del proyecto:
+https://www.youtube.com/watch?v=68fyNad-aQM
